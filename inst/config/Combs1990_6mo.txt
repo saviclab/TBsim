@@ -1,0 +1,8 @@
+<name>Combs 1990 6mo
+<description>8wHRZE/16wHR
+<drug>RIF|600|0|56|1|
+<drug>INH|300|0|56|1|
+<drug>PZA|1800|0|56|1|
+<drug>EMB|900|0|56|1|
+<drug>RIF|600|56|168|1|
+<drug>INH|300|56|168|1|

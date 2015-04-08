@@ -1,0 +1,8 @@
+<name>RIFAQUIN LEG 3 (6-month)
+<description>2MRZE/4P1M1 - 2xV
+<drug>RIF|600|0|60|1|
+<drug>EMB|1200|0|60|1|
+<drug>MOX|400|0|60|1|
+<drug>PZA|1500|0|60|1|
+<drug>RPT3|1200|60|180|7|
+<drug>MOX|400|60|180|7|

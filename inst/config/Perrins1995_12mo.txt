@@ -1,0 +1,10 @@
+<name>Perriens 1995 12mo
+<description>8wEHRZ/44wH2R2
+<drug>RIF|720|0|60|1|
+<drug>INH|300|0|60|1|
+<drug>PZA|1800|0|60|1|
+<drug>EMB|1200|0|60|1|
+<drug>RIF|600|60|364|7|
+<drug>INH|900|60|364|7|
+<drug>RIF|600|63|364|7|
+<drug>INH|900|63|364|7|

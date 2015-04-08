@@ -1,0 +1,11 @@
+<name>Hong Kong 1986
+<description>6H3R3Z3
+<drug>RIF|600|0|180|7|
+<drug>INH|800|0|180|7|
+<drug>PZA|2500|0|180|7|
+<drug>RIF|600|2|180|7|
+<drug>INH|800|2|180|7|
+<drug>PZA|2500|2|180|7|
+<drug>RIF|600|5|180|7|
+<drug>INH|800|5|180|7|
+<drug>PZA|2500|5|180|7|

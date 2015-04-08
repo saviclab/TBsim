@@ -1,0 +1,6 @@
+<name>REMOX INH arm w 2x MOX
+<description>2MHRZ/2MHR 2x MOX
+<drug>INH|300|0|120|1|
+<drug>RIF|600|0|120|1|
+<drug>MOX|800|0|120|1|
+<drug>PZA|1500|0|60|1|

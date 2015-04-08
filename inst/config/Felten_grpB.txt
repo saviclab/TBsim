@@ -1,0 +1,13 @@
+<name>Felten Grp B
+<description>8wkEHRZ/16wkE2H2Z2
+<drug>RIF|450|0|56|1|
+<drug>INH|400|0|56|1|
+<drug>PZA|2000|0|56|1|
+<drug>EMB|1500|0|56|1|
+<drug>EMB|2400|56|168|7|
+<drug>INH|800|56|168|7|
+<drug>PZA|3000|56|168|7|
+<drug>EMB|2400|59|168|7|
+<drug>INH|800|59|168|7|
+<drug>PZA|3000|59|168|7|
+

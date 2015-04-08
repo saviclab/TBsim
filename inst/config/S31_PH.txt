@@ -1,0 +1,6 @@
+<name>S31_PH
+<description>2PHZE/2PH
+<drug>RPT|1200|0|120|1|
+<drug>INH|300|0|120|1|
+<drug>EMB|1200|0|60|1|
+<drug>PZA|1500|0|60|1|

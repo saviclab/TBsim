@@ -1,0 +1,5 @@
+<name>Algeria 6 mo
+<description>8wkHRZ/20wkHR
+<drug>RIF|600|0|196|1|
+<drug>INH|300|0|196|1|
+<drug>PZA|2000|0|56|1|

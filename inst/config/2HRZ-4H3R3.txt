@@ -1,0 +1,11 @@
+<name>Singapore 21
+<description>2HRZ/4H3R3
+<drug>RIF|600|0|60|1|
+<drug>INH|300|0|60|1|
+<drug>PZA|2000|0|60|1|
+<drug>RIF|600|60|180|7|
+<drug>INH|750|60|180|7|
+<drug>RIF|600|62|180|7|
+<drug>INH|750|62|180|7|
+<drug>RIF|600|65|180|7|
+<drug>INH|750|65|180|7|

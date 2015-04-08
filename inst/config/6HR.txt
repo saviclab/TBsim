@@ -1,0 +1,4 @@
+<name>Africa 6
+<description>6HR
+<drug>RIF|600|0|180|1|
+<drug>INH|300|0|180|1|

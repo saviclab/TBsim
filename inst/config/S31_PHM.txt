@@ -1,0 +1,6 @@
+<name>S31_PHM
+<description>2PHZM/2PHM
+<drug>RPT|1200|0|120|1|
+<drug>INH|300|0|120|1|
+<drug>MOX|400|0|120|1|
+<drug>PZA|1500|0|60|1|

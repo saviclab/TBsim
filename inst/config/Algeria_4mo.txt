@@ -1,0 +1,5 @@
+<name>Algeria 4 mo
+<description>8wk HRZ/8wk HR/20wk H
+<drug>RIF|600|0|112|1|
+<drug>INH|300|0|252|1|
+<drug>PZA|2000|0|56|1|

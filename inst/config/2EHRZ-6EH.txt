@@ -1,0 +1,16 @@
+<name>2EHRZ-6EH
+<description>2EHRZ/6EH
+<drug>RIF|600|0|60|7|
+<drug>INH|400|0|60|7|
+<drug>PZA|1600|0|60|7|
+<drug>EMB|1200|0|60|7|
+<drug>RIF|600|2|60|7|
+<drug>INH|400|2|60|7|
+<drug>PZA|1600|2|60|7|
+<drug>EMB|1200|2|60|7|
+<drug>RIF|600|5|60|7|
+<drug>INH|400|5|60|7|
+<drug>PZA|1600|5|60|7|
+<drug>EMB|1200|5|60|7|
+<drug>INH|450|60|240|1|
+<drug>EMB|1200|60|240|1|

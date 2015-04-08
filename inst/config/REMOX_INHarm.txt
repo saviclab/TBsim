@@ -1,0 +1,6 @@
+<name>REMOX INH arm (4 months)
+<description>2MHRZ/2MHR
+<drug>INH|300|0|120|1|
+<drug>RIF|600|0|120|1|
+<drug>MOX|400|0|120|1|
+<drug>PZA|1500|0|60|1|

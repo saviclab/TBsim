@@ -1,0 +1,12 @@
+<name>Standard of care TB for 12 mo - 3/wk
+<description>2EHRZ/10H3R3
+<drug>RIF|600|0|61|1|
+<drug>INH|300|0|61|1|
+<drug>PZA|1500|0|61|1|
+<drug>EMB|1200|0|61|1|
+<drug>RIF|600|61|365|7|
+<drug>INH|900|61|365|7|
+<drug>RIF|600|63|365|7|
+<drug>INH|900|63|365|7|
+<drug>RIF|600|66|365|7|
+<drug>INH|900|66|365|7|

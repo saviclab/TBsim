@@ -1,0 +1,6 @@
+<name>REMOX ETH arm (4 months)
+<description>2MRZE/2MR
+<drug>EMB|1200|0|60|1|
+<drug>RIF|600|0|120|1|
+<drug>MOX|400|0|120|1|
+<drug>PZA|1500|0|60|1|

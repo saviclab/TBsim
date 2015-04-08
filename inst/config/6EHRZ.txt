@@ -1,0 +1,7 @@
+<name>Hong Kong 1987 daily
+<description>6EHRZ
+<drug>RIF|600|0|182|1|
+<drug>INH|300|0|182|1|
+<drug>PZA|2000|0|182|1|
+<drug>EMB|1500|0|60|1|
+<drug>EMB|900|60|182|1|
