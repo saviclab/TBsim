@@ -1,13 +1,16 @@
 #' @export
-tb_compile <- function (input_folder = NULL, bin_folder = "/opt/local/bin") {
-  # xcode-select --install
-  if (!is.null(input_folder)) {
-    # copy files to R install folder
+tb_compile <- function (input_folder = NULL, cpp = "gcc") {
+  if (!is.null(input_folder)) {    # copy files to R install folder
+    system(paste0("cp -R ", input_folder, " ", system.file(package="TBsim")))
   }
   setwd(system.file(package="TBsim"))
-  system("g++ -v")
-  if (!is.null(bin_folder)) {
-    system(paste0("PATH=", bin_folder, ":$PATH make -f makefiles/makefile.txt"))
+  if(file.exists("obj")) {
+    system("rm -rf obj")
+  }
+  dir.create("obj")
+  system(paste0(cpp, " -v"))
+  if (!is.null(cpp)) {
+    system(paste0("CXX=", cpp, " make -f makefiles/makefile.txt"))
   } else {
     system("make -f makefiles/makefile.txt")
   }
