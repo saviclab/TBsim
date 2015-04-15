@@ -23,18 +23,19 @@ void DRUGLISTclass::printDrugList(int activeDrugs, VECI& drugTable, VECS& drugID
 {
     printLine();
     std::cout << "Active Drugs" << std::endl;
-    std::cout << "Index" <<"\t"<<"Drug #"<<"\t"<<"x Macro"<<"\t"<<"x Gran"<<"\t"<<
-            "EC50k"<<"\t"<<"ak"<<"\t"<<"Start"<<std::endl;
+    std::cout << "Index   Drug    x Macro   x Gran  EC50k      ak       Start"<<std::endl;
     if (activeDrugs>0){
         for (int i=0; i<activeDrugs; i++) {
-            std::cout << i << "\t"
-             << drugID[i] << "\t"
-             << DRUGLIST[drugTable[i]].IOfactor << "\t"
-             << DRUGLIST[drugTable[i]].GRfactor << "\t"
-             << DRUGLIST[drugTable[i]].EC50k    << "\t"
-             << DRUGLIST[drugTable[i]].ak       << "\t"
-             << getDrugStart(i)
-             << std::endl;
+            
+            printf("%4d    %s    %5.2f     %5.2f    %6.2f    %5.2f   %5d \n",
+                   i,
+                   drugID[i].c_str(),
+                   DRUGLIST[drugTable[i]].IOfactor,
+                   DRUGLIST[drugTable[i]].GRfactor,
+                   DRUGLIST[drugTable[i]].EC50k,
+                   DRUGLIST[drugTable[i]].ak,
+                   getDrugStart(i)
+                   );
         }
     }
     printLine();
@@ -47,12 +48,14 @@ void DRUGLISTclass::selectActiveDrugs(PARAMclass& PARA)
     PARA.drugActive.assign(PARA.nDrugs, 0);
 
     // iterate over all drugs 0..nDrugs
-    for (int k=0;k<PARA.nDrugs; k++) {
-        // iterate over all drugs in current Therapy
-        for (int j=0; j<PARA.drugList[i].nRecords; j++){
-            // if the specific drug is found - then set status = 1
-            if (PARA.drugList[i].drugName[j]== get(k).name){
-                PARA.drugActive[k] = 1;
+    if (PARA.nDrugs>0) {
+        for (int k=0;k<PARA.nDrugs; k++) {
+            // iterate over all drugs in current Therapy
+            for (int j=0; j<PARA.drugList[i].nRecords; j++){
+                // if the specific drug is found - then set status = 1
+                if (PARA.drugList[i].drugName[j]== get(k).name){
+                    PARA.drugActive[k] = 1;
+                }
             }
         }
     }
@@ -63,11 +66,13 @@ void DRUGLISTclass::selectActiveDrugs(PARAMclass& PARA)
     // second pass through drug list to generate net list of active drugs
     // this will ensure a drug does not get listed twice
     PARA.activeDrugs = 0;      // counter of active drugs
-    for (int k=0; k<PARA.nDrugs; k++){
-        if (PARA.drugActive[k]==1){
-            PARA.drugTable.push_back(k);           // drug number
-            PARA.drugID.push_back(get(k).name);    // drug name
-            PARA.activeDrugs++;                    // increment drug counter
+    if (PARA.nDrugs>0){
+        for (int k=0; k<PARA.nDrugs; k++){
+            if (PARA.drugActive[k]==1){
+                PARA.drugTable.push_back(k);           // drug number
+                PARA.drugID.push_back(get(k).name);    // drug name
+                PARA.activeDrugs++;                    // increment drug counter
+            }
         }
     }
     // update local variables

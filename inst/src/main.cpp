@@ -19,7 +19,7 @@
 #include <string>
 #include <iostream>
 #include <vector>
-#include <omp.h>
+//#include <omp.h>
 #include <fstream>
 #include <cstdlib>
 
@@ -51,7 +51,7 @@ int main(int argc, char* argv[])
     DRUGLISTclass DRUGLIST;
 
     // thread id, and number of threads set
-    int id, numberOfThreads;
+    int id(0), numberOfThreads;
 
     // timer used for run statistics
     TIMERclass TIMER;
@@ -99,14 +99,16 @@ int main(int argc, char* argv[])
             drugStatus = DRUGLIST.initialize(PARA.nDrugs, configFolder, PARA.drugFile);
         }
     }
-
+    // debug
+    //configStatus = false;
+    
     // run main program if no major errors in reading config files
     if ((validFile)&&(configStatus)) {
         if ((!adherenceStatus)||(!therapyStatus)||(!drugStatus)) {
             std::cout << "Note: some config files were not loaded"<<std::endl;
         }
         // set list of valid user inputs
-        std::list<int> validInputs { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+        std::list<int> validInputs = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
         int inputValue(0);
 
         do {
@@ -256,7 +258,8 @@ int main(int argc, char* argv[])
                     // distribute patient population across available processing cores
 #pragma omp parallel for private(ADH, DOSE, CONC, GRAN, SOLUTION, MONITOR, OUTCOME) num_threads(numberOfThreads)
                     for (iP=0; iP<PARA.nPatients; iP++) {
-                        id = omp_get_thread_num();
+                        int id=0;
+                        //id = omp_get_thread_num();
                         // display simulation progress, note: ONLY done by thread 0
                         if ((id==0)&&((iP-oldiP)>iStep)) {
                             oldiP=iP;
@@ -438,6 +441,7 @@ int main(int argc, char* argv[])
                     }
                     std::cout<<std::endl;
                 }  // multiple populations loop
+                
                 TIMER.start(id, 7);
 
                 // post-processing of patient population - when NO bootstrap
@@ -775,7 +779,7 @@ int main(int argc, char* argv[])
         return 0;
     } else {
         std::cout << "Program stopped" << std::endl;
-        if (PARA.batchMode==0) std::system("pause");
+        //if (PARA.batchMode==0) std::system("pause");
         return 1;
     }
 }

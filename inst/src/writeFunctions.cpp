@@ -41,7 +41,7 @@ void writeResults(const string& version, PARAMclass& PARA,
     string fileMacro        = "macro";
     string fileEffect       = "effect";
 
-    int iIteration = 0;
+    //int iIteration = 0;
 
     string tag = "";
     const int nImmune(12);    // number of immune cell types
@@ -59,7 +59,7 @@ void writeResults(const string& version, PARAMclass& PARA,
     immuneText[10]  = "IL12L";
     immuneText[11]  = "IL12LN";
 
-    const int nEffect(PARA.activeDrugs+2);
+    //const int nEffect(PARA.activeDrugs+2);
 
     const int nAdh(1);
     std::vector<std::string> adhText(nAdh);
@@ -102,11 +102,11 @@ void writeResults(const string& version, PARAMclass& PARA,
     effectText[PARA.activeDrugs+1] = patch::to_string(-1);
 
     // used for daily data
-    int startDay = 0;
-    int nDays = PARA.nTime;
+    //int startDay = 0;
+    //int nDays = PARA.nTime;
 
     // used for hourly data
-    int startHour = PARA.drugStart * 24;
+    //int startHour = PARA.drugStart * 24;
     int nHours  = 720;     // 30*24;
 
     std::string fileName;

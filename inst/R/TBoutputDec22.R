@@ -19,9 +19,10 @@ library(RColorBrewer)
 # Date: July 2, 2014
 # 
 # Directory used for data files:
-folder <- "C:/WorkFiles/UCSF_MTB/TB_10262014/DataFiles/"
+folder <- "/Users/johnfors/Desktop/TBsimulation/dataFiles/"
 #=======================================================================================
 # load external functions used
+setwd('~/Desktop/TBsimulation/rFiles/')
 source("readHeaderFile.R")
 
 source("readGranuloma.R")
@@ -66,12 +67,12 @@ source("plotEffect.R")
 
 #=======================================================================================
 # Run settings
-isFromDrugStart <- 0 # Start plots from time of drug start
+isFromDrugStart <- 1 # Start plots from time of drug start
 isSummary		<- 0 # Summary across all compartments
 isCombineLatClr <- 0 # Combine Latent and Cleared in outcome plot
 
 isOutcome   <- 1	# Population infection status 
-isCFUtot	<- 1	# plot total bacteria population, after start of therapy
+isCFUtot	<- 0	# plot total bacteria population, after start of therapy
 
 isAdherence <- 0	# Basic adherence plot
 isDose		<- 0    # Dose profiles
@@ -83,8 +84,8 @@ isEffect	<- 1	# Bactericidal contribution per drug and immune
 isGran		<- 0	# Granuloma formation & break-up
 
 isBactWild	<- 0	# Total wild-type bacteria per compartment
-isBactTotal	<- 1	# Total bacteria per compartment
-isBactRes	<- 1	# Resistant bacteria per compartment 
+isBactTotal	<- 0	# Total bacteria per compartment
+isBactRes	<- 0	# Resistant bacteria per compartment 
 isMacro		<- 0	# Macrophages
 isImmune	<- 0	# Immune system variables, except macrophages
 

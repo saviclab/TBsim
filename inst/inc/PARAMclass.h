@@ -33,7 +33,7 @@ class PARAMclass
 {
  public:
     void initialize();
-    bool readInit(std::string&, const std::string&);
+    bool readInit(const std::string&, const std::string&);
     bool readTherapy(const std::string&);
     bool readAdherence(const std::string&);
     void updateParameter(int);

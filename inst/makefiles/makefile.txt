@@ -7,7 +7,7 @@
 # December 9, 2014
 # scl enable devtoolset-2 bash
 
-CXX ?= gcc
+CXX ?= g++
 CXXFLAGS = -fexceptions -O3 -std=c++11 -fopenmp -I./inc -m64 -mmmx -msse -msse2
 ODIR = ./obj
 SDIR = ./src

@@ -1,4 +1,4 @@
-<batchMode>0
+<batchMode>1
 <nTime>365
 <nIterations>1000
 <nPatients>1000
@@ -34,7 +34,7 @@
 <isGranulomaInfec>1
 <isGradualDiffusion>1
 <persistTime>7
-<dataFolder>C:\\WorkFiles\\UCSF_MTB\\TB_10262014\\DataFiles\\
+<dataFolder>/Users/johnfors/Desktop/TBsimulation/dataFiles/
 <initialValueStdv>0.20
 <parameterStdv>0.20
 <timeStepStdv>0.05

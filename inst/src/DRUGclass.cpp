@@ -56,6 +56,15 @@ bool DRUGclass::readDrugParameters(int nn, const std::string& folder, const std:
             std::getline (myfile, noText, delim1);
             std::getline (myfile, tagText, delim2);
             std::getline (myfile, valueText);
+            
+            // trim out any special characters at end of line
+            // handle differences between Mac OS and Windows file format
+            if ((valueText.back() == '\n') || (valueText.back() == '\r')){
+                if (valueText.size()>0){
+                    valueText.resize(valueText.size()-1);
+                }
+            }
+            
             if (tagText == "name")   {name = valueText;
                                       number = nn;}
             if (tagText == "KaMean") {KaMean = S2N(valueText);}

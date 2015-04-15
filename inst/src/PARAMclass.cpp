@@ -107,18 +107,21 @@ void PARAMclass::initialize(){
     activeDrugs             = 0;
 }
 
-bool PARAMclass::readInit (std::string& folder, const std::string& filename)
+bool PARAMclass::readInit (const std::string& folder, const std::string& filename)
 {
     bool fileStatus(true);
-    std::string tagText, valueText;
+    std::string tagText, valueText, fullname;
     const char delim1 = '<';
     const char delim2 = '>';
-    const std::string fullname = folder + filename;
-    std::ifstream myfile (fullname.c_str());
+    
+    fullname = folder + filename;
+    std::ifstream myfile (fullname);
     nDrugs = 0;         // clear counter of drug files
     nTherapy = 0;       // clear counter of therapy files
     nAdherence = 0;     // clear counter of adherence files
-
+    
+    //std::cout << "file:"<<fullname<<"|"<<std::endl;
+    
     if (myfile.is_open())
     {
         while (!myfile.eof())
@@ -126,6 +129,15 @@ bool PARAMclass::readInit (std::string& folder, const std::string& filename)
             getline (myfile, tagText, delim1);
             getline (myfile, tagText, delim2);
             getline (myfile, valueText);
+            
+            // trim out any special characters at end of line
+            // handle differences between Mac OS and Windows file format
+            if ((valueText.back() == '\n') || (valueText.back() == '\r')){
+                if (valueText.size()>0){
+                    valueText.resize(valueText.size()-1);
+                }
+            }
+            
             if (tagText == "batchMode")         {batchMode = (int)S2N(valueText);}
             if (tagText == "nTime")             {nTime = (int)S2N(valueText);}
             if (tagText == "nPatients")         {nPatients = (int)S2N(valueText);}
@@ -231,15 +243,14 @@ bool PARAMclass::readInit (std::string& folder, const std::string& filename)
 bool PARAMclass::readAdherence (const std::string& folder)
 {
     bool fileStatus(true);
-    std::string tagText, valueText;
+    std::string tagText, valueText, fullname;
     const char delim1 = '<';
     const char delim2 = '>';
-    std::string filename, fullname, temp;
 
     for (int i=0;i<nAdherence;i++)
     {
         fullname = folder + adherenceFile[i];
-        std::ifstream myfile (fullname.c_str());
+        std::ifstream myfile (fullname);
 
         if (myfile.is_open())
         {
@@ -271,21 +282,23 @@ bool PARAMclass::readAdherence (const std::string& folder)
 bool PARAMclass::readTherapy (const std::string& folder)
 {
     bool fileStatus(true);
-    std::string tagText, valueText;
+    std::string tagText, valueText, temp, fullname;
     const char delim1 = '<';
     const char delim2 = '>';
     const char pipe = '|';
-    std::string filename, fullname, temp;
-
+    
     for (int i=0;i<nTherapy;i++)
     {
         fullname = folder + therapyFile[i];
-        std::ifstream myfile (fullname.c_str());
-
+        std::ifstream myfile (fullname, std::ifstream::in);
+        
         if (myfile.is_open())
         {
+            //std::cout<<"opened file"<<std::endl;
             while (!myfile.eof())
             {
+                //std::cout<<"read line"<<std::endl;
+                
                 getline (myfile, tagText, delim1);
                 getline (myfile, tagText, delim2);
                 getline (myfile, valueText);
@@ -296,11 +309,11 @@ bool PARAMclass::readTherapy (const std::string& folder)
 
                 if (tagText == "drug") {
                     temp = valueText;
-                    int p1 = temp.find(pipe);
-                    int p2 = temp.find(pipe, p1+1);
-                    int p3 = temp.find(pipe, p2+1);
-                    int p4 = temp.find(pipe, p3+1);
-                    int p5 = temp.find(pipe, p4+1);
+                    int p1 = int(temp.find(pipe));
+                    int p2 = int(temp.find(pipe, p1+1));
+                    int p3 = int(temp.find(pipe, p2+1));
+                    int p4 = int(temp.find(pipe, p3+1));
+                    int p5 = int(temp.find(pipe, p4+1));
 
                     drugList[i].drugName.push_back(temp.substr(0, p1));
                     drugList[i].drugDose.push_back((double)S2N(temp.substr(p1+1, p2-p1)));
@@ -338,16 +351,16 @@ VEC PARAMclass::readArray(std::string& valueText){
     VEC tempA(10, 0.0);
 
     temp = valueText;
-    int p1 = temp.find(pipe);
-    int p2 = temp.find(pipe, p1+1);
-    int p3 = temp.find(pipe, p2+1);
-    int p4 = temp.find(pipe, p3+1);
-    int p5 = temp.find(pipe, p4+1);
-    int p6 = temp.find(pipe, p5+1);
-    int p7 = temp.find(pipe, p6+1);
-    int p8 = temp.find(pipe, p7+1);
-    int p9 = temp.find(pipe, p8+1);
-    int p10 = temp.find(pipe, p9+1);
+    int p1 = int(temp.find(pipe));
+    int p2 = int(temp.find(pipe, p1+1));
+    int p3 = int(temp.find(pipe, p2+1));
+    int p4 = int(temp.find(pipe, p3+1));
+    int p5 = int(temp.find(pipe, p4+1));
+    int p6 = int(temp.find(pipe, p5+1));
+    int p7 = int(temp.find(pipe, p6+1));
+    int p8 = int(temp.find(pipe, p7+1));
+    int p9 = int(temp.find(pipe, p8+1));
+    int p10 = int(temp.find(pipe, p9+1));
 
     tempA[0] = (double)S2N(temp.substr(0, p1));
     tempA[1] = (double)S2N(temp.substr(p1+1, p2-p1));
@@ -386,8 +399,10 @@ void PARAMclass::printParameters()
     std::cout << "Persistance effect    : " << printYesNo(isPersistance) << std::endl;
     std::cout << "Immune kill effect    : " << printYesNo(isImmuneKill)<<std::endl;
     std::cout << "Immune system level   : " << immuneMean << std::endl;
-    std::cout << "Drug therapy          : " << "("<<iTherapy<<") "<<drugList[iTherapy].name << std::endl;
-    std::cout << "Dosing schedule       : " << drugList[iTherapy].description << std::endl;
+    if (iTherapy>0) {
+        std::cout << "Drug therapy          : " << "("<<iTherapy<<") "<<drugList[iTherapy].name << std::endl;
+        std::cout << "Dosing schedule       : " << drugList[iTherapy].description << std::endl;
+    }
     std::cout << "Drug start/stop       : " << drugStart << " / "
                                      << drugStop  << std::endl;
     std::cout << "Gran effect/infect.   : " << printYesNo(isGranuloma) << " / " <<

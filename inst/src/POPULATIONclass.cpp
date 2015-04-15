@@ -1,6 +1,6 @@
 #include <random>
 #include <vector>
-#include <omp.h>
+//#include <omp.h>
 #include <algorithm>
 #include <cstdio>
 #include <string>
@@ -271,7 +271,7 @@ void POPULATIONclass::finalizePopStat(VEC5& popPops, VEC4& popStatistics,
             // calculate average
             for (int m=0; m<nPeriods; m++) {
                 double init = 0.0;
-                int len = popPops[i][j][0][m].size();
+                int len = int(popPops[i][j][0][m].size());
                 saveAverage[m] = 0.0;
                 if (len>0) {
                     saveAverage[m] = std::accumulate(popPops[i][j][0][m].begin(),
@@ -358,7 +358,7 @@ void POPULATIONclass::printOutcomeStat(int drugStop, int isBootstrap, int nPopul
     else {
         std::cout << "Population Therapy Outcome [medium (5% - 95%)]" << std::endl;
     }
-    std::cout << "             Last drug day           "
+    std::cout << "             Last drug day       "
               << "   End of simulation" << std::endl;
     int t1 = std::min(drugStop, nTime-1);
     int t2 = nTime-1;

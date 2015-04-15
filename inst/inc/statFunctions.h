@@ -2,7 +2,7 @@
 #define STATFUNCTIONS_H
 
 #include <vector>
-#include <omp.h>
+//#include <omp.h>
 
 #include "Global.h"
 
