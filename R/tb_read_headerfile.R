@@ -1,7 +1,7 @@
 #' Created by John Fors, updates by Ron Keizer
 #' @export
 tb_read_headerfile <- function(folder = "~/tb_run") {
-	y <- read.table(paste(folder, "header.txt", sep=""), header=FALSE,sep="\t")
+	y <- read.table(paste0(folder, "/header.txt"), header=FALSE,sep="\t")
 	y <- t(y)
 
 	timeStamp		<- y[1]

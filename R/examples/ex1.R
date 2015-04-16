@@ -26,11 +26,12 @@ sim1 <- tb_new_sim(therapy = therapy,
 ## Start the simulation based on the given definitions
 tb_run_sim (sim1)
 
-## Read in the output data
-info <- tb_read_headerfile("~/tb_run")
+## Make some plots
+## First, read in some general information about the simulation
+info <- tb_read_headerfile("~/tb_run/output")
 
 ## Plot outcome data
-outc <- tb_read_outcome("~/tb_run/output", "outcome.txt")
+outc <- tb_read_outcome("~/tb_run/output")
 tb_plot_outcome(info, outc)
 
 ## Plot bacterial data
@@ -38,6 +39,4 @@ bact <- tb_read_bact_totals("~/tb_run/output")
 tb_plot_bact_totals(info, bact, type="wild")
 tb_plot_bact_totals(info, bact, type="total")
 
-
-## Make some plots
 
