@@ -7,7 +7,9 @@ tb_write_init <- function (obj,
   }
   txt <- c()
   for (i in seq(names(obj))) {
-    txt <- c(txt, paste("<", names(obj)[i], ">", obj[i], sep=""))
+    for (j in 1:length(unlist(obj[i]))) {
+      txt <- c(txt, paste("<", names(obj)[i], ">", unlist(obj[i])[j], sep=""))
+    }
   }
   if(!is.null(file)) {
     if (length(txt)>0) {

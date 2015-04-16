@@ -19,9 +19,14 @@ tb_read_init <- function (file, folder=NULL) {
     if(length(tmp) == 2) {
       suppressWarnings({
         if(!is.na(as.numeric(tmp[2]))) {
-          obj[[tmp[1]]] = as.numeric(tmp[2])
+          val <- as.numeric(tmp[2])
         } else {
-          obj[[tmp[1]]] = tmp[2]
+          val <- tmp[2]
+        }
+        if(tmp[1] %in% names(obj)) { # e.g "drug" in therapy files
+          obj[[tmp[1]]] <- c(obj[[tmp[1]]], val)
+        } else {
+          obj[[tmp[1]]] <- val
         }
       })
     } else {
