@@ -4,8 +4,7 @@
 # Dec 23, 2012 by John Fors
 ########################################################
 
-readHeaderFile <- function(folder) 
-{
+readHeaderFile <- function(folder = "~/tb_run") {
 	y <- read.table(paste(folder, "header.txt", sep=""), header=FALSE,sep="\t")
 	y <- t(y)
 
@@ -19,11 +18,11 @@ readHeaderFile <- function(folder)
 	isImmuneKill	<- as.numeric(y[7])
 	isGranuloma		<- as.numeric(y[8])
 	isPersistance   <- as.numeric(y[9])
-	
+
 	diseaseText		<- y[10]
 	nDrugs			<- as.numeric(y[11])
 	doseText		<- y[12]
-	
+
 	outcomeIter		<- as.numeric(y[13])
 
 	drug <- vector()
@@ -31,8 +30,8 @@ readHeaderFile <- function(folder)
 		drug[i]<- y[13+i]
 	}
 
-	output <- list(timeStamp, nTime, nSteps, drugStart, nPatients, isResistance, 
-					isImmuneKill, isGranuloma, isPersistance, diseaseText, nDrugs, 
+	output <- list(timeStamp, nTime, nSteps, drugStart, nPatients, isResistance,
+					isImmuneKill, isGranuloma, isPersistance, diseaseText, nDrugs,
 					doseText, outcomeIter, drug)
 	return(output)
-}	
+}

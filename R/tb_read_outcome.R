@@ -1,5 +1,5 @@
 #' @export
-readOutcome <- function(folder, fileName, fileType) {
+tb_read_outcome <- function(folder, fileName, fileType = ",") {
 	# read the outcome data file
 	inputFile <- paste0(folder, "/", fileName)
 	con  <- file(inputFile, open = "r")

@@ -1,7 +1,7 @@
 tb_read_bact_totals <- function(folder, filename = "bactTotals.txt", filetype = "bactTotals") {
 
   # read the immune data file
-	inputFile <- paste(folder, filename, sep="")
+	inputFile <- paste(folder, "/", filename, sep="")
 	con  <- file(inputFile, open = "r")
 
 	#counters
@@ -56,5 +56,12 @@ tb_read_bact_totals <- function(folder, filename = "bactTotals.txt", filetype = 
 		}
 	}
 	close(con)
-	output <- list(times, compartments, wilds05, wilds50, wilds95, totals05, totals50, totals95)
+	output <- list(times = times,
+	               compartments = compartments,
+	               wilds05 = wilds05,
+	               wilds50 = wilds50,
+	               wilds95 = wilds95,
+	               totals05 = totals05,
+	               totals50 = totals50,
+	               totals95 = totals95)
 }

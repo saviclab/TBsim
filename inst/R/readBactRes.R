@@ -1,14 +1,13 @@
-readBactRes <- function(folder, fileName, fileType)
-{
+readBactRes <- function(folder, fileName, fileType) {
 	# read the res bact data file
-	inputFile <- paste(folder, fileName, sep="")
+	inputFile <- paste0(folder, "/", fileName)
 	con  <- file(inputFile, open = "r")
-	
+
 	#counters
 	countIterations <- 0
 	countCompartments <- 0
 	countDrugs <- 0
-	
+
 	#output variables
 	times <- c()
 	iterations <- c()
@@ -41,7 +40,7 @@ readBactRes <- function(folder, fileName, fileType)
 				values			<- c(values, numberVector)
 			}
 		}
-	} 
+	}
 	close(con)
 	output <- list(times, drugs, compartments, values)
 }
