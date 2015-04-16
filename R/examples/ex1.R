@@ -2,7 +2,7 @@
 
 ## Compilation
 ## On Mac, make sure not to use the Clang compiler but the GNU g++ compiler
-tb_compile(cpp = "/opt/local/bin/g++")
+tb_compile(cpp = "/usr/local/bin/g++")
 
 ## read in templates and define some constants
 therapy       <- tb_read_init("standardTB4.txt")
@@ -24,7 +24,7 @@ sim1 <- tb_new_sim(therapy = therapy,
                    isSaveBact = 1)
 
 ## Start the simulation based on the given definitions
-sim <- tb_run_sim (sim1)
+tb_run_sim (sim1)
 
 ## Read in the output data
 info <- tb_read_headerfile("~/tb_run")

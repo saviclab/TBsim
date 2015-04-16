@@ -1,10 +1,10 @@
 #' @export
-tb_run_sim <- function(obj = NULL,
+tb_run_sim <- function(sim = NULL,
                        ini_file = NULL,
                        bin = "TBsim",
                        keep_bin = FALSE,
                        run = TRUE) {
-  folder <- gsub("/output/", "", obj$dataFolder)
+  folder <- gsub("/output/", "", sim$dataFolder)
   config_folder <- paste0(folder, "/config")
   if (!file.exists(folder)) {
     dir.create(folder)
@@ -12,32 +12,30 @@ tb_run_sim <- function(obj = NULL,
   if (!file.exists(config_folder)) {
     dir.create(config_folder)
   }
-  if (!file.exists(obj$dataFolder)) {
-    dir.create(obj$dataFolder)
+  if (!file.exists(sim$dataFolder)) {
+    dir.create(sim$dataFolder)
   }
-  if(!is.null(obj)) {
+  # write config files to disk
+  tb_write_init(sim$therapy, "therapy.txt", config_folder)
+  tb_write_init(sim$adherence, "adherence.txt", config_folder)
+  for (i in seq(names(sim$drugs))) {
+    nam <- names(sim$drugs)[i]
+    tb_write_init(sim$drugs[[nam]], paste0(nam, ".txt"), config_folder)
+  }
+  if(!is.null(sim)) {
     ini_file = "sim.txt"
-    obj$drugs <- NULL
-    obj$therapy <- NULL
-    obj$adherence <- NULL
-    tb_write_init(obj, "sim.txt", folder=config_folder)
+    sim <- list()
+    sim$drugs <- NULL
+    sim$therapy <- NULL
+    sim$adherence <- NULL
+    tb_write_init(sim, "sim.txt", folder=config_folder)
   } else {
     message("Error: No simulation object provided!")
     stop()
   }
   tbsim <- paste0(system.file(package="TBsim"), "/", bin)
   if(file.exists(tbsim)) {
-    #setwd(system.file(package="TBsim"))
-    input_folder <- paste0(system.file(package="TBsim"), "/config")
     system(paste0("cp ", tbsim, " ", folder, "/", bin))
-    tb_write_init(obj$therapy, "therapy.txt", config_folder)
-    tb_write_init(obj$adherence, "adherence.txt", config_folder)
-    for (i in seq(names(obj$drugs))) {
-      nam <- names(obj$drugs)[i]
-      tb_write_init(obj$drugs[[nam]], paste0(nam, ".txt"), config_folder)
-    }
-
-    #    system(paste0("cp -R ", input_folder, "/* ", config_folder,"/"))
     if (file.exists(paste0(config_folder, "/sim.txt"))) {
       if(run) {
         setwd(folder)
