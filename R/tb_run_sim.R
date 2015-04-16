@@ -1,6 +1,5 @@
 #' @export
 tb_run_sim <- function(sim = NULL,
-                       ini_file = NULL,
                        bin = "TBsim",
                        keep_bin = FALSE,
                        run = TRUE) {
@@ -23,12 +22,10 @@ tb_run_sim <- function(sim = NULL,
     tb_write_init(sim$drugs[[nam]], paste0(nam, ".txt"), config_folder)
   }
   if(!is.null(sim)) {
-    ini_file = "sim.txt"
-    sim <- list()
     sim$drugs <- NULL
     sim$therapy <- NULL
     sim$adherence <- NULL
-    tb_write_init(sim, "sim.txt", folder=config_folder)
+    tb_write_init(sim, "sim.txt", folder = config_folder)
   } else {
     message("Error: No simulation object provided!")
     stop()

@@ -20,23 +20,70 @@ sim1 <- tb_new_sim(therapy = therapy,
                    drug = drugs,
                    nPatients = 300,
                    therapyStart = 180,
+                   isDrugEffect = 1,
                    isSaveBactRes = 1,
-                   isSaveBact = 1)
+                   isSaveImmune = 1,
+                   isSaveBact = 1,
+                   isSaveEffect = 1,
+                   isSaveConc = 1,
+                   isSaveConcKill = 1,
+                   isSaveAdhDose = 1,
+                   isSavePopulationResults = 1,
+                   isSavePatientResults = 1,
+                   isSaveMacro = 1)
 
 ## Start the simulation based on the given definitions
 tb_run_sim (sim1)
 
 ## Make some plots
 ## First, read in some general information about the simulation
-info <- tb_read_headerfile("~/tb_run/output")
+folder <- "~/tb_run/output"
+info <- tb_read_headerfile(folder)
 
 ## Plot outcome data
-outc <- tb_read_outcome("~/tb_run/output")
+outc <- tb_read_outcome(folder)
 tb_plot_outcome(info, outc)
 
 ## Plot bacterial data
-bact <- tb_read_bact_totals("~/tb_run/output")
+bact <- tb_read_bact_totals(folder)
 tb_plot_bact_totals(info, bact, type="wild")
 tb_plot_bact_totals(info, bact, type="total")
 
+## Plot concentrations
+conc <- tb_read_conc(folder)
+tb_plot_conc (info, conc)
+
+## Plot doses
+dose <- tb_read_dose(folder)
+tb_plot_dose (info, dose)
+
+## Plot effect (not tested yet)
+eff <- tb_read_effect(folder)
+tb_plot_effect (info, eff)
+
+## plot Kill
+kill <- tb_read_kill(folder)
+tb_plot_kill (info, kill)
+
+## Plot adherence (doesn't work!)
+adh <- tb_read_adherence(folder)
+tb_plot_adherence(info, adh)
+
+## Plot immune results
+imm <- tb_read_immune(folder)
+imm_pl <- tb_plot_immune_all(info, imm)
+imm_pl$cytokines_lung
+imm_pl$cytokines_lymph
+imm_pl$cytokines_dendr
+imm_pl$t_cells_lung
+imm_pl$t_helper
+imm_pl$t_naive
+
+## Plot population results
+
+
+## Plot patient results
+
+
+## Plot macro
 
