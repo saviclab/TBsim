@@ -57,7 +57,7 @@ tb_plot_conc (info, conc)
 dose <- tb_read_dose(folder)
 tb_plot_dose (info, dose)
 
-## Plot effect (not tested yet)
+## Plot effect
 eff <- tb_read_effect(folder)
 tb_plot_effect (info, eff)
 
@@ -79,11 +79,12 @@ imm_pl$t_cells_lung
 imm_pl$t_helper
 imm_pl$t_naive
 
+## Plot macro
+
 ## Plot population results
 
+## plot Grow
 
 ## Plot patient results
 
-
-## Plot macro
 
