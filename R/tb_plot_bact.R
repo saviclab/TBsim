@@ -8,8 +8,8 @@
 #===========================================================================
 
 #' @export
-tb_plot_bact_totals <- function(info = NULL, bact = NULL, type = "total",
-                                is_summary = TRUE, is_from_drug_start = TRUE) {
+tb_plot_bact <- function(info = NULL, bact = NULL, 
+                                type = "total", is_summary = TRUE, is_from_drug_start = TRUE) {
   if(is.null(info)) {
     stop("This function requires input of an object created by tb_read_header().")
   }

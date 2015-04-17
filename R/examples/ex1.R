@@ -1,6 +1,3 @@
-# setwd("~/git/TBsim")
-
-## Compilation
 ## On Mac, make sure not to use the Clang compiler but the GNU g++ compiler
 tb_compile(cpp = "/usr/local/bin/g++")
 
@@ -14,12 +11,13 @@ drugs <- list(
   PZA = tb_read_init("PZA.txt")
 )
 
-## create a new simulation definition, and make a few changes
+## create a new simulation definition
 sim1 <- tb_new_sim(therapy = therapy,
                    adherence = adherence,
                    drug = drugs,
-                   nPatients = 300,
-                   therapyStart = 180,
+                   nPatients = 100,
+                   therapyStart = 90,
+                   nTime = 180,
                    isDrugEffect = 1,
                    isSaveBactRes = 1,
                    isSaveImmune = 1,
@@ -30,48 +28,50 @@ sim1 <- tb_new_sim(therapy = therapy,
                    isSaveAdhDose = 1,
                    isSavePopulationResults = 1,
                    isSavePatientResults = 1,
-                   isSaveMacro = 1)
+                   isSaveMacro = 1,
+                   isGranImmuneKill = 1,
+                   isClearResist = 1,
+                   isPersistance = 1)
 
 ## Start the simulation based on the given definitions
 tb_run_sim (sim1)
 
-## Make some plots
-## First, read in some general information about the simulation
+## First, read in all information available
 folder <- "~/tb_run/output"
-info <- tb_read_headerfile(folder)
+info  <- tb_read_output(folder, "header")
+outc  <- tb_read_output(folder, "outcome")
+bact  <- tb_read_output(folder, "bact")
+conc  <- tb_read_output(folder, "conc")
+dose  <- tb_read_output(folder, "dose")
+eff   <- tb_read_output(folder, "effect")
+kill  <- tb_read_output(folder, "kill")
+imm   <- tb_read_output(folder, "immune")
+macro <- tb_read_output(folder, "macro")
+
+# granuloma <- tb_read_output(folder, "granuloma") # couldn't get this file to be saved by the tool !!!
+# adh <- tb_read_output(folder, "adherence") # something's wrong with the output data too
 
 ## Plot outcome data
-outc <- tb_read_outcome(folder)
-tb_plot_outcome(info, outc)
+tb_plot (info, outc)
 
 ## Plot bacterial data
-bact <- tb_read_bact_totals(folder)
-tb_plot_bact_totals(info, bact, type="wild")
-tb_plot_bact_totals(info, bact, type="total")
+tb_plot (info, bact, type="wild")
+tb_plot (info, bact, type="total")
 
 ## Plot concentrations
-conc <- tb_read_conc(folder)
-tb_plot_conc (info, conc)
+tb_plot (info, conc)
 
 ## Plot doses
-dose <- tb_read_dose(folder)
-tb_plot_dose (info, dose)
+tb_plot (info, dose)
 
 ## Plot effect
-eff <- tb_read_effect(folder)
 tb_plot_effect (info, eff)
 
 ## plot Kill
-kill <- tb_read_kill(folder)
-tb_plot_kill (info, kill)
-
-## Plot adherence (doesn't work!)
-adh <- tb_read_adherence(folder)
-tb_plot_adherence(info, adh)
+tb_plot (info, kill)
 
 ## Plot immune results
-imm <- tb_read_immune(folder)
-imm_pl <- tb_plot_immune_all(info, imm)
+imm_pl <- tb_plot(info, imm)
 imm_pl$cytokines_lung
 imm_pl$cytokines_lymph
 imm_pl$cytokines_dendr
@@ -79,12 +79,12 @@ imm_pl$t_cells_lung
 imm_pl$t_helper
 imm_pl$t_naive
 
-## Plot macro
+## Plot macrophages
+tb_plot(info, macro)
 
-## Plot population results
+## Plot granuloma (no data yet)
+# tb_plot(info, granuloma)
 
-## plot Grow
-
-## Plot patient results
-
+## Plot adherence (doesn't work!)
+# tb_plot_adherence(info, adh)
 
