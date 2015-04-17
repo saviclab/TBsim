@@ -1,3 +1,8 @@
+library(TBsim)
+library(reshape2)
+library(dplyr)
+library(stringr)
+
 ## On Mac, make sure not to use the Clang compiler but the GNU g++ compiler
 tb_compile(cpp = "/usr/local/bin/g++")
 
@@ -82,9 +87,10 @@ imm_pl$t_naive
 ## Plot macrophages
 tb_plot(info, macro)
 
+## Plot adherence
+tb_plot(info, adh)
+
 ## Plot granuloma (no data yet)
 # tb_plot(info, granuloma)
 
-## Plot adherence (doesn't work!)
-# tb_plot_adherence(info, adh)
 

@@ -33,6 +33,10 @@ tb_new_sim <- function(template_file = NULL,
     obj$drugFile <- c(obj$drugFile, c(paste0(names(drugs)[i], ".txt")))
   }
   obj$adherenceFile <- "adherence.txt"
+  obj$nPatients <- nPatients
+  obj$nTime <- nTime
+  obj$nPopulations <- nPopulations
+  obj$nThreads <- nThreads
   args <- names(list(...))
   for (i in seq(args)) {
     if(args[i] %in% names(allowed_args)) {

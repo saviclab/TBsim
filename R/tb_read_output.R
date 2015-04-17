@@ -26,13 +26,14 @@ tb_read_output <- function(folder = "~/tb_run", type = NULL) {
   	tmp <- tb_read_granuloma(folder)
   }
 
-  if(type == "adherence") {
-    y1 <- read.table(paste(folder, "/adh_d.txt", sep=""), header=FALSE, sep="\t", skip=1)
-	y2 <- y1[,1:600]
-	y2[,1:180] <- 1
-	y2[,361:600] <- 1
-	tmp <- data.matrix(y2)
-  }
+#  if(type == "adherence") {
+#    adh <- read.table(paste(folder, "/adh_d.txt", sep=""), header=FALSE, sep="\t", skip=1)
+#    return(adh)
+	# y2 <- y1[,1:600]
+	# y2[,1:180] <- 1
+	# y2[,361:600] <- 1
+	# tmp <- data.matrix(y2)
+#  }
   if(!is.null(tmp)) {
   	attr(tmp, "type") <- type
    	return(tmp)
@@ -47,7 +48,7 @@ tb_read_output <- function(folder = "~/tb_run", type = NULL) {
   if(type == "conc") {
   	def <- c("times", "drugs", "compartments", "concs")
   	type_def <- "calcConc"
-  }	
+  }
   if(type == "dose") {
   	def <- c("times", "drugs", "compartments", "doses")
   	type_def <- "calcDose"
@@ -58,6 +59,9 @@ tb_read_output <- function(folder = "~/tb_run", type = NULL) {
   }
   if(type == "effect") {
   	def <- c("times", "types", "compartments", "values")
+  }
+  if(type == "adherence") {
+    def <- c("times", "adh")
   }
   dat <- tb_read_file(folder, paste0(type_def, ".txt"), type_def)
   if (!is.null(def)) {

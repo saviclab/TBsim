@@ -8,12 +8,12 @@
 #' @export
 tb_read_granuloma <- function(folder) {
 	# read the immune data file
-	inputFile <- paste(folder, "granuloma.txt", sep="")
+	inputFile <- paste(folder, "/granuloma.txt", sep="")
 	con  <- file(inputFile, open = "r")
-	
+
 	#counters
 	countIterations <- 0
-	
+
 	#output variables
 	times <- c()
 	iterations <- c()
@@ -46,7 +46,7 @@ tb_read_granuloma <- function(folder) {
 				if (type=="breakup")   { breakup   <- c(breakup, numberVector)}
 			}
 		}
-	} 
+	}
 	close(con)
 	output <- list(times = times, iterations = iterations, formation = formation, breakup = breakup)
 }
