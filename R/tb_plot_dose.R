@@ -30,7 +30,6 @@ tb_plot_dose <- function(info, dose){
     df <- df[df$Day<maxTime,]
 
     # generate plot
-    dev.new()
     bp <- ggplot(data=df, aes(x=Day, y=Dose)) +
       #geom_line(linetype="dashed", size=0.5, colour="grey") +
       geom_point(colour="red", size = 1) +

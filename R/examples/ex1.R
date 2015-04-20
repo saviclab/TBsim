@@ -1,7 +1,5 @@
 library(TBsim)
-library(reshape2)
-library(dplyr)
-library(stringr)
+library(ggplot2)
 
 ## On Mac, make sure not to use the Clang compiler but the GNU g++ compiler
 tb_compile(cpp = "/usr/local/bin/g++")
@@ -53,6 +51,7 @@ kill  <- tb_read_output(folder, "kill")
 imm   <- tb_read_output(folder, "immune")
 macro <- tb_read_output(folder, "macro")
 
+
 # granuloma <- tb_read_output(folder, "granuloma") # couldn't get this file to be saved by the tool !!!
 # adh <- tb_read_output(folder, "adherence") # something's wrong with the output data too
 
@@ -89,8 +88,4 @@ tb_plot(info, macro)
 
 ## Plot adherence
 tb_plot(info, adh)
-
-## Plot granuloma (no data yet)
-# tb_plot(info, granuloma)
-
 

@@ -22,22 +22,22 @@ tb_read_granuloma <- function(folder) {
 
 	# first check for correct type of data file
 	firstLine <- readLines(con, n = 1, warn = FALSE)
-	if (str_detect(firstLine, "granuloma")){
+	if (stringr::str_detect(firstLine, "granuloma")){
 		# then step through each row and parse data
 		while (length(oneLine <- readLines(con, n = 1, warn = FALSE)) > 0) {
-			if (str_detect(oneLine, "<type>")){
-				type <- word(oneLine, 2, sep = '>')		# get granuloma type
+			if (stringr::str_detect(oneLine, "<type>")){
+				type <- stringr::word(oneLine, 2, sep = '>')		# get granuloma type
 			}
-			if (str_detect(oneLine, "<startTime>")){
-				startTime <- as.numeric(word(oneLine, 2, sep = '>'))
+			if (stringr::str_detect(oneLine, "<startTime>")){
+				startTime <- as.numeric(stringr::word(oneLine, 2, sep = '>'))
 			}
-			if (str_detect(oneLine, "<iteration>")){
-				iteration <- as.numeric(word(oneLine, 2, sep = '>')) + 1	# adjust index values
+			if (stringr::str_detect(oneLine, "<iteration>")){
+				iteration <- as.numeric(stringr::word(oneLine, 2, sep = '>')) + 1	# adjust index values
 				countIterations <- max(countIterations, iteration)
 			}
-			if (str_detect(oneLine, "<data>")){
-				numberString	<- word(oneLine, 2, sep = '>')
-				numberVector	<- as.numeric(unlist(str_split(numberString, '\t')))
+			if (stringr::str_detect(oneLine, "<data>")){
+				numberString	<- stringr::word(oneLine, 2, sep = '>')
+				numberVector	<- as.numeric(unlist(stringr::str_split(numberString, '\t')))
 				if (type=="formation"){
 					times			<- c(times, 1:length(numberVector))
 					iterations		<- c(iterations, rep(iteration, length(numberVector)))
