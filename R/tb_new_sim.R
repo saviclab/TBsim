@@ -10,6 +10,7 @@ tb_new_sim <- function(template_file = NULL,
                        nPopulations = 1,
                        nThreads = 4,
                        ... ) {
+  folder <- gsub("~", path.expand("~"), folder)
   if (is.null(template_folder)) {
     template_folder <- paste0(system.file(package="TBsim"), "/config")
   }
