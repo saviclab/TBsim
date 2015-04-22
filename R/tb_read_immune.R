@@ -10,18 +10,18 @@ tb_read_immune <- function(folder) {
 
   # first check for correct type of data file
   firstLine <- readLines(con, n = 1, warn = FALSE)
-  if (str_detect(firstLine, "immune")){
+  if (stringr::str_detect(firstLine, "immune")){
     # then step through each row and parse data
     while (length(oneLine <- readLines(con, n = 1, warn = FALSE)) > 0) {
-      if (str_detect(oneLine, "<type>")){
-        type <- word(oneLine, 2, sep = '>')		# get immune type
+      if (stringr::str_detect(oneLine, "<type>")){
+        type <- stringr::word(oneLine, 2, sep = '>')		# get immune type
       }
-      if (str_detect(oneLine, "<startTime>")){
-        startTime <- as.numeric(word(oneLine, 2, sep = '>'))
+      if (stringr::str_detect(oneLine, "<startTime>")){
+        startTime <- as.numeric(stringr::word(oneLine, 2, sep = '>'))
       }
-      if (str_detect(oneLine, "<data>")){
-        numberString	<- word(oneLine, 2, sep = '>')
-        numberVector	<- as.numeric(unlist(str_split(numberString, '\t')))
+      if (stringr::str_detect(oneLine, "<data>")){
+        numberString	<- stringr::word(oneLine, 2, sep = '>')
+        numberVector	<- as.numeric(unlist(stringr::str_split(numberString, '\t')))
         if (type=="Tp"){
           output$times			<- c(output$times, 1:length(numberVector))
         }

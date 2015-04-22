@@ -7,18 +7,16 @@ output: html_document
 
 # Installation
 
-You will first need to make sure that a proper C++ compiler is installed. On Mac, you might already have a compiler installed (if you have Xcode installed), but this compiler, Clang, will not allow you to properly compile the TBsim tool. Therefore, you will have to install the GNU g++ compiler (e.g. with Homebrew or MacPorts) and make sure that when you give the compile command the right compiler is used (using the `cpp=` argument to the `tb_compile()` function). Note that, if you don't make any changes to the `TBsim` C++ code, you will only have to compile the executable once.  
+You will first need to make sure that a proper C++ compiler is installed. On Mac, you might already have a compiler installed (if you have Xcode installed), but this compiler, Clang, will not allow you to properly compile the TBsim tool. Therefore, you will have to install the GNU g++ compiler (e.g. with Homebrew or MacPorts) and make sure that when you give the compile command the right compiler is used (using the `cpp=` argument to the `tb_compile()` function). Note that, if you don't make any changes to the `TBsim` C++ code, you will only have to compile the executable once. 
 
-Install and load the following libraries in R:
-
-```{r, warning=F, error=F}
+```{r, warning=F, error=F, echo=FALSE}
 library(TBsim)
 library(ggplot2)
 library(reshape2)
 library(stringr)
 ```
 
-The TBsim library can be installed only from BitBucket and not from CRAN. For this, you will of course need to have a login to BitBucket and access rights to the repository.
+In R, you will need the following auxiliary libraries installed: `ggplot2`, `reshape2`, `stringr`. The TBsim library can then be installed from BitBucket (not from CRAN). For this, you will of course need to have a login to BitBucket and access rights to the repository.
 
 ```{r, eval=F}
 library(devtools)
@@ -26,7 +24,7 @@ install_bitbucket("ronkeizer/TBsim", auth_user = "###", password = "###")
 library(TBsim)
 ```
 
-You should then be able to compile the main executable:
+You should then be able to compile the main executable using the function call:
 
 ```{r, eval=F}
 tb_compile(cpp = "/usr/local/bin/g++")
@@ -55,7 +53,7 @@ drugs <- list(
 
 For all drugs referenced in `therapy` you will need to include the correct drug files too. **Note thate there is currently no check in place whether this is actually correct, and the simulation will probably run fine even when drugs are not specified!!**
 
-In this case, no changes to the default are made, but the defaults can be adjusted easily by changing the values in the `therapy`, `adherence`, and `drugs` lists.
+In this example, no changes to the default are made, but the defaults can be adjusted easily by changing the values in the `therapy`, `adherence`, and `drugs` lists.
 
 We then define the *trial* that we want to simulate by calling `tb_sim_new()`. This does not run the simulation yet, it just creates an object with all the information required to run `TBsim`:
 
@@ -116,7 +114,6 @@ kill  <- tb_read_output(folder, "kill")
 imm   <- tb_read_output(folder, "immune")
 macro <- tb_read_output(folder, "macro")
 adh <- tb_read_output(folder, "adherence") 
-# granuloma <- tb_read_output(folder, "granuloma") # legacy data?
 ```
 
 *Note: not all of the above output might be available. This will depend on the arguments supplied to `tb_new_sim()`.*
@@ -180,10 +177,3 @@ tb_plot(info, macro)
 ## Plot adherence
 tb_plot(info, adh)
 ```
-
-```{r, warning=F}
-## Plot granuloma (seems legacy functionality)
-# tb_plot(info, granuloma)
-```
-
-

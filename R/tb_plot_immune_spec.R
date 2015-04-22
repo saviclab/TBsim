@@ -8,7 +8,7 @@
 tb_plot_immune_spec <- function(yset, names, mainTitle, subTitle, ytext, drugStart) {
   # Prepare data
   colnames(yset) <- names
-  dfm2		<- melt(yset, id="time", na.rm=TRUE)
+  dfm2		<- reshape2::melt(yset, id="time", na.rm=TRUE)
   plot.main	<- mainTitle
   plot.sub	<- subTitle
   xtext		<- "Time after infection start [Days]"
