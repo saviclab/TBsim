@@ -2,7 +2,7 @@ library(TBsim)
 library(ggplot2)
 
 ## On Mac, make sure not to use the Clang compiler but the GNU g++ compiler
-tb_compile(cpp = "/usr/local/bin/g++")
+tb_compile(cpp = "/usr/bin/g++")
 
 ## read in templates and define some constants
 therapy       <- tb_read_init("standardTB4.txt")
@@ -15,10 +15,12 @@ drugs <- list(
 )
 
 ## create a new simulation definition
-sim1 <- tb_new_sim(therapy = therapy,
+folder <- tempdir()
+sim1 <- tb_new_sim(folder = folder,
+                   therapy = therapy,
                    adherence = adherence,
                    drug = drugs,
-                   nPatients = 100,
+                   nPatients = 1,
                    therapyStart = 90,
                    nTime = 180,
                    isDrugEffect = 1,
@@ -40,7 +42,6 @@ sim1 <- tb_new_sim(therapy = therapy,
 tb_run_sim (sim1)
 
 ## First, read in all information available
-folder <- "~/tb_run/output"
 info  <- tb_read_output(folder, "header")
 outc  <- tb_read_output(folder, "outcome")
 bact  <- tb_read_output(folder, "bact")
@@ -50,7 +51,6 @@ eff   <- tb_read_output(folder, "effect")
 kill  <- tb_read_output(folder, "kill")
 imm   <- tb_read_output(folder, "immune")
 macro <- tb_read_output(folder, "macro")
-
 
 # granuloma <- tb_read_output(folder, "granuloma") # couldn't get this file to be saved by the tool !!!
 # adh <- tb_read_output(folder, "adherence") # something's wrong with the output data too
@@ -64,6 +64,7 @@ tb_plot (info, bact, type="total")
 
 ## Plot concentrations
 tb_plot (info, conc)
+
 
 ## Plot doses
 tb_plot (info, dose)

@@ -1,8 +1,11 @@
 #' @export
-tb_read_output <- function(folder = "~/tb_run", type = NULL) {
+tb_read_output <- function(folder = "~/tb_run", type = NULL, output_folder = TRUE) {
 
   if(is.null(type)) {
   	stop("type argument required!")
+  }
+  if(output_folder) {
+    folder <- paste0(folder, "/output")
   }
 
   ## Non-standard output files:

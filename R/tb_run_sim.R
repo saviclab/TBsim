@@ -3,7 +3,7 @@ tb_run_sim <- function(sim = NULL,
                        bin = "TBsim",
                        keep_bin = FALSE,
                        run = TRUE) {
-  folder <- gsub("/output/", "", sim$dataFolder)
+  folder <- sim$dataFolder
   config_folder <- paste0(folder, "/config")
   if (!file.exists(folder)) {
     dir.create(folder)
@@ -36,7 +36,9 @@ tb_run_sim <- function(sim = NULL,
     if (file.exists(paste0(config_folder, "/sim.txt"))) {
       if(run) {
         setwd(folder)
-        system(paste0("./", bin, " config/ ", "sim.txt"))
+        cmd <- paste0("./", bin, " config/ ", "sim.txt")
+        cat("Starting execution: ", cmd, "\n")
+        system(cmd)
         if(!keep_bin) {
           unlink(paste0("./", bin))
         }

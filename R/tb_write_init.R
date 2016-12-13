@@ -16,7 +16,7 @@ tb_write_init <- function (obj,
       if (!file.exists(paste0(folder))) {
         dir.create(paste0(folder))
       }
-      message(paste0("Writing config file to: ", folder, "/", file))
+      message(paste0("Writing ", file, " config file to: ", folder, "/", file))
       conn <- file(paste0(folder, "/", file))
       writeLines(text = txt, conn)
       close(conn)
