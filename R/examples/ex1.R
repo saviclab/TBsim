@@ -2,7 +2,7 @@ library(TBsim)
 library(ggplot2)
 
 ## On Mac, make sure not to use the Clang compiler but the GNU g++ compiler
-tb_compile(cpp = "/usr/bin/g++")
+# tb_compile(cpp = "/usr/bin/g++")
 
 ## read in templates and define some constants
 therapy       <- tb_read_init("standardTB4.txt")
@@ -45,6 +45,7 @@ tb_run_sim (sim1)
 info  <- tb_read_output(folder, "header")
 outc  <- tb_read_output(folder, "outcome")
 bact  <- tb_read_output(folder, "bact")
+bactRes <- tb_read_output(folder, "bactRes")
 conc  <- tb_read_output(folder, "conc")
 dose  <- tb_read_output(folder, "dose")
 eff   <- tb_read_output(folder, "effect")
@@ -61,6 +62,7 @@ tb_plot (info, outc)
 ## Plot bacterial data
 tb_plot (info, bact, type="wild")
 tb_plot (info, bact, type="total")
+tb_plot (info, bactRes)
 
 ## Plot concentrations
 tb_plot (info, conc)

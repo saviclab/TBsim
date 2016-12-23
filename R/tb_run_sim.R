@@ -21,6 +21,7 @@ tb_run_sim <- function(sim = NULL,
     nam <- names(sim$drugs)[i]
     tb_write_init(sim$drugs[[nam]], paste0(nam, ".txt"), config_folder)
   }
+  print(sim$therapy)
   if(!is.null(sim)) {
     sim$drugs <- NULL
     sim$therapy <- NULL

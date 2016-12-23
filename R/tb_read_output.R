@@ -52,6 +52,10 @@ tb_read_output <- function(folder = "~/tb_run", type = NULL, output_folder = TRU
   	def <- c("times", "drugs", "compartments", "concs")
   	type_def <- "calcConc"
   }
+  if(type == "bactRes") {
+    def <- c("times", "types", "compartments", "values")
+    type_def <- "bactRes"
+  }
   if(type == "dose") {
   	def <- c("times", "drugs", "compartments", "doses")
   	type_def <- "calcDose"
