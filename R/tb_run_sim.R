@@ -1,8 +1,18 @@
+#' Run TBsim simulation
+#'
+#' @param sim sim simulation definition
+#' @param bin binary file
+#' @param keep_bin keep binary file after execution
+#' @param run run the simulation?
+#' @param jobscheduler submit to job scheduler?
+#' @param submit_cmd job scheduler submit command to prepend
 #' @export
 tb_run_sim <- function(sim = NULL,
                        bin = "TBsim",
                        keep_bin = FALSE,
-                       run = TRUE) {
+                       run = TRUE,
+                       jobscheduler = FALSE,
+                       submit_cmd = "qsub") {
   folder <- sim$dataFolder
   config_folder <- paste0(folder, "/config")
   if (!file.exists(folder)) {
@@ -21,7 +31,6 @@ tb_run_sim <- function(sim = NULL,
     nam <- names(sim$drugs)[i]
     tb_write_init(sim$drugs[[nam]], paste0(nam, ".txt"), config_folder)
   }
-  print(sim$therapy)
   if(!is.null(sim)) {
     sim$drugs <- NULL
     sim$therapy <- NULL
@@ -39,10 +48,17 @@ tb_run_sim <- function(sim = NULL,
         setwd(folder)
         cmd <- paste0("./", bin, " config/ ", "sim.txt")
         cat("Starting execution: ", cmd, "\n")
-        system(cmd)
+        if(!jobscheduler) {
+          system(cmd)
+          jobId <- NULL
+        } else {
+          jobId <- sge$submit(cmd)
+        }
         if(!keep_bin) {
           unlink(paste0("./", bin))
         }
+        return(list(folder = folder,
+                    jobId = jobId))
       }
     } else {
       message(paste0("Main configuration file not found!"))
