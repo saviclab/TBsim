@@ -52,13 +52,18 @@ tb_run_sim <- function(sim = NULL,
           system(cmd)
           jobId <- NULL
         } else {
-          jobId <- sge$submit(cmd)
+          name <- paste0(
+            "tbsim_",
+            gsub("_tmp_", "", gsub("_output_", "", gsub("/", "_", folder)))
+          )
+          jobId <- Rge::qsub(cmd = cmd, name = name)
         }
         if(!keep_bin) {
           unlink(paste0("./", bin))
         }
         return(list(folder = folder,
-                    jobId = jobId))
+                    jobId = jobId,
+                    name = name))
       }
     } else {
       message(paste0("Main configuration file not found!"))

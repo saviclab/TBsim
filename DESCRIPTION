@@ -5,7 +5,9 @@ Version: 0.1
 Date: 2015-04-08
 Author: Ron Keizer
 Maintainer: Ron Keizer <ronkeizer@gmail.com>
-Description: More about what it does (maybe more than one line)
+Description: Wrapper around TBsim C++ tool
 License: MIT
 LazyData: TRUE
 RoxygenNote: 5.0.1
+Imports:
+  Rge
