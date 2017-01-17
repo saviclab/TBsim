@@ -2,6 +2,8 @@
 tb_new_sim <- function(template_file = NULL,
                        template_folder = NULL,
                        folder = NULL,
+                       id = NULL,
+                       user = NULL,
                        therapy = NULL,
                        adherence = NULL,
                        drugs = NULL,
@@ -10,6 +12,10 @@ tb_new_sim <- function(template_file = NULL,
                        nPopulations = 1,
                        nThreads = 4,
                        ... ) {
+  if(is.null(folder)) {
+    folder <- tempdir()
+    id <- stringr::str_replace(folder, "/tmp/Rtmp", "")
+  }
   folder <- gsub("~", path.expand("~"), folder)
   if (is.null(template_folder)) {
     template_folder <- paste0(system.file(package="TBsim"), "/config")
@@ -23,6 +29,11 @@ tb_new_sim <- function(template_file = NULL,
     message(paste0("Warning: working directory not specified, using '", path.expand("~"), "/tb_run'."))
     folder <- paste0(path.expand("~"), "/tb_run")
   }
+  obj$id <- id
+  if(is.null(user) && Sys.getenv("USER") != "") {
+    user <- Sys.getenv("USER")
+  }
+  obj$user <- user
   obj$dataFolder <- paste0(folder, "/output/")
   obj$batchMode <- 1
   obj$therapy <- therapy

@@ -16,6 +16,9 @@ tb_run_sim <- function(sim = NULL,
                        results_folder = "/data/tbsim",
                        submit_cmd = "qsub") {
   folder <- sim$dataFolder
+  if(dir.exists(folder)) {
+    stop("Output folder already exists, not starting new job.")
+  }
   config_folder <- paste0(folder, "/config")
   if (!file.exists(folder)) {
     dir.create(folder)
@@ -49,20 +52,22 @@ tb_run_sim <- function(sim = NULL,
       if(run) {
         setwd(folder)
         cmd <- paste0("./", bin, " config/ ", "sim.txt")
-        cat("Starting execution: ", cmd, "\n")
         if(!jobscheduler) {
+          cat("Starting execution: ", cmd, "\n")
           system(cmd)
           jobId <- NULL
           output_folder <- folder
         } else {
           keep_bin <- TRUE
-          id <- gsub("_tmp_", "", gsub("_output_", "", gsub("/", "_", folder)))
           name <- paste0(
-            "tbsim_",
-            id
+            "tbsim_", sim$id
           )
-          output_folder <- paste0("/data/tbsim/", id)
-          cmd <- paste0(cmd, " && mkdir /data/tbsim/", id," && cp -R *.txt /data/tbsim/", id, "/")
+          output_folder <- paste0(results_folder, "/", stringr::str_trim(sim$id))
+          if(!is.null(sim$user)) {
+            output_folder <- paste0(results_folder, "/", sim$user, "/", sim$id)
+          }
+          cmd <- paste0(cmd, " && mkdir -p ", output_folder," && cp -R *.txt ", output_folder, "/")
+          cat(paste0("Submitting job ", sim$id, "\n"))
           jobId <- Rge::qsub(cmd = cmd, name = name, queue = queue)
         }
         if(!keep_bin) {
