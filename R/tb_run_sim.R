@@ -52,6 +52,7 @@ tb_run_sim <- function(sim = NULL,
       if(run) {
         setwd(folder)
         cmd <- paste0("./", bin, " config/ ", "sim.txt")
+        name <- paste0("tbsim_", sim$id)
         if(!jobscheduler) {
           cat("Starting execution: ", cmd, "\n")
           system(cmd)
@@ -59,9 +60,6 @@ tb_run_sim <- function(sim = NULL,
           output_folder <- folder
         } else {
           keep_bin <- TRUE
-          name <- paste0(
-            "tbsim_", sim$id
-          )
           output_folder <- paste0(results_folder, "/", stringr::str_trim(sim$id))
           if(!is.null(sim$user)) {
             output_folder <- paste0(results_folder, "/", sim$user, "/", sim$id)
