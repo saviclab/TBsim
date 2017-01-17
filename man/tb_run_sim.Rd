@@ -5,7 +5,8 @@
 \title{Run TBsim simulation}
 \usage{
 tb_run_sim(sim = NULL, bin = "TBsim", keep_bin = FALSE, run = TRUE,
-  jobscheduler = FALSE, submit_cmd = "qsub")
+  jobscheduler = FALSE, queue = "main.q", results_folder = "/data/tbsim",
+  submit_cmd = "qsub")
 }
 \arguments{
 \item{sim}{sim simulation definition}

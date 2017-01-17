@@ -1,5 +1,6 @@
 library(TBsim)
 library(ggplot2)
+library(Rge)
 
 ## On Mac, make sure not to use the Clang compiler but the GNU g++ compiler
 # tb_compile(cpp = "/usr/bin/g++")
@@ -20,7 +21,7 @@ sim1 <- tb_new_sim(folder = folder,
                    therapy = therapy,
                    adherence = adherence,
                    drug = drugs,
-                   nPatients = 1,
+                   nPatients = 100,
                    therapyStart = 90,
                    nTime = 180,
                    isDrugEffect = 1,
@@ -39,25 +40,37 @@ sim1 <- tb_new_sim(folder = folder,
                    isPersistance = 1)
 
 ## Start the simulation based on the given definitions
-tb_run_sim (sim1)
+run <- tb_run_sim (sim1, jobscheduler = TRUE)
 
 ## First, read in all information available
-info  <- tb_read_output(folder, "header")
-outc  <- tb_read_output(folder, "outcome")
-bact  <- tb_read_output(folder, "bact")
-bactRes <- tb_read_output(folder, "bactRes")
-conc  <- tb_read_output(folder, "conc")
-dose  <- tb_read_output(folder, "dose")
-eff   <- tb_read_output(folder, "effect")
-kill  <- tb_read_output(folder, "kill")
-imm   <- tb_read_output(folder, "immune")
-macro <- tb_read_output(folder, "macro")
+res <- tb_read_all_output(
+  folder = run$output_folder,
+  id = run$name,
+  db = list(
+    url = "mongodb://shinyuser:shiny12345@ds149567.mlab.com:49567/insightrx-tbsim-shiny"
+  )
+)
 
-# granuloma <- tb_read_output(folder, "granuloma") # couldn't get this file to be saved by the tool !!!
+s3 = list(
+  key_id = "AKIAIBRPHXPVEKDJQBFQ",
+  key = "gQBO0z5HYNp0qlotFJCP9Vfz7Yp5S2IB+jQ3Fajn",
+  region = "us-west-1",
+  bucket = "tbsim-shiny"
+)
+save_output_to_s3(s3 = s3, folder="/data/tbsim/RtmpJ1Uk7B/", bucket = "tbsim-shiny")
+
+tb_read_output_db(
+  id = "RtmpHJ2GBn",
+  db = list(
+    url = "mongodb://shinyuser:shiny12345@ds149567.mlab.com:49567/insightrx-tbsim-shiny"
+  )
+)
+
+granuloma <- tb_read_output(folder, "granuloma") # couldn't get this file to be saved by the tool !!!
 # adh <- tb_read_output(folder, "adherence") # something's wrong with the output data too
 
 ## Plot outcome data
-tb_plot (info, outc)
+tb_plot (res$info, res$outc)
 
 ## Plot bacterial data
 tb_plot (info, bact, type="wild")

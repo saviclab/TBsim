@@ -12,6 +12,8 @@ tb_run_sim <- function(sim = NULL,
                        keep_bin = FALSE,
                        run = TRUE,
                        jobscheduler = FALSE,
+                       queue = "main.q",
+                       results_folder = "/data/tbsim",
                        submit_cmd = "qsub") {
   folder <- sim$dataFolder
   config_folder <- paste0(folder, "/config")
@@ -51,17 +53,23 @@ tb_run_sim <- function(sim = NULL,
         if(!jobscheduler) {
           system(cmd)
           jobId <- NULL
+          output_folder <- folder
         } else {
+          keep_bin <- TRUE
+          id <- gsub("_tmp_", "", gsub("_output_", "", gsub("/", "_", folder)))
           name <- paste0(
             "tbsim_",
-            gsub("_tmp_", "", gsub("_output_", "", gsub("/", "_", folder)))
+            id
           )
-          jobId <- Rge::qsub(cmd = cmd, name = name)
+          output_folder <- paste0("/data/tbsim/", id)
+          cmd <- paste0(cmd, " && mkdir /data/tbsim/", id," && cp -R *.txt /data/tbsim/", id, "/")
+          jobId <- Rge::qsub(cmd = cmd, name = name, queue = queue)
         }
         if(!keep_bin) {
           unlink(paste0("./", bin))
         }
-        return(list(folder = folder,
+        return(list(run_folder = folder,
+                    output_folder = output_folder,
                     jobId = jobId,
                     name = name))
       }

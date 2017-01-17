@@ -10,4 +10,5 @@ License: MIT
 LazyData: TRUE
 RoxygenNote: 5.0.1
 Imports:
-  Rge
+  Rge,
+  mongolite
