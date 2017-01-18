@@ -107,7 +107,10 @@ void writeResults(const string& version, PARAMclass& PARA,
 
     // used for hourly data
     //int startHour = PARA.drugStart * 24;
-    int nHours  = 720;     // 30*24;
+
+    // int nHours  = 720;     // 30*24;
+    // RK: changed to output all data
+    int nHours = PARA.nTime * 24;
 
     std::string fileName;
 
@@ -441,5 +444,3 @@ int getConcStart(int nTime, VEC& v){
 
     return first;
 }
-
-

@@ -6,7 +6,7 @@ library(Rge)
 # tb_compile(cpp = "/usr/bin/g++")
 
 ## read in templates and define some constants
-therapy       <- tb_read_init("standardTB4.txt")
+therapy       <- tb_read_init("Algeria_4mo.txt")
 adherence     <- tb_read_init("adh2.txt")
 drugs <- list(
   EMB = tb_read_init("EMB.txt"),
@@ -17,6 +17,8 @@ drugs <- list(
 
 ## create a new simulation definition
 folder <- new_tempdir()
+# tb_write_init(therapy, "therapy.txt", folder = folder)
+# tb_write_init(therapy, "adherence.txt", folder = folder)
 sim1 <- tb_new_sim(folder = folder,
                    therapy = therapy,
                    adherence = adherence,

@@ -2,6 +2,8 @@
 
 S3method(print,TBsim)
 export(allowed_args)
+export(max_time_from_therapy)
+export(new_tempdir)
 export(tb_compile)
 export(tb_new_sim)
 export(tb_plot)
