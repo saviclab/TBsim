@@ -6,6 +6,9 @@
 \usage{
 random_string(len = 6)
 }
+\arguments{
+\item{len}{length of random character string}
+}
 \description{
 Random string
 }
