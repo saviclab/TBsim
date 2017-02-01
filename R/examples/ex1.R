@@ -28,6 +28,7 @@ sim1 <- tb_new_sim(folder = folder,
                    isSaveBactRes = 1,
                    isSaveImmune = 1,
                    isSaveBact = 1,
+                   isSaveBactRes = 1,
                    isSaveEffect = 1,
                    isSaveConc = 1,
                    isSaveConcKill = 1,
@@ -46,6 +47,7 @@ run <- tb_run_sim (sim1)
 info  <- tb_read_output(folder, "header")
 outc  <- tb_read_output(folder, "outcome")
 bact  <- tb_read_output(folder, "bact")
+bactRes <- tb_read_output(folder, "bactRes")
 conc  <- tb_read_output(folder, "conc")
 dose  <- tb_read_output(folder, "dose")
 eff   <- tb_read_output(folder, "effect")
@@ -57,7 +59,7 @@ macro <- tb_read_output(folder, "macro")
 # adh <- tb_read_output(folder, "adherence") # something's wrong with the output data too
 
 ## Plot outcome data
-tb_plot (info, res$outc)
+tb_plot (info, outc)
 
 ## Plot bacterial data
 tb_plot (info, bact, type="wild")
@@ -66,7 +68,6 @@ tb_plot (info, bactRes)
 
 ## Plot concentrations
 tb_plot (info, conc)
-
 
 ## Plot doses
 tb_plot (info, dose)

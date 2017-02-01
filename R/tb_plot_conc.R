@@ -27,12 +27,13 @@ tb_plot_conc <- function(info,conc){
                              levels = c("Extracellular", "Intracellular", "Extracell Granuloma", "Intracell Granuloma"))
 
     # generate plot
-    bp <- ggplot(data=df, aes(x=Hour/24, y=Concentration)) +
-      geom_line(size=0.5, colour="red") +
-      ggtitle("PK Concentration Profile per Drug (Average)") +
-      theme(plot.title = element_text(size=16, face="bold", vjust=2)) +
-      scale_color_brewer(palette="Set1") +
-      theme(legend.title=element_blank()) +
+    bp <- ggplot(data=df, aes(x=Hour/24, y=Concentration, colour=Drug)) +
+      geom_line(size=0.5) +
+      theme_empty() +
+      theme(plot.title = element_text(size=16, face="bold", vjust=2),
+            plot.margin = unit(c(.5,.5,.5,.3), "cm")) +
+      # scale_color_brewer(palette="Set1") +
+      guides(colour=FALSE) +
       ylab("Concentration [mg/L]") +
       xlab("Time after first drug start [Days]") +
       facet_grid(Drug ~ Compartment, scales="free_y")
