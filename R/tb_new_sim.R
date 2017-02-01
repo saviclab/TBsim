@@ -14,8 +14,10 @@ tb_new_sim <- function(template_file = NULL,
                        ... ) {
   if(is.null(folder)) {
     folder <- tempdir()
-    id <- stringr::str_replace(folder, "/tmp/Rtmp", "")
   }
+  id <- stringr::str_replace(folder, "/tmp", "")
+  id <- stringr::str_replace(folder, "/Rtmp", "")
+  id <- stringr::str_replace_all(folder, "/", "")
   folder <- gsub("~", path.expand("~"), folder)
   if (is.null(template_folder)) {
     template_folder <- paste0(system.file(package="TBsim"), "/config")
