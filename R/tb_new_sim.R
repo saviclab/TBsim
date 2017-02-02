@@ -1,8 +1,10 @@
 #' @export
 tb_new_sim <- function(template_file = NULL,
                        template_folder = NULL,
+                       central_folder = "/data/tbsim/",
                        folder = NULL,
                        id = NULL,
+                       description = "No description",
                        user = NULL,
                        therapy = NULL,
                        adherence = NULL,
@@ -13,11 +15,11 @@ tb_new_sim <- function(template_file = NULL,
                        nThreads = 4,
                        ... ) {
   if(is.null(folder)) {
-    folder <- tempdir()
+    folder <- new_tempdir()
   }
-  id <- stringr::str_replace(folder, "/tmp", "")
-  id <- stringr::str_replace(folder, "/Rtmp", "")
-  id <- stringr::str_replace_all(folder, "/", "")
+  if(is.null(id)) {
+    id <- TBsim::random_string()
+  }
   folder <- gsub("~", path.expand("~"), folder)
   if (is.null(template_folder)) {
     template_folder <- paste0(system.file(package="TBsim"), "/config")
@@ -36,6 +38,7 @@ tb_new_sim <- function(template_file = NULL,
     user <- Sys.getenv("USER")
   }
   obj$user <- user
+  obj$description <- gsub("\n", "", description)
   obj$dataFolder <- paste0(folder, "/output/")
   obj$batchMode <- 1
   obj$therapy <- therapy

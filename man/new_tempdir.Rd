@@ -4,7 +4,8 @@
 \alias{new_tempdir}
 \title{Create new temp folder}
 \usage{
-new_tempdir(base = "/tmp/", len = 6)
+new_tempdir(base = "/data/tbsim", user = "ronkeizer@gmail.com", id = NULL,
+  len = 6)
 }
 \arguments{
 \item{base}{base folder}
