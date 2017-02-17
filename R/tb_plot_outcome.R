@@ -98,7 +98,7 @@ tb_plot_outcome <- function(info,
       scale_y_continuous(breaks = laby , labels = namesy)
     if (is_combine_lat_clr){
       pl <- pl + scale_colour_manual(name = 'Outcome',
-                                     values = c('black'='black', 'blue'='blue', 'red'='red'),
+                                     values = c('black'='#4daf4a', 'blue'='#377eb8', 'red'='#e41a1c'),
                                      labels = c('No TB', 'Cleared/Latent', 'Acute'))
     } else {
       pl <- pl + scale_colour_manual(name = 'Outcome',
