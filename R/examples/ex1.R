@@ -59,7 +59,18 @@ macro <- tb_read_output(folder, "macro")
 # adh <- tb_read_output(folder, "adherence") # something's wrong with the output data too
 
 ## Plot outcome data
-tb_plot (info, outc)
+res <- tb_read_all_output(folder = "/data/tbsim/ronkeizer@gmail.com/29d83k/")
+tb_plot (res$info, res$outc, theme=NULL) +
+  theme(
+    plot.title=element_blank(),
+    legend.position = c(.5, .5),
+    panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank(),
+    legend.background = element_blank(),
+    panel.background = element_rect(fill="#ffffff"),
+    plot.background = element_rect(fill = "#efefef")
+  )+ xlab("Days") + ylab("%")
+tb_plot (info, outc, theme=NULL)
 
 ## Plot bacterial data
 tb_plot (info, bact, type="wild")

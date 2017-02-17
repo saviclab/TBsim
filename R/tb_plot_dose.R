@@ -38,7 +38,7 @@ tb_plot_dose <- function(info, dose){
   #     scale_color_brewer(palette="Set1") +
   #     theme(legend.title=element_blank()) +
   #     ylab("Dose [mg]") +
-  #     xlab("Time after infection start [Days]") +
+  #     xlab("Time after infection start (Days)") +
   #     facet_wrap(~Drug, nrow=1, scales="free")
 
   dat <- data.frame(

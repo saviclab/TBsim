@@ -6,7 +6,7 @@
 <V1Mean>49.6		: Volume (V/F)mean
 <V1Stdv>0.24		: Volume standard error
 <KeMult>2.02		: Ke multiplier for maximum auto-induction
-<KeTime>17.0		: Time [days] to reach max auto-induction
+<KeTime>17.0		: Time (Days) to reach max auto-induction
 <highAcetFactor>1.0	: Ke multiplier for high vs. low acetylator
 <IOfactor>3.7		: Concentration multiplier for inside vs. outside of
 					: macrophages

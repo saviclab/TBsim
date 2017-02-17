@@ -74,7 +74,6 @@ tb_plot_outcome <- function(info,
     namesy	<- laby
 
     # Generate plot
-    dev.new()
     pl <- ggplot(data = dfm, aes(x = time))
     if (is_combine_lat_clr){
       pl <- pl +
@@ -93,7 +92,7 @@ tb_plot_outcome <- function(info,
       geom_ribbon(aes(ymin=ATBp05, ymax=ATBp95), alpha=0.2) +
       geom_line(aes(y=ATB50, colour="red"), size=1) +
 
-      xlab("Time after infection start [Days]") +
+      xlab("Time after infection start (Days)") +
       ylab("Share of patient population [%]") +
       scale_x_continuous(breaks = labx, labels = namesx) +
       scale_y_continuous(breaks = laby , labels = namesy)

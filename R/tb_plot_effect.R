@@ -54,7 +54,7 @@ tb_plot_effect <- function(info, effect){
     yset1$Type <- info$drugNames[yset1$Type]
     yset1$Type <- factor(yset1$Type, levels = c(info$drugNames[1:info$nDrugs], info$drugNames[info$nDrugs+1]))
 
-    xlabel		<- "Time after infection start [Days]"
+    xlabel		<- "Time after infection start (Days)"
     ylabel		<- "Bactericidal effect [% of total]"
     titleText	<- "Relative Bactericidal Effect per Drug and Immune System "
 
@@ -62,22 +62,14 @@ tb_plot_effect <- function(info, effect){
     cbPalette <- c("#999999", "#E69F00", "#56B4E9", "#009E73", "#0072B2", "#F0E442", "#D55E00", "#CC79A7")
     pl1 <- ggplot(data = yset1, aes(x = Day, y=Median, group=Type, colour=Type)) +
       geom_line(size=1.0) +
-      theme(plot.title = element_text(size=16, face="bold", vjust=2)) +
+      theme_empty() +
+      theme(plot.title = element_text(size=12, vjust=2)) +
       xlab(xlabel) +
       ylab(ylabel) +
-      scale_colour_manual(values=cbPalette) +
+      scale_color_brewer(palette="Set1") +
+  #    scale_colour_manual(values=cbPalette) +
       ggtitle(titleText) +
       facet_wrap(~Compartment, nrow=1)
-
-#     ylabel		<- "Bactericidal [CFU/day]"
-#     titleText	<- "Absolute Killing per Compartment (note scale)"
-#     pl2 <- ggplot(data = yset2, aes(x = Day)) +
-#       geom_line(aes(y=Median), colour="blue", size=1.0) +
-#       theme(plot.title = element_text(size=16, face="bold", vjust=2)) +
-#       xlab(xlabel) +
-#       ylab(ylabel) +
-#       ggtitle(titleText) +
-#       facet_wrap(~Compartment, nrow=1, scales="free_y")
 
     return(pl1)
   })

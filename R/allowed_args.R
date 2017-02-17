@@ -1,6 +1,6 @@
 #' @export
 allowed_args <- list(
-  "nTime" = "total simulation duration [days], if drug administration is beyond nTime this will trigger a warning message",
+  "nTime" = "total simulation duration (Days), if drug administration is beyond nTime this will trigger a warning message",
   "nIterations" = "number of iterations in bootstrap process, should be > 100, and generally < 1000",
   "nPatients" = "number of patients per population [size 1000 x 4 drugs => ~6GB on 64bit Intel i5]",
   "nPopulations" = "number of distinct patient populations to generate. If >1 then boostrap is OFF",

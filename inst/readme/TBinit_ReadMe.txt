@@ -1,6 +1,6 @@
 <batchMode>0			: 0=interactive mode, 1=batch mode (no menu
 						  prompts)
-<nTime>360				: total simulation duration [days], 
+<nTime>360				: total simulation duration (Days), 
 						  if drug administration is beyond nTime
 						  this will trigger a warning message
 <nIterations>1000		: number of iterations in bootstrap process,

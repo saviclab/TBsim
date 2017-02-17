@@ -20,11 +20,11 @@ tb_plot_adherence <- function(info, adh){
       #geom_line(linetype="dashed", size=0.5, colour="grey") +
       geom_point(colour="red", size = 1) +
       ggtitle("Patient Drug Adherence (Median)") +
-      theme(plot.title = element_text(size=16, face="bold", vjust=2)) +
+      theme(plot.title = element_text(size=12, vjust=2)) +
       scale_color_brewer(palette="Set1") +
       theme(legend.title=element_blank()) +
       ylab("Adherence [%]") +
-      xlab("Time after infection start [Days]")
+      xlab("Time after infection start (Days)")
     return(bp)
   })
 
