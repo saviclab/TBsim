@@ -3,6 +3,10 @@ tb_read_outcome <- function(folder, filename = "outcome.txt", filetype = "outcom
 
   # read the outcome data file
 	inputFile <- paste0(folder, "/", filename)
+  if(!file.exists(inputFile)) {
+    warning(paste0("Couldn't find file ", inputFile))
+    return(NULL)
+  }
 	con  <- file(inputFile, open = "r")
 
   output <- list()

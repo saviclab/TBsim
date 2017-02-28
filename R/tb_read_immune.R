@@ -3,6 +3,10 @@ tb_read_immune <- function(folder) {
 
   # read the immune data file
   inputFile <- paste0(folder, "/immune.txt")
+  if(!file.exists(inputFile)) {
+    warning(paste0("Couldn't find file ", inputFile))
+    return(NULL)
+  }
   con <- file(inputFile, open = "r")
 
   #output variables

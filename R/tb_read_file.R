@@ -3,6 +3,10 @@ tb_read_file <- function(folder, filename = "calcConc.txt", filetype = "calcConc
 
   # read the dose data file
   inputFile <- paste0(folder, "/", filename)
+  if(!file.exists(inputFile)) {
+    warning(paste0("Couldn't find file ", inputFile))
+    return(NULL)
+  }
   con  <- file(inputFile, open = "r")
 
   # starting values

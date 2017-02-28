@@ -7,6 +7,10 @@ tb_read_init <- function (file, folder=NULL) {
     folder <- paste0(system.file(package="TBsim"), "/config")
   }
   filename <- paste0(folder, "/", file)
+  if(!file.exists(filename)) {
+    warning(paste0("Couldn't find file ", filename))
+    return(NULL)
+  }
   if (file.exists(filename)) {
     ini <- readLines(filename)
   } else {

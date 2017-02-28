@@ -8,5 +8,3 @@ tb_read_kill <- function(folder) {
     kills = output[[4]]
   )
 }
-
-

@@ -1,6 +1,10 @@
 tb_read_macro <- function(folder) {
 	# read the immune data file
 	inputFile <- paste(folder, "/macro.txt", sep="")
+	if(!file.exists(inputFile)) {
+    warning(paste0("Couldn't find file ", inputFile))
+    return(NULL)
+  }
 	con  <- file(inputFile, open = "r")
 
 	#counters
