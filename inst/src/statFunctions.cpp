@@ -197,4 +197,3 @@ double normDist(double m, double s, double mi, double ma)
     }
     return su;
 }
-

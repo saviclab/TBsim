@@ -2,6 +2,7 @@
 #include <iostream>
 #include <fstream>
 #include <algorithm>
+#include <chrono>
 
 #include "PARAMclass.h"
 #include "printFunctions.h"
@@ -105,6 +106,9 @@ void PARAMclass::initialize(){
     drugID                  = VECS();
     drugTable               = VECI();
     activeDrugs             = 0;
+
+    seed = std::chrono::system_clock::now().time_since_epoch().count();
+
 }
 
 bool PARAMclass::readInit (const std::string& folder, const std::string& filename)
@@ -113,15 +117,15 @@ bool PARAMclass::readInit (const std::string& folder, const std::string& filenam
     std::string tagText, valueText, fullname;
     const char delim1 = '<';
     const char delim2 = '>';
-    
+
     fullname = folder + filename;
     std::ifstream myfile (fullname);
     nDrugs = 0;         // clear counter of drug files
     nTherapy = 0;       // clear counter of therapy files
     nAdherence = 0;     // clear counter of adherence files
-    
+
     //std::cout << "file:"<<fullname<<"|"<<std::endl;
-    
+
     if (myfile.is_open())
     {
         while (!myfile.eof())
@@ -129,7 +133,7 @@ bool PARAMclass::readInit (const std::string& folder, const std::string& filenam
             getline (myfile, tagText, delim1);
             getline (myfile, tagText, delim2);
             getline (myfile, valueText);
-            
+
             // trim out any special characters at end of line
             // handle differences between Mac OS and Windows file format
             if ((valueText.back() == '\n') || (valueText.back() == '\r')){
@@ -137,7 +141,7 @@ bool PARAMclass::readInit (const std::string& folder, const std::string& filenam
                     valueText.resize(valueText.size()-1);
                 }
             }
-            
+
             if (tagText == "batchMode")         {batchMode = (int)S2N(valueText);}
             if (tagText == "nTime")             {nTime = (int)S2N(valueText);}
             if (tagText == "nPatients")         {nPatients = (int)S2N(valueText);}
@@ -216,6 +220,8 @@ bool PARAMclass::readInit (const std::string& folder, const std::string& filenam
             if (tagText == "latentBactLevel")       {latentBactLevel = S2N(valueText);}
             if (tagText == "nIterations")           {nIterations = S2N(valueText);}
 
+            if (tagText == "seed")                  {seed = S2N(valueText);}
+
             if (tagText == "drugFile") {
                 drugFile.push_back(valueText);
                 nDrugs++;
@@ -286,19 +292,19 @@ bool PARAMclass::readTherapy (const std::string& folder)
     const char delim1 = '<';
     const char delim2 = '>';
     const char pipe = '|';
-    
+
     for (int i=0;i<nTherapy;i++)
     {
         fullname = folder + therapyFile[i];
         std::ifstream myfile (fullname, std::ifstream::in);
-        
+
         if (myfile.is_open())
         {
             //std::cout<<"opened file"<<std::endl;
             while (!myfile.eof())
             {
                 //std::cout<<"read line"<<std::endl;
-                
+
                 getline (myfile, tagText, delim1);
                 getline (myfile, tagText, delim2);
                 getline (myfile, valueText);
@@ -412,6 +418,8 @@ void PARAMclass::printParameters()
                                      << bactThresholdRes << std::endl;
     std::cout << "Limit free/granuloma  : " << freeBactLevel << " / "
                                      << latentBactLevel << std::endl;
+
+    std::cout << "Simulation seed       : " << seed << std::endl;
 }
 
 

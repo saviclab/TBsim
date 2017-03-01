@@ -139,10 +139,11 @@ class PARAMclass
     VECI drugTable;                     // resulting list of drug INDEXES included in simulation
     int activeDrugs;                    // count of active drugs in current simulation instance
 
+    int seed;                           // Simulation seed
+
  private:
     VEC readArray(std::string&);
     double S2N(std::string);
 };
 
 #endif // PARAMCLASS_H
-

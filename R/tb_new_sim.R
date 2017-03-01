@@ -4,6 +4,8 @@ tb_new_sim <- function(template_file = NULL,
                        central_folder = "/data/tbsim/",
                        folder = NULL,
                        id = NULL,
+                       drugVariability = TRUE,
+                       seed = NULL,
                        description = "No description",
                        user = NULL,
                        therapy = NULL,
@@ -54,6 +56,10 @@ tb_new_sim <- function(template_file = NULL,
   obj$nTime <- nTime
   obj$nPopulations <- nPopulations
   obj$nThreads <- nThreads
+  obj$drugVariability <- drugVariability
+  if(!is.null(seed)) {
+    obj$seed <- seed
+  }
   args <- names(list(...))
   for (i in seq(args)) {
     if(args[i] %in% names(allowed_args)) {

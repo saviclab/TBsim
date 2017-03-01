@@ -34,6 +34,14 @@ tb_run_sim <- function(sim = NULL,
   tb_write_init(sim$adherence, "adherence.txt", config_folder)
   for (i in seq(names(sim$drugs))) {
     nam <- names(sim$drugs)[i]
+    if(!is.null(sim$drugVariability) && !sim$drugVariability) {
+      keys <- names(sim$drugs[[nam]])
+      for(key in keys) {
+        if(stringr::str_detect(key, "Stdv")) {
+          sim$drugs[[nam]][[key]] <- 0
+        }
+      }
+    }
     tb_write_init(sim$drugs[[nam]], paste0(nam, ".txt"), config_folder)
   }
   if(!is.null(sim)) {

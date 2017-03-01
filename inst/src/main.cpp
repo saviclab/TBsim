@@ -22,6 +22,7 @@
 //#include <omp.h>
 #include <fstream>
 #include <cstdlib>
+#include <random>
 
 #include "Global.h"
 #include "ADHclass.h"
@@ -43,9 +44,13 @@
 
 int main(int argc, char* argv[])
 {
+
     // object for simulation parameters
     PARAMclass PARA;
     PARA.initialize();
+
+    // Set seed
+    std::default_random_engine generator (PARA.seed);
 
     // object for drug parameters
     DRUGLISTclass DRUGLIST;
@@ -101,7 +106,7 @@ int main(int argc, char* argv[])
     }
     // debug
     //configStatus = false;
-    
+
     // run main program if no major errors in reading config files
     if ((validFile)&&(configStatus)) {
         if ((!adherenceStatus)||(!therapyStatus)||(!drugStatus)) {
@@ -441,7 +446,7 @@ int main(int argc, char* argv[])
                     }
                     std::cout<<std::endl;
                 }  // multiple populations loop
-                
+
                 TIMER.start(id, 7);
 
                 // post-processing of patient population - when NO bootstrap
