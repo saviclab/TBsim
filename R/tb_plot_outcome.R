@@ -51,6 +51,7 @@ tb_plot_outcome <- function(info,
                        df3c$ClearedTBAvg, df3c$ClearedTBp05,	df3c$ClearedTBp95,
                        df4c$LatentTBAvg,  df4c$LatentTBp05,	df4c$LatentTBp95,
                        df5c$cTBAvg,       df5c$cTBp05,			df5c$cTBp95)
+    yset[,-1] <- yset[,-1] * 100
     colnames(yset) <- c("time", "NTB50", "NTBp05", "NTBp95",
                         "ATB50", "ATBp05", "ATBp95",
                         "CTB50", "CTBp05", "CTBp95",
