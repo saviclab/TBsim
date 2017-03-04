@@ -55,6 +55,9 @@ tb_plot_bact <- function(info = NULL, bact = NULL,
   colnames(yset)	<- c("time", "Compartment", "Median", "p05", "p95")
   yset <- yset[yset$time<info$nTime+1,]
 
+  # simulated in 1e6 as unit (check with John)
+  yset[,c("Median", "p05", "p95")] <- yset[,c("Median", "p05", "p95")] * 1e6
+
   # filter out data before drugStart
   if (is_from_drug_start){
     yset <- yset[yset$time>info$drugStart,]
@@ -96,7 +99,7 @@ tb_plot_bact <- function(info = NULL, bact = NULL,
     ylab(ylabel) +
     ggtitle(paste(titleText, " All Compartments"))
   if (!is_summary){
-    pl <- pl + facet_grid(~ Compartment)
+    pl <- pl + facet_wrap(~ Compartment, scales="free_y")
   }
   return(pl)
 

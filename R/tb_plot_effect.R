@@ -55,12 +55,12 @@ tb_plot_effect <- function(info, effect){
     yset1$Type <- factor(yset1$Type, levels = c(info$drugNames[1:info$nDrugs], info$drugNames[info$nDrugs+1]))
 
     xlabel		<- "Time after infection start (Days)"
-    ylabel		<- "Bactericidal effect [% of total]"
+    ylabel		<- "Bactericidal effect (% of total)"
     titleText	<- "Relative Bactericidal Effect per Drug and Immune System "
 
     # The palette with grey:
     cbPalette <- c("#999999", "#E69F00", "#56B4E9", "#009E73", "#0072B2", "#F0E442", "#D55E00", "#CC79A7")
-    pl1 <- ggplot(data = yset1, aes(x = Day, y=Median, group=Type, colour=Type)) +
+    pl1 <- ggplot(data = yset1, aes(x = Day, y=Median * 100, group=Type, colour=Type)) +
       geom_line(size=1.0) +
       theme_empty() +
       theme(plot.title = element_text(size=12, vjust=2)) +
