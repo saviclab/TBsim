@@ -7,7 +7,7 @@
 # updated by Ron Keizer
 #===========================================================================
 #' @export
-tb_plot_conc <- function(info, conc, filter=TRUE, time_filter = NULL){
+tb_plot_conc <- function(info, conc, filter=TRUE, cv = NULL, time_filter = NULL){
 
   # build data frame
   with(conc, {
@@ -42,9 +42,18 @@ tb_plot_conc <- function(info, conc, filter=TRUE, time_filter = NULL){
       pl_data[pl_data$Concentration < 1e-4,]$Concentration <- 0
     }
 
+    # add approximate variability, if needed
+    if(is.null(cv)) { cv <- 0 }
+    pl_data$q95 <- pl_data$Concentration * (1 + 1.67 * cv)
+    pl_data$q5 <- pl_data$Concentration * (1 - 1.67 * cv)
+
     # generate plot
-    bp <- ggplot(data=pl_data, aes(x=Hour/24, colour=Drug)) +
-      # geom_ribbon(aes(ymin = minConc, ymax=maxConc), size = 0, fill='#dfdfdf') +
+    bp <- ggplot(data=pl_data, aes(x=Hour/24, colour=Drug))
+    if(cv != 0) {
+      bp <- bp +
+        geom_ribbon(aes(ymin = q5, ymax=q95), size = 0, fill='#dfdfdf')
+    }
+    bp <- bp +
       geom_line(aes(y = Concentration), size = 1) +
       theme_empty() +
       theme(plot.title = element_text(size=12, vjust=2),
