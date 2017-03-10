@@ -49,9 +49,9 @@ plotConc <- function(){
 	dev.new()
 	bp <- ggplot(data=df, aes(x=Hour, y=Concentration)) +
 	      geom_line(size=0.5, colour="red") +
-		  ggtitle("PK Concentration Profile per Drug") + 
+		  ggtitle("PK Concentration Profile per Drug") +
 		  theme(plot.title = element_text(size=16, face="bold", vjust=2)) +
- 		  scale_color_brewer(palette="Set1") +
+ 		  scale_color_brewer(palette="Dark2") +
 		  theme(legend.title=element_blank()) +
 		  ylab("Concentration [mg/L]") +
    		  xlab("Time after first drug start [Hours]") +

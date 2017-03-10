@@ -1,3 +1,8 @@
+#' List of drugs
+#'
+#' @export
+drug_factors <- c("RIF", "RPT", "INH", "PZA", "EMB", "MOX")
+
 #' Random string
 #'
 #' @param len length of random character string

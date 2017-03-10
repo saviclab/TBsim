@@ -19,6 +19,7 @@ tb_plot_conc <- function(info, conc, filter=TRUE, cv = NULL, time_filter = NULL)
     if (!is.null(info)) {
       df$Drug <- info$drug[df$Drug]
     }
+    df$Drug <- factor(df$Drug, levels=drug_factors)
 
     # apply compartment labels
     compNames <- c("Extracellular", "Intracellular", "Extracell Granuloma", "Intracell Granuloma")
@@ -58,7 +59,7 @@ tb_plot_conc <- function(info, conc, filter=TRUE, cv = NULL, time_filter = NULL)
       theme_empty() +
       theme(plot.title = element_text(size=12, vjust=2),
             plot.margin = unit(c(.5,.5,.5,.3), "cm")) +
-      scale_color_brewer(palette="Set1") +
+      scale_color_brewer(palette="Dark2") +
       guides(colour=FALSE) +
       ylab("Concentration [mg/L]") +
       xlab("Time after first drug start (Days)") +

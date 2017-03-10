@@ -46,13 +46,15 @@ tb_plot_outcome <- function(info,
     df5c <- df5c[1:info$nTime,]
 
     # combine all pieces into a single data frame
-    yset <- data.frame(timePeriods, df1c$NoTBAvg,      df1c$NoTBp05,  	df1c$NoTBp95,
+    yset <- data.frame(timePeriods,
+      #df1c$NoTBAvg,  df1c$NoTBp05,  	df1c$NoTBp95,
                        df2c$AcuteTBAvg,   df2c$AcuteTBp05,		df2c$AcuteTBp95,
                        df3c$ClearedTBAvg, df3c$ClearedTBp05,	df3c$ClearedTBp95,
                        df4c$LatentTBAvg,  df4c$LatentTBp05,	df4c$LatentTBp95,
                        df5c$cTBAvg,       df5c$cTBp05,			df5c$cTBp95)
     yset[,-1] <- yset[,-1] * 100
-    colnames(yset) <- c("time", "NTB50", "NTBp05", "NTBp95",
+    colnames(yset) <- c("time",
+                        #"NTB50", "NTBp05", "NTBp95",
                         "ATB50", "ATBp05", "ATBp95",
                         "CTB50", "CTBp05", "CTBp95",
                         "LTB50", "LTBp05", "LTBp95",
@@ -88,8 +90,8 @@ tb_plot_outcome <- function(info,
         geom_line(aes(y=CTB50, colour="blue"),size=1)
     }
     pl <- pl +
-      geom_ribbon(aes(ymin=NTBp05, ymax=NTBp95), alpha=0.2) +
-      geom_line(aes(y=NTB50, colour="black"),size=1) +
+      # geom_ribbon(aes(ymin=NTBp05, ymax=NTBp95), alpha=0.2) +
+      # geom_line(aes(y=NTB50, colour="black"),size=1) +
       geom_ribbon(aes(ymin=ATBp05, ymax=ATBp95), alpha=0.2) +
       geom_line(aes(y=ATB50, colour="red"), size=1) +
 
@@ -99,12 +101,12 @@ tb_plot_outcome <- function(info,
       scale_y_continuous(breaks = laby , labels = namesy)
     if (is_combine_lat_clr){
       pl <- pl + scale_colour_manual(name = 'Outcome',
-                                     values = c('black'='#4daf4a', 'blue'='#377eb8', 'red'='#e41a1c'),
-                                     labels = c('No TB', 'Cleared/Latent', 'Acute'))
+                                     values = c('blue'='#377eb8', 'red'='#e41a1c'),
+                                     labels = c('Cleared/Latent', 'Acute'))
     } else {
       pl <- pl + scale_colour_manual(name = 'Outcome',
-                                     values = c('darkgreen'='darkgreen', 'blue'='blue', 'black'='black', 'red'='red'),
-                                     labels = c('No TB', 'Cleared', 'Latent','Acute'))
+                                     values = c('blue'='blue', 'black'='black', 'red'='red'),
+                                     labels = c('Cleared', 'Latent', 'Acute'))
     }
     pl <- pl + 	theme(legend.justification=c(0,1), legend.position=c(0,1),
                       legend.background = element_rect(fill=rgb(1,1,1, 1.0)),

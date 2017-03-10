@@ -66,7 +66,7 @@ tb_plot_effect <- function(info, effect){
       theme(plot.title = element_text(size=12, vjust=2)) +
       xlab(xlabel) +
       ylab(ylabel) +
-      scale_color_brewer(palette="Set1") +
+      scale_color_brewer(palette="Dark2") +
   #    scale_colour_manual(values=cbPalette) +
       ggtitle(titleText) +
       facet_wrap(~Compartment, nrow=1)

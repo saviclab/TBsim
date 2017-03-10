@@ -2,6 +2,10 @@ tb_read_bact_totals <- function(folder, filename = "bactTotals.txt", filetype = 
 
   # read the immune data file
 	inputFile <- paste(folder, "/", filename, sep="")
+  if(!file.exists(inputFile)) {
+    warning(paste0("Couldn't find file ", inputFile))
+    return(NULL)
+  }
 	con  <- file(inputFile, open = "r")
 
 	#counters
