@@ -1,0 +1,6 @@
+<name>standard_HRZE8_7wkl_HR18_7wkl
+<description>8 weeks HRZE daily + 18 weeks HR daily
+<drug>RIF|600|0|182|1|
+<drug>INH|300|0|182|1|
+<drug>PZA|1500|0|56|1|
+<drug>EMB|1200|0|56|1|

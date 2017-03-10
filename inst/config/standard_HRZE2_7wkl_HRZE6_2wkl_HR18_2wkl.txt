@@ -1,0 +1,12 @@
+<name>standard_HRZE2_7wkl_HRZE6_2wkl_HR18_2wkl
+<description>8 weeks HRZE 7/wk (2wks) + HRZE 2/wk (6wks) + HR 2/wk (18wks)
+<drug>RIF|600|0|13|1|
+<drug>INH|300|0|13|1|
+<drug>PZA|1500|0|13|1|
+<drug>EMB|1200|0|13|1|
+<drug>RIF|600|14|55|3.5|
+<drug>INH|300|14|55|3.5|
+<drug>PZA|1500|14|55|3.5|
+<drug>EMB|1200|14|55|3.5|
+<drug>RIF|600|56|182|3.5|
+<drug>INH|300|56|182|3.5|

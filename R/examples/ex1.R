@@ -20,7 +20,7 @@ folder <- new_tempdir()
 sim1 <- tb_new_sim(folder = folder,
                    therapy = therapy,
                    adherence = adherence,
-                   drug = drugs,
+                   drugs = drugs,
                    nPatients = 1,
                    therapyStart = 90,
                    nTime = 180,
@@ -59,7 +59,7 @@ macro <- tb_read_output(folder, "macro")
 # adh <- tb_read_output(folder, "adherence") # something's wrong with the output data too
 
 ## Plot outcome data
-res <- tb_read_all_output(folder = "/data/tbsim/ronkeizer@gmail.com/29d83k/")
+res <- tb_read_all_output(folder = folder, output_folder = TRUE)
 tb_plot (res$info, res$outc, theme=NULL) +
   theme(
     plot.title=element_blank(),
@@ -73,7 +73,7 @@ tb_plot (res$info, res$outc, theme=NULL) +
 tb_plot (info, outc, theme=NULL)
 
 ## Plot bacterial data
-tb_plot (info, bact, type="wild")
+tb_plot (info, bact, type="wild", is_summary=FALSE, theme=theme_bw())
 tb_plot (info, bact, type="total")
 tb_plot (info, bactRes)
 
