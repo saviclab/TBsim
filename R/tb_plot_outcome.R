@@ -102,7 +102,7 @@ tb_plot_outcome <- function(info,
     if (is_combine_lat_clr){
       pl <- pl + scale_colour_manual(name = 'Outcome',
                                      values = c('blue'='#377eb8', 'red'='#e41a1c'),
-                                     labels = c('Cleared/Latent', 'Acute'))
+                                     labels = c('Cleared', 'Acute'))
     } else {
       pl <- pl + scale_colour_manual(name = 'Outcome',
                                      values = c('blue'='blue', 'black'='black', 'red'='red'),
