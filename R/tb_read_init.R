@@ -37,5 +37,6 @@ tb_read_init <- function (file, folder=NULL) {
       warning(paste0("Parsing failed for: ", ini[i]))
     }
   }
+  obj$folder <- folder
   return (obj)
 }

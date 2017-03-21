@@ -54,12 +54,13 @@ tb_run_sim <- function(sim = NULL,
     stop()
   }
   if(!is.null(sim$description)) {
+    ## add to tbsim database
     TBsim::text_to_file(sim$description, paste0(folder, "/description.txt"))
     ## make sure the db file is updated
     db_file <- paste0(results_folder, "/", sim$user, "/tbsim_runs.csv")
     if(file.exists(db_file)) {
       csv <- read.csv(file = db_file)
-      csv <- data.frame(rbind(csv, cbind(id = sim$id, description = sim$description, outcome = 0, n_patients = 0)))
+      csv <- data.frame(rbind(csv, cbind(id = sim$id, description = sim$description, outcome = 0, n_patients = 0, datetime = Sys.time())))
       csv <- csv[!duplicated(csv$id),]
       write.csv(csv, file = db_file, quote=F, row.names=F)
     }

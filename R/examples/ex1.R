@@ -58,6 +58,18 @@ macro <- tb_read_output(folder, "macro")
 # granuloma <- tb_read_output(folder, "granuloma") # couldn't get this file to be saved by the tool !!!
 # adh <- tb_read_output(folder, "adherence") # something's wrong with the output data too
 
+drugDefinitions <- list(
+  RIF = tb_read_init("RIF.txt"),
+  INH = tb_read_init("INH.txt"),
+  PZA = tb_read_init("PZA.txt"),
+  RPT = tb_read_init("RPT.txt"),
+  MOX = tb_read_init("MOX.txt"),
+  EMB = tb_read_init("EMB.txt")
+)
+reg <- load_regimen(folder=paste0(folder, "/output/config"),
+                    drugDefinitions = drugDefinitions)
+
+
 ## Plot outcome data
 res <- tb_read_all_output(folder = folder, output_folder = TRUE)
 tb_plot (res$info, res$outc, theme=NULL) +
@@ -81,7 +93,7 @@ tb_plot (info, bactRes)
 tb_plot_conc (info, conc)
 
 ## Plot doses
-tb_plot (info, dose)
+tb_plot_dose (info, dose)
 
 ## Plot effect
 tb_plot_effect (info, eff)
