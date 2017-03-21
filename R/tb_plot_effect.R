@@ -12,15 +12,24 @@ tb_plot_effect <- function(info, effect){
   timePeriods <- 1:info$nTime
 
   with (effect, {
+
     # build dataframe 1
-    df1 <- data.frame(times, types, compartments, values)
+    unq <- length(unique(types)) * length(unique(compartments))
+    times_new <- rep(
+      1:(length(types) / unq),
+      unq)
+    df1 <- data.frame(
+      times_new,
+      types,
+      compartments,
+      values)
     colnames(df1) <- c("Day", "Type", "Compartment", "Median")
 
     # filter out data before drugStart
-    isFromDrugStart <- 1
-    if (isFromDrugStart==1){
-      df1 <- df1[df1$Day > info$drugStart,]
-    }
+    # isFromDrugStart <- 1
+    # if (isFromDrugStart==1){
+    #   df1 <- df1[df1$Day > info$drugStart,]
+    # }
 
     # filter out to have 1/5 of points, for more smooth curve
     df1 <- df1[seq(1, nrow(df1), 5), ]
@@ -47,12 +56,12 @@ tb_plot_effect <- function(info, effect){
 #                                 levels = c("Extracellular", "Intracellular", "Extracell Granuloma", "Intracell Granuloma"))
 
     # apply drug names
-    # # if (is.null(info$drugNames)) { # added RK, variable did not exist in info
-    # #   info$drugNames <- info$drug
-    # # }
-    # info$drugNames[info$nDrugs+1] <- "Immune"
-#    yset1$Type <- info$drugNames[yset1$Type]
-#    yset1$Type <- factor(yset1$Type, levels = c(info$drugNames[1:info$nDrugs], info$drugNames[info$nDrugs+1]))
+   if (is.null(info$drugNames)) { # added RK, variable did not exist in info
+     info$drugNames <- info$drug
+   }
+   info$drugNames[[info$nDrugs+1]] <- "Immune"
+   yset1$Type <- info$drugNames[yset1$Type]
+   yset1$Type <- factor(yset1$Type, levels = info$drugNames)
 
     xlabel		<- "Time after infection start (Days)"
     ylabel		<- "Bactericidal effect (% of total)"

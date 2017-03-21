@@ -53,7 +53,7 @@ tb_read_file <- function(folder, filename = "calcConc.txt", filetype = "calcConc
         #print(length(numberVector))
         #numberVector <- numberVector[1:length(numberVector)-1]
         #print(length(numberVector))
-        times <- c(times, 1:len + startTime[drugi] )
+        times <- c(times, (1:len) + startTime[drugi] )
         if (type!="all"){
           drugs <- c(drugs, rep(drugi, len))
           compartments <- c(compartments, rep(compartment, len))

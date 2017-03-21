@@ -22,7 +22,7 @@ sim1 <- tb_new_sim(folder = folder,
                    adherence = adherence,
                    drugs = drugs,
                    nPatients = 1,
-                   therapyStart = 90,
+                   therapyStart = 180,
                    nTime = 180,
                    isDrugEffect = 1,
                    isSaveBactRes = 1,
@@ -78,7 +78,7 @@ tb_plot (info, bact, type="total")
 tb_plot (info, bactRes)
 
 ## Plot concentrations
-tb_plot (info, conc)
+tb_plot_conc (info, conc)
 
 ## Plot doses
 tb_plot (info, dose)
