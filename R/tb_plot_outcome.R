@@ -78,25 +78,17 @@ tb_plot_outcome <- function(info,
 
     # Generate plot
     pl <- ggplot(data = dfm, aes(x = time))
-    if (is_combine_lat_clr){
-      pl <- pl +
-        geom_ribbon(aes(ymin=cTBp05, ymax=cTBp95), alpha=0.2) +
-        geom_line(aes(y=cTB50, colour="blue"),size=1)
-    } else {
-      pl <- pl +
-        geom_ribbon(aes(ymin=LTBp05, ymax=LTBp95), alpha=0.2) +
-        geom_line(aes(y=LTB50, colour="darkgreen"),size=1) +
-        geom_ribbon(aes(ymin=CTBp05, ymax=CTBp95), alpha=0.2) +
-        geom_line(aes(y=CTB50, colour="blue"),size=1)
-    }
     pl <- pl +
-      # geom_ribbon(aes(ymin=NTBp05, ymax=NTBp95), alpha=0.2) +
-      # geom_line(aes(y=NTB50, colour="black"),size=1) +
-      geom_ribbon(aes(ymin=ATBp05, ymax=ATBp95), alpha=0.2) +
-      geom_line(aes(y=ATB50, colour="red"), size=1) +
-
+      geom_ribbon(aes(ymin=cTBp05, ymax=cTBp95), alpha=0.2) +
+      geom_line(aes(y=cTB50, colour="blue"),size=1)
+    # pl <- pl +
+    #   # geom_ribbon(aes(ymin=NTBp05, ymax=NTBp95), alpha=0.2) +
+    #   # geom_line(aes(y=NTB50, colour="black"),size=1) +
+    #   geom_ribbon(aes(ymin=ATBp05, ymax=ATBp95), alpha=0.2) +
+    #   geom_line(aes(y=ATB50, colour="red"), size=1) +
+    pl <- pl +
       xlab("Time after infection start (Days)") +
-      ylab("Share of patient population [%]") +
+      ylab("% patients cleared of TB") +
       scale_x_continuous(breaks = labx, labels = namesx) +
       scale_y_continuous(breaks = laby , labels = namesy)
     if (is_combine_lat_clr){
@@ -108,10 +100,11 @@ tb_plot_outcome <- function(info,
                                      values = c('blue'='blue', 'black'='black', 'red'='red'),
                                      labels = c('Cleared', 'Latent', 'Acute'))
     }
-    pl <- pl + 	theme(legend.justification=c(0,1), legend.position=c(0,1),
-                      legend.background = element_rect(fill=rgb(1,1,1, 1.0)),
-                      legend.direction="vertical", legend.box="horizontal", legend.box.just = c("top")) +
-      expand_limits(y=0) +
+    pl <- pl +
+    # theme(legend.justification=c(0,1), legend.position=c(0,1),
+    #                   legend.background = element_rect(fill=rgb(1,1,1, 1.0)),
+    #                   legend.direction="vertical", legend.box="horizontal", legend.box.just = c("top")) +
+       expand_limits(y=0) +
       theme(plot.title = element_text(size=16, face="bold", vjust=2)) +
       ggtitle(mainTitle)
     return(pl)

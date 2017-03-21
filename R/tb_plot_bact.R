@@ -93,6 +93,7 @@ tb_plot_bact <- function(info = NULL, bact = NULL,
     theme(plot.title = element_text(size=12, vjust=2)) +
     geom_ribbon(aes(ymin=p05, ymax=p95), alpha=0.2) +
     geom_line(aes(y=Median), colour="#052049", size=1) +
+    scale_y_log10() +
     # scale_y_continuous(breaks = laby, labels = namesy) +
     # scale_x_continuous(breaks = labx, labels = namesx) +
     xlab(xlabel) +

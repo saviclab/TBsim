@@ -31,16 +31,18 @@ tb_plot_bactRes <- function(info, bact){
     df$Type <- factor(df$Type, levels = c(info$drugNames[1:nDrugs], info$drugNames[nDrugs+1]))
 
     # generate plot
+    df <- df %>% mutate(Load = max(1, Load))
     bp <- ggplot(data=df, aes(x=Hour, y=Load, colour=Type)) +
       geom_line(size=1) +
       theme_empty() +
       ggtitle("Resistant bacteria") +
       theme(plot.title = element_text(size=12, vjust=2)) +
       scale_color_brewer(palette="Set1") +
+      scale_y_log10() +
       theme(legend.title=element_blank()) +
-      ylab("Load") +
+      ylab("Restistant bacterial load") +
       xlab("Time after first drug start [Hours]") +
-      facet_grid( ~ Compartment, scales="free") 
+      facet_grid( ~ Compartment, scales="free")
     return(bp)
 
   })

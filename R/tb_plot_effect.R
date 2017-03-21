@@ -47,12 +47,12 @@ tb_plot_effect <- function(info, effect){
 #                                 levels = c("Extracellular", "Intracellular", "Extracell Granuloma", "Intracell Granuloma"))
 
     # apply drug names
-    if (is.null(info$drugNames)) { # added RK, variable did not exist in info
-      info$drugNames <- info$drug
-    }
-    info$drugNames[info$nDrugs+1] <- "Immune"
-    yset1$Type <- info$drugNames[yset1$Type]
-    yset1$Type <- factor(yset1$Type, levels = c(info$drugNames[1:info$nDrugs], info$drugNames[info$nDrugs+1]))
+    # # if (is.null(info$drugNames)) { # added RK, variable did not exist in info
+    # #   info$drugNames <- info$drug
+    # # }
+    # info$drugNames[info$nDrugs+1] <- "Immune"
+#    yset1$Type <- info$drugNames[yset1$Type]
+#    yset1$Type <- factor(yset1$Type, levels = c(info$drugNames[1:info$nDrugs], info$drugNames[info$nDrugs+1]))
 
     xlabel		<- "Time after infection start (Days)"
     ylabel		<- "Bactericidal effect (% of total)"
