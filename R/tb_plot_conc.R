@@ -7,7 +7,8 @@
 # updated by Ron Keizer
 #===========================================================================
 #' @export
-tb_plot_conc <- function(info, conc, filter=TRUE, cv = NULL, time_filter = NULL){
+tb_plot_conc <- function(info, conc, filter=TRUE, cv = NULL,
+  time_filter = NULL, custom_drugs = NULL) {
 
   # build data frame
   with(conc, {
@@ -19,7 +20,11 @@ tb_plot_conc <- function(info, conc, filter=TRUE, cv = NULL, time_filter = NULL)
     if (!is.null(info)) {
       df$Drug <- info$drug[df$Drug]
     }
-    df$Drug <- factor(df$Drug, levels=drug_factors)
+    if(is.null(custom_drugs)) {
+      df$Drug <- factor(df$Drug, levels=drug_factors)
+    } else {
+      df$Drug <- factor(df$Drug, levels=custom_drugs)
+    }
 
     # apply compartment labels
     compNames <- c("Extracellular", "Intracellular", "Extracell Granuloma", "Intracell Granuloma")
@@ -61,7 +66,7 @@ tb_plot_conc <- function(info, conc, filter=TRUE, cv = NULL, time_filter = NULL)
             plot.margin = unit(c(.5,.5,.5,.3), "cm")) +
       scale_color_brewer(palette="Dark2") +
       guides(colour=FALSE) +
-      ylab("Concentration [mg/L]") +
+      ylab("Concentration (mg/L)") +
       xlab("Time after first drug start (Days)") +
       facet_grid(Drug ~ Compartment, scales="free_y")
     return(bp)

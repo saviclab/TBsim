@@ -7,7 +7,7 @@
 # updates Ron Keizer, 2015
 #===========================================================================
 #' @export
-tb_plot_kill <- function(info, kill){
+tb_plot_kill <- function(info, kill, custom_drugs = NULL){
 
   # with(kill, {
   #   # build data frame
@@ -39,7 +39,7 @@ tb_plot_kill <- function(info, kill){
 
   kill$concs <- kill$kill
   attr(kill, "type") <- "conc"
-  pl <- tb_plot_conc(info, kill)
+  pl <- tb_plot_conc(info, kill, custom_drugs = custom_drugs)
   return(pl)
 
 }

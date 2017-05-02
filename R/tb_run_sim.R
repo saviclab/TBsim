@@ -14,6 +14,7 @@ tb_run_sim <- function(sim = NULL,
                        jobscheduler = FALSE,
                        queue = "main.q",
                        results_folder = "/data/tbsim",
+                       custom_drugs_folder = "/data/tbsim/drugs",
                        submit_cmd = "qsub") {
   folder <- sim$dataFolder
   if(dir.exists(folder)) {
@@ -42,7 +43,8 @@ tb_run_sim <- function(sim = NULL,
         }
       }
     }
-    tb_write_init(sim$drugs[[nam]], paste0(nam, ".txt"), config_folder)
+    fname <- paste0(nam, ".txt")
+    tb_write_init(sim$drugs[[nam]], fname, config_folder)
   }
   if(!is.null(sim)) {
     sim$drugs <- NULL
