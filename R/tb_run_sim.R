@@ -87,7 +87,7 @@ tb_run_sim <- function(sim = NULL,
           if(!is.null(sim$user)) {
             output_folder <- paste0(results_folder, "/", sim$user, "/", sim$id)
           }
-          cmd <- paste0(cmd, " && mkdir -p ", output_folder," && cp -R *.txt ", output_folder, "/")
+          # cmd <- paste0(cmd, " && mkdir -p ", output_folder," && cp -R *.txt ", output_folder, "/")
           cat(paste0("Submitting job ", sim$id, "\n"))
           jobId <- Rge::qsub(cmd = cmd, name = name, queue = queue)
         }
