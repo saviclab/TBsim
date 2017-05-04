@@ -20,7 +20,7 @@ tb_run_sim <- function(sim = NULL,
   if(dir.exists(folder)) {
     stop("Output folder already exists, not starting new job.")
   }
-  config_folder <- paste0(folder, "/config")
+  config_folder <- paste0(folder, "/../config")
   if (!file.exists(folder)) {
     dir.create(folder)
   }
@@ -74,7 +74,7 @@ tb_run_sim <- function(sim = NULL,
     if (file.exists(paste0(config_folder, "/sim.txt"))) {
       if(run) {
         setwd(folder)
-        cmd <- paste0("./", bin, " config/ ", "sim.txt")
+        cmd <- paste0("./", bin, " ../config/ ", "sim.txt")
         name <- paste0("tbsim_", sim$id)
         if(!jobscheduler) {
           cat("Starting execution: ", cmd, "\n")
