@@ -30,8 +30,10 @@ tb_plot_bactRes <- function(info, bact){
     df$Type <- info$drugNames[df$Type]
     df$Type <- factor(df$Type, levels = c(info$drugNames[1:nDrugs], info$drugNames[nDrugs+1]))
 
-    # generate plot
-    df <- df %>% mutate(Load = max(1, Load))
+    ## generate plot
+    # df <- df %>% mutate(Load = max(1, Load))
+    # RK not sure why the above line was included
+
     bp <- ggplot(data=df, aes(x=Hour, y=Load, colour=Type)) +
       geom_line(size=1) +
       theme_empty() +
