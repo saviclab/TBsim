@@ -5,14 +5,15 @@
 # Ron Keizer, 2016
 #===========================================================================
 #' @export
-tb_plot_bactRes <- function(info, bact){
+tb_plot_bactRes <- function(info, bact = NULL,
+                            type = "total", is_summary = TRUE, is_from_drug_start = TRUE) {
 
   # build data frame
   with(bact, {
 
     df <- data.frame(times, types, compartments, values)
     df <- na.omit(df)
-    colnames(df) <- c("Hour", "Type", "Compartment", "Load")
+    colnames(df) <- c("Days", "Type", "Compartment", "Load")
 
 
     # apply compartment labels
@@ -30,11 +31,17 @@ tb_plot_bactRes <- function(info, bact){
     df$Type <- info$drugNames[df$Type]
     df$Type <- factor(df$Type, levels = c(info$drugNames[1:nDrugs], info$drugNames[nDrugs+1]))
 
+    # filter out data before drugStart
+    if (is_from_drug_start){
+      df <- df[df$Days > info$drugStart,]
+      df$Days <- df$Days - info$drugStart
+    }
+
     ## generate plot
     # df <- df %>% mutate(Load = max(1, Load))
     # RK not sure why the above line was included
 
-    bp <- ggplot(data=df, aes(x=Hour, y=Load, colour=Type)) +
+    bp <- ggplot(data=df, aes(x=Days, y=Load, colour=Type)) +
       geom_line(size=1) +
       theme_empty() +
       ggtitle("Resistant bacteria") +
@@ -43,7 +50,7 @@ tb_plot_bactRes <- function(info, bact){
       scale_y_log10() +
       theme(legend.title=element_blank()) +
       ylab("Restistant bacterial load") +
-      xlab("Time after first drug start [Hours]") +
+      xlab("Time after first drug start (Days)") +
       facet_grid( ~ Compartment, scales="free")
     return(bp)
 

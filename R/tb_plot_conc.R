@@ -12,7 +12,7 @@ tb_plot_conc <- function(info, conc, filter=TRUE, cv = NULL,
 
   # build data frame
   with(conc, {
-    df <- data.frame(times, drugs, compartments, concs)
+    df <- data.frame(times - min(times), drugs, compartments, concs)
     df <- na.omit(df)
     colnames(df) <- c("Hour", "Drug", "Compartment", "Concentration")
 

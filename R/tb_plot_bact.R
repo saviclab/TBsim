@@ -60,7 +60,8 @@ tb_plot_bact <- function(info = NULL, bact = NULL,
 
   # filter out data before drugStart
   if (is_from_drug_start){
-    yset <- yset[yset$time>info$drugStart,]
+    yset <- yset[yset$time > info$drugStart,]
+    yset$time <- yset$time - info$drugStart
   }
 
   # filter out to have 1/5 of points, for more smooth curve

@@ -7,7 +7,7 @@
 # Oct 20, 2014
 # Updates Ron Keizer, 2015
 #===========================================================================
-tb_plot_effect <- function(info, effect){
+tb_plot_effect <- function(info, effect, is_from_drug_start = TRUE){
 
   timePeriods <- 1:info$nTime
 
@@ -40,28 +40,24 @@ tb_plot_effect <- function(info, effect){
     yset1 <- data.frame(yset1$Day, yset1$Type, yset1$Compartment, yset1$Median)
     colnames(yset1)  <- c("Day", "Type", "Compartment", "Median")
 
-    # RK this data is not available, so don't make pl2
-#     yset2 <- df1[df1$Type==0,]
-#     yset2 <- yset2[!is.na(yset2$Type), ]
-#     yset2 <- data.frame(yset2$Day, yset2$Compartment, yset2$Median)
-#     colnames(yset2)	<- c("Day", "Compartment", "Median")
+    # filter out data before drugStart
+    if (is_from_drug_start){
+      yset1 <- yset1[yset1$Day > info$drugStart,]
+      yset1$Day <- yset1$Day - info$drugStart
+    }
 
     # apply compartment labels
     compNames <- c("Extracellular", "Intracellular", "Extracell Granuloma", "Intracell Granuloma")
     yset1$Compartment <- compNames[yset1$Compartment]
     yset1$Compartment <- factor(yset1$Compartment,
                                 levels = c("Extracellular", "Intracellular", "Extracell Granuloma", "Intracell Granuloma"))
-#     yset2$Compartment <- compNames[yset2$Compartment]
-#     yset2$Compartment <- factor(yset2$Compartment,
-#                                 levels = c("Extracellular", "Intracellular", "Extracell Granuloma", "Intracell Granuloma"))
-
     # apply drug names
-   if (is.null(info$drugNames)) { # added RK, variable did not exist in info
-     info$drugNames <- info$drug
-   }
-   info$drugNames[[info$nDrugs+1]] <- "Immune"
-   yset1$Type <- info$drugNames[yset1$Type]
-   yset1$Type <- factor(yset1$Type, levels = info$drugNames)
+    if (is.null(info$drugNames)) { # added RK, variable did not exist in info
+      info$drugNames <- info$drug
+    }
+    info$drugNames[[info$nDrugs+1]] <- "Immune"
+    yset1$Type <- info$drugNames[yset1$Type]
+    yset1$Type <- factor(yset1$Type, levels = info$drugNames)
 
     xlabel		<- "Time after infection start (Days)"
     ylabel		<- "Bactericidal effect (% of total)"

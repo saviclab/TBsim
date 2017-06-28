@@ -5,7 +5,7 @@
 ########################################################
 
 #' @export
-tb_plot_immune_spec <- function(yset, names, mainTitle, subTitle, ytext, drugStart) {
+tb_plot_immune_spec <- function(yset, names, mainTitle, subTitle, ytext, drugStart = NULL) {
   # Prepare data
   colnames(yset) <- names
   dfm2		<- reshape2::melt(yset, id="time", na.rm=TRUE)
@@ -18,13 +18,14 @@ tb_plot_immune_spec <- function(yset, names, mainTitle, subTitle, ytext, drugSta
     geom_line(linetype="solid", size=1) +
     theme_empty() +
     scale_color_brewer(palette="Set1") +
-    theme(legend.justification=c(0,1), legend.position=c(0.7,.5), legend.title=element_blank(),
-          legend.background = element_rect(fill=rgb(1,1,1, 1.0)),
-          legend.direction="vertical", legend.box="horizontal", legend.box.just = c("top")) +
+    theme(legend.position="bottom", legend.title=element_blank()) +
     expand_limits(y=0) +
     xlab(xtext) +
     ylab(ytext) +
     theme(plot.title = element_text(size=12, vjust=2)) +
     ggtitle(mainTitle)
+  if(!is.null(drugStart)) {
+    pl <- pl + geom_vline(xintercept = drugStart, linetype = 'dashed')
+  }
   return(pl)
 }

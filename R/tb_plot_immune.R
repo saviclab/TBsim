@@ -40,27 +40,27 @@ tb_plot_immune <- function(info, immune) {
     # generate plots
     # Cytokines in Lung (IL4, IL10, IL12L, IFN)
     mainTitle <- "Cytokines in Lung"
-    pl1 <- tb_plot_immune_spec(df1, c("time", "IL4", "IL10", "IL12L", "IFN"), mainTitle, subTitle, "pg/mL", drugStart)
+    pl1 <- tb_plot_immune_spec(df1, c("time", "IL4", "IL10", "IL12L", "IFN"), mainTitle, subTitle, "pg/mL", info$drugStart)
 
     # Cytokines in Lymph Node (IL12LN)
     mainTitle <- "Cytokines in Lymph Node (IL12LN)"
-    pl2 <- tb_plot_immune_spec(df2, c("time", "IL12LN"), mainTitle, subTitle, "pg/mL", drugStart)
+    pl2 <- tb_plot_immune_spec(df2, c("time", "IL12LN"), mainTitle, subTitle, "pg/mL", info$drugStart)
 
     # Dendritic Cells, (IDC and MDC)
     mainTitle <- "Dendritic Cells (IDC and MDC)"
-    pl3 <- tb_plot_immune_spec(df3, c("time", "IDC", "MDC"), mainTitle, subTitle, "Cells/mL", drugStart)
+    pl3 <- tb_plot_immune_spec(df3, c("time", "IDC", "MDC"), mainTitle, subTitle, "Cells/mL", info$drugStart)
 
     # T cells (T1, T2)
     mainTitle <- "T cells in Lung (T1, T2)"
-    pl4 <- tb_plot_immune_spec(df4, c("time", "T1", "T2"), mainTitle, subTitle, "Cells/mL", drugStart)
+    pl4 <- tb_plot_immune_spec(df4, c("time", "T1", "T2"), mainTitle, subTitle, "Cells/mL", info$drugStart)
 
     # T helper cells (Tp, TpLN)
     mainTitle <- "T cells in Lung (Tp, TpLN)"
-    pl5 <- tb_plot_immune_spec(df5, c("time", "Tp", "TpLN"), mainTitle, subTitle, "Cells/mL", drugStart)
+    pl5 <- tb_plot_immune_spec(df5, c("time", "Tp", "TpLN"), mainTitle, subTitle, "Cells/mL", info$drugStart)
 
     # Naive T cells (TLN)
     mainTitle <- "Naive T cells in Lymph (TLN)"
-    pl6 <- tb_plot_immune_spec(df6, c("time", "TLN"), mainTitle, subTitle, "Cells/mL", drugStart)
+    pl6 <- tb_plot_immune_spec(df6, c("time", "TLN"), mainTitle, subTitle, "Cells/mL", info$drugStart)
 
     return(list(
       cytokines_lung = pl1,
