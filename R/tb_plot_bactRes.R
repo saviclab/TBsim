@@ -37,10 +37,20 @@ tb_plot_bactRes <- function(info, bact = NULL,
       df$Days <- df$Days - info$drugStart
     }
 
+    if (is_summary) {
+      df <- df %>% dplyr::group_by(Type, Days) %>% dplyr::mutate(Load = sum(Load))
+    }
+
+
     ## generate plot
     # df <- df %>% mutate(Load = max(1, Load))
     # RK not sure why the above line was included
 
+    # df$Load[df$Load < 1] <- 1
+    # max_load <- max(df$Load)
+    # if(max_load <= 10) {
+    #   max_load <- 10
+    # }
     bp <- ggplot(data=df, aes(x=Days, y=Load, colour=Type)) +
       geom_line(size=1) +
       theme_empty() +
@@ -49,10 +59,15 @@ tb_plot_bactRes <- function(info, bact = NULL,
       scale_color_brewer(palette="Set1") +
       scale_y_log10() +
       theme(legend.title=element_blank()) +
-      ylab("Restistant bacterial load") +
+      ylab("Resistant bacterial load (CFU/mL)") +
       xlab("Time after first drug start (Days)") +
-      facet_grid( ~ Compartment, scales="free")
-    return(bp)
+      geom_hline(yintercept=1, linetype = "dashed")
+    if (!is_summary) {
+      bp <- bp + facet_wrap(~ Compartment, scales="free_y")
+    }
 
+      #+
+      #ggplot2::ylim(c(1, max_load))
+    return(bp)
   })
 }
