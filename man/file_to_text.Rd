@@ -12,4 +12,3 @@ file_to_text(f)
 \description{
 Read text from file
 }
-

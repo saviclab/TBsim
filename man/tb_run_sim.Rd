@@ -6,7 +6,7 @@
 \usage{
 tb_run_sim(sim = NULL, bin = "TBsim", keep_bin = FALSE, run = TRUE,
   jobscheduler = FALSE, queue = "main.q", results_folder = "/data/tbsim",
-  submit_cmd = "qsub")
+  custom_drugs_folder = "/data/tbsim/drugs", submit_cmd = "qsub")
 }
 \arguments{
 \item{sim}{sim simulation definition}
@@ -24,4 +24,3 @@ tb_run_sim(sim = NULL, bin = "TBsim", keep_bin = FALSE, run = TRUE,
 \description{
 Run TBsim simulation
 }
-

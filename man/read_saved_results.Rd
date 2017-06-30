@@ -17,4 +17,3 @@ read_saved_results(folder = "/data/tbsim", user = "ronkeizer@gmail.com",
 \description{
 Read info from folder with saved runs
 }
-

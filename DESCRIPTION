@@ -8,7 +8,7 @@ Maintainer: Ron Keizer <ronkeizer@gmail.com>
 Description: Wrapper around TBsim C++ tool
 License: MIT
 LazyData: TRUE
-RoxygenNote: 5.0.1
+RoxygenNote: 6.0.1
 Imports:
   Rge,
   dplyr,

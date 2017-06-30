@@ -3,6 +3,7 @@
 \docType{package}
 \name{TBsim-package}
 \alias{TBsim-package}
+\alias{TBsim-package}
 \title{TBsim package}
 \description{
 Wrapper around TBsim package
@@ -14,4 +15,3 @@ Ron Keizer \email{ronkeizer@gmail.com}
 
 Ron Keizer \email{ronkeizer@gmail.com}
 }
-

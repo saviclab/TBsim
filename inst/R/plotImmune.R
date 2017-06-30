@@ -5,7 +5,7 @@
 
 plotImmune <- function(yset, names, mainTitle, subTitle, ytext, drugStart)
 {
-	# Prepare data 
+	# Prepare data
 	colnames(yset) <- names
 	dfm2		<- melt(yset, id="time", na.rm=TRUE)
 	plot.main	<- mainTitle
@@ -15,15 +15,15 @@ plotImmune <- function(yset, names, mainTitle, subTitle, ytext, drugStart)
 	# Generate plot
 	dev.new()
 	pl <- ggplot(data = dfm2, aes(x = time, y = value, color = variable, group=variable)) +
-			geom_line(linetype="solid", size=0.5) + 
+			geom_line(linetype="solid", size=0.5) +
 			scale_color_brewer(palette="Set1") +
 			theme(legend.justification=c(0,1), legend.position=c(0,1), legend.title=element_blank(),
 				  legend.background = element_rect(fill=alpha('white', 1.0)),
 				  legend.direction="vertical", legend.box="horizontal", legend.box.just = c("top")) +
-			expand_limits(y=0) + 
+			expand_limits(y=0) +
 			xlab(xtext) +
 			ylab(ytext) +
 			theme(plot.title = element_text(size=16, face="bold", vjust=2)) +
-			ggtitle(mainTitle) 
+			ggtitle(mainTitle)
 	print(pl)
 }

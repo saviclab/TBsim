@@ -14,4 +14,3 @@ text_to_file(text, f)
 \description{
 Write lines of text to file
 }
-

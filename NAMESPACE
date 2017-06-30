@@ -2,6 +2,8 @@
 
 S3method(print,TBsim)
 export(allowed_args)
+export(calc_log_breaks)
+export(drug_factors)
 export(file_to_text)
 export(max_time_from_therapy)
 export(new_tempdir)

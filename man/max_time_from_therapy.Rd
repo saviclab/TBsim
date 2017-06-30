@@ -12,4 +12,3 @@ max_time_from_therapy(therapy)
 \description{
 Get maximum time from therapy object
 }
-

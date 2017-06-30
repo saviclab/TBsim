@@ -15,4 +15,3 @@ new_tempdir(base = "/data/tbsim", user = "ronkeizer@gmail.com", id = NULL,
 \description{
 Create new temp folder
 }
-

@@ -12,4 +12,3 @@ random_string(len = 6)
 \description{
 Random string
 }
-

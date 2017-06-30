@@ -12,4 +12,3 @@ tb_read_output_db(id, db = list())
 \description{
 Read output info from Db
 }
-

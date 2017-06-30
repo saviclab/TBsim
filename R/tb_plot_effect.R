@@ -60,8 +60,8 @@ tb_plot_effect <- function(info, effect, is_from_drug_start = TRUE){
     yset1$Type <- factor(yset1$Type, levels = info$drugNames)
 
     xlabel		<- "Time after infection start (Days)"
-    ylabel		<- "Bactericidal effect (% of total)"
-    titleText	<- "Relative Bactericidal Effect per Drug and Immune System "
+    ylabel		<- "Bactericidal effect (% of maximal)"
+    titleText	<- "Bactericidal Effect per Drug and Immune System "
 
     # The palette with grey:
     cbPalette <- c("#999999", "#E69F00", "#56B4E9", "#009E73", "#0072B2", "#F0E442", "#D55E00", "#CC79A7")

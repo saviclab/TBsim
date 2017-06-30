@@ -15,4 +15,3 @@ tb_read_all_output(folder, output_folder = FALSE, id = NULL, s3 = NULL,
 \description{
 Read all output from TBsim
 }
-
