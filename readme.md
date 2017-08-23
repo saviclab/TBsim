@@ -21,7 +21,7 @@ Brew might complain that gcc libraries cannot be linked. If so, run the followin
     
     brew link gcc
    
-It will then complain about a particular folder not being accessible. Change the permissions for that folder to e.g. 777:
+It might complain about a particular folder not being accessible. Change the permissions for that folder to e.g. 777:
 
     chmod 777 /usr/local/bin
     
