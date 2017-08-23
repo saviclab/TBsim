@@ -3,7 +3,8 @@ cat("\nNote: By default, /usr/bin/g++ is used as C++ compiler. If you want\nto u
 cat("\n**********************************************************************\n\n")
 
 cpp <- "/usr/bin/g++"
-if(Sys.getenv("GCC_TBSIM") != "") {
+if(Sys.getenv("GCC_TBSIM") != "") {gs
+
   cpp <- Sys.getenv("GCC_TBSIM")
 }
 tb_compile(cpp = cpp)
