@@ -51,13 +51,14 @@ tb_plot_bactRes <- function(info, bact = NULL,
     # if(max_load <= 10) {
     #   max_load <- 10
     # }
-    bp <- ggplot(data=df, aes(x=Days, y=Load, colour=Type)) +
+    bp <- ggplot(data=df, aes(x=Days, y=Load * 1e6, colour=Type)) +
       geom_line(size=1) +
       theme_empty() +
       ggtitle("Resistant bacteria") +
       theme(plot.title = element_text(size=12, vjust=2)) +
       scale_color_brewer(palette="Set1") +
-      scale_y_log10() +
+      # scale_y_log10() +
+      scale_y_continuous(labels = scales::scientific) +
       theme(legend.title=element_blank()) +
       ylab("Resistant bacterial load (CFU/mL)") +
       xlab("Time after drug treatment start (Days)") +
