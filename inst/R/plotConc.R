@@ -54,7 +54,7 @@ plotConc <- function(){
  		  scale_color_brewer(palette="Dark2") +
 		  theme(legend.title=element_blank()) +
 		  ylab("Concentration [mg/L]") +
-   		  xlab("Time after first drug start [Hours]") +
+   		  xlab("Time after drug treatment start [Hours]") +
 	      facet_grid(Drug ~ Compartment, scales="free_y")
 	print(bp)
 }

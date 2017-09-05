@@ -57,7 +57,7 @@ plotGrow <- function(){
  		  scale_color_brewer(palette="Set1") +
 		  theme(legend.title=element_blank()) +
 		  ylab("Growth factor [0..1]") +
-   		  xlab("Time after first drug start [Hours]") +
+   		  xlab("Time after drug treatment start [Hours]") +
 	      facet_grid(Drug ~ Compartment, scales="free_y")
 	print(bp)
 }

@@ -36,7 +36,7 @@ tb_plot_dose <- function(info, dose){
     geom_line(size=10) +
     geom_text(aes(x = t + max(t/20), label = dose_start), colour="#ffffff") +
     facet_grid(drug ~ .) +
-    xlab("Time after first drug start (days)") + ylab("") +
+    xlab("Time after drug treatment start (days)") + ylab("") +
     xlim(c(0, max(dat$t))) + theme_empty() +
     theme(axis.title.y=element_blank(),
           axis.text.y=element_blank(),

@@ -91,18 +91,18 @@ tb_plot_bact <- function(info = NULL, bact = NULL,
 
   # Generate plot sum across all compartments
   pl <- ggplot(data = yset, aes(x = time)) +
-    theme_empty() +
-    theme(plot.title = element_text(size=12, vjust=2)) +
+   theme_empty() +
+   theme(plot.title = element_text(size=12, vjust=2)) +
     geom_ribbon(aes(ymin=p05, ymax=p95), alpha=0.2) +
     geom_line(aes(y=Median), colour="#052049", size=1) +
-    scale_y_log10(breaks = lims, limits = range(lims)) +
+    # scale_y_log10(breaks = lims, limits = range(lims)) +
     # scale_y_continuous(breaks = laby, labels = namesy) +
     # scale_x_continuous(breaks = labx, labels = namesx) +
     xlab(xlabel) +
     ylab(ylabel) +
     ggtitle(paste(titleText, " All Compartments"))
   if (!is_summary){
-    pl <- pl + facet_wrap(~ Compartment)
+    pl <- pl + facet_wrap(~ Compartment, scale="free")
   }
   return(pl)
 

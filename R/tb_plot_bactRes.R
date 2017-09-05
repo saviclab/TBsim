@@ -60,7 +60,7 @@ tb_plot_bactRes <- function(info, bact = NULL,
       scale_y_log10() +
       theme(legend.title=element_blank()) +
       ylab("Resistant bacterial load (CFU/mL)") +
-      xlab("Time after first drug start (Days)") +
+      xlab("Time after drug treatment start (Days)") +
       geom_hline(yintercept=1, linetype = "dashed")
     if (!is_summary) {
       bp <- bp + facet_wrap(~ Compartment, scales="free_y")

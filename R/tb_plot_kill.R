@@ -32,7 +32,7 @@ tb_plot_kill <- function(info, kill, custom_drugs = NULL){
   #     scale_color_brewer(palette="Set1") +
   #     theme(legend.title=element_blank()) +
   #     ylab("Kill factor [0..1]") +
-  #     xlab("Time after first drug start [Hours]") +
+  #     xlab("Time after drug treatment start [Hours]") +
   #     facet_grid(Drug ~ Compartment, scales="free_y")
   #   return(bp)
   # })
