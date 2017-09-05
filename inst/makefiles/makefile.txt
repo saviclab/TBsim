@@ -8,7 +8,12 @@
 # scl enable devtoolset-2 bash
 
 CXX ?= g++
-CXXFLAGS = -fexceptions -O3 -std=c++11 -fopenmp -I./inc -m64 -mmmx -msse -msse2
+CXXFLAGS = -fexceptions -O3 -std=c++11 -I./inc -m64 -mmmx -msse -msse2
+# on Mac, "-fopenmp" not available in Clang compiler, but available on Linux:
+ifeq ($(UNAME), Linux)
+  CXXFLAGS = -fexceptions -O3 -std=c++11 -fopenmp -I./inc -m64 -mmmx -msse -msse2
+endif
+
 ODIR = ./obj
 SDIR = ./src
 IDIR = ./inc
