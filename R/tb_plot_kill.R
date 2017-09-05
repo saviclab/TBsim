@@ -36,10 +36,13 @@ tb_plot_kill <- function(info, kill, custom_drugs = NULL){
   #     facet_grid(Drug ~ Compartment, scales="free_y")
   #   return(bp)
   # })
-
-  kill$concs <- kill$kill
-  attr(kill, "type") <- "conc"
-  pl <- tb_plot_conc(info, kill, custom_drugs = custom_drugs)
-  return(pl)
+  if(!is.null(kill)) {
+    kill <- as.data.frame(kill)
+    kill$concs <- kill$kill
+    attr(kill, "type") <- "conc"
+    kill <- kill[seq(1, nrow(kill), 10), ]
+    pl <- tb_plot_conc(info, kill, custom_drugs = custom_drugs)
+    return(pl)
+  }
 
 }
