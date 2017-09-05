@@ -11,7 +11,6 @@ calc_log_breaks <- function(dat) {
   dat <- dat[dat > 0]
   if(length(dat) == 0) return(c(0,1))
   rng <- range(dat)
-  print(rng)
   ymax <- magn[(magn-max(dat, na.rm=TRUE))>0][1]
   ymin <- tail(magn[(magn-min(dat, na.rm=TRUE))<0],1)
   betwn <- c()

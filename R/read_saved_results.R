@@ -17,7 +17,6 @@ read_saved_results <- function(
     if(length(all) > 0) {
       for(i in seq(all)) {
         if(!(all[i] %in% c("drugs", "settings", "therapy"))) {
-          print(all[i])
           sub_folder <- paste0(full_folder, '/', all[i])
           tmp <- dir(sub_folder)
           if("header.txt" %in% tmp) {

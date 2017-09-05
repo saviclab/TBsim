@@ -44,8 +44,10 @@ tb_plot_conc <- function(info, conc, filter=TRUE, cv = NULL,
     } else {
       pl_data <- df
     }
-    if(sum(pl_data$Concentration < 1e-4) > 0) {
-      pl_data[pl_data$Concentration < 1e-4,]$Concentration <- 0
+    if(!is.null(pl_data$Concentration)) {
+      if(sum(pl_data$Concentration < 1e-4) > 0) {
+        pl_data[pl_data$Concentration < 1e-4,]$Concentration <- 0
+      }
     }
 
     # add approximate variability, if needed
