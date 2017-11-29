@@ -77,13 +77,14 @@ tb_plot_outcome <- function(info,
     namesy	<- laby
 
     # Generate plot
-    dfm$cTBp05 <- replace(dfm$cTBp05, dfm$cTBp05 > 100, 100)
-    dfm$cTBp95 <- replace(dfm$cTBp95, dfm$cTBp95 > 100, 100)
-    dfm$cTB50 <- replace(dfm$cTB50, dfm$cTB50 > 100, 100)
+    dfm$CTBp05 <- replace(dfm$CTBp05, dfm$CTBp05 > 100, 100)
+    dfm$CTBp95 <- replace(dfm$CTBp95, dfm$CTBp95 > 100, 100)
+    dfm$CTB50 <- replace(dfm$CTB50, dfm$CTB50 > 100, 100)
+
     pl <- ggplot(data = dfm, aes(x = time))
     pl <- pl +
-      geom_ribbon(aes(ymin=cTBp05, ymax=cTBp95), alpha=0.2) +
-      geom_line(aes(y=cTB50, colour="blue"),size=1)
+      geom_ribbon(aes(ymin=CTBp05, ymax=CTBp95), alpha=0.2) +
+      geom_line(aes(y=CTB50, colour="blue"),size=1)
     # pl <- pl +
     #   # geom_ribbon(aes(ymin=NTBp05, ymax=NTBp95), alpha=0.2) +
     #   # geom_line(aes(y=NTB50, colour="black"),size=1) +

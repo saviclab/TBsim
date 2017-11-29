@@ -69,7 +69,6 @@ tb_run_sim <- function(sim = NULL,
   }
 
   tbsim <- paste0(system.file(package="TBsim"), "/", bin)
-  browser()
   if(file.exists(tbsim)) {
     system(paste0("cp ", tbsim, " ", folder, "/", bin))
     if (file.exists(paste0(config_folder, "/sim.txt"))) {
