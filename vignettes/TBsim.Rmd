@@ -104,7 +104,7 @@ $ Rscript sim1.R
 After execution, to read in all output information:
 
 ```{r, warning=F}
-folder <- "~/tb_run/output"
+folder <- "~/tb_run"
 info  <- tb_read_output(folder, "header")
 outc  <- tb_read_output(folder, "outcome")
 bact  <- tb_read_output(folder, "bact")
@@ -126,6 +126,7 @@ Note that the output from `tb_plot()` is a ggplot2 object, so you can add additi
 ```{r, warning=F}
 ## Plot outcome data
 tb_plot (info, outc)
+tb_plot_outcome(info, outc)
 ```
 
 ```{r, warning=F}
