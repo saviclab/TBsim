@@ -38,6 +38,7 @@
 #include "OUTCOMEclass.h"
 #include "PARAMclass.h"
 #include "printFunctions.h"
+#include "csvFunctions.h"
 #include "writeFunctions.h"
 #include "TIMERclass.h"
 #include "POPULATIONclass.h"
@@ -82,7 +83,7 @@ int main(int argc, char* argv[])
     }
 
     // set error variables used in file read process
-    bool configStatus(true), therapyStatus(true), adherenceStatus(true), drugStatus(true);
+    bool configStatus(true), therapyStatus(true), adherenceStatus(true), MEMSStatus(true), drugStatus(true);
 
     // load init file with model parameters, therapy definitions, and drug definitions
     if (validFile) {
@@ -97,8 +98,13 @@ int main(int argc, char* argv[])
             // load therapy files with drug dose combinations for each therapy
             therapyStatus = PARA.readTherapy(configFolder);
 
-            // load adherence files with patient adherence patterns
+            // load adherence files with patient adherence patterns (not MEMS)
             adherenceStatus = PARA.readAdherence(configFolder);
+
+            // load MEMS data from CSV file
+            if(PARA.adherenceType3) {
+                MEMSStatus = PARA.readMEMSAdherence(configFolder);
+            }
 
             // load drug files with PK/PD/mutation parameters per drug
             drugStatus = DRUGLIST.initialize(PARA.nDrugs, configFolder, PARA.drugFile);

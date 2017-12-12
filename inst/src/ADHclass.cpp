@@ -19,6 +19,7 @@ void ADHclass::initialize(int nT){
 //
 //          - adherenceType=0 normal distributed adherence (w/ time step)
 //          - adherenceType=1 non-adherent periods of variable days duration
+//          - adherenceType=2 non-adherence using MEMS data, read from file
 //          - adherenceType=9 perfect adherence, i.e., 100%
 //
 // Note:    for adherenceType=1, non-adherence is defined by 2 params:
@@ -42,6 +43,11 @@ void ADHclass::setAdherence(PARAMclass& PARA)
     // average number of days between non-adherence event
     patientAdhDist = tailDist(PARA.adherenceDaysBetween[PARA.iAdherence]);
     patientAdhRatio = 1.0/patientAdhDist;
+
+    if(adherenceType==2) {
+        // read MEMS data from file
+        // select random row
+    }
 
     // generate daily adherence vector
     int iT(0);
@@ -82,6 +88,10 @@ void ADHclass::setAdherence(PARAMclass& PARA)
                     i++;
                 } while ((iT<PARA.nTime) && (i<daysMissed));
             }
+        }
+        // MEMS adherence
+        if (adherenceType==2) {
+            adherenceValue[iT] = maxAdh;
         }
         // perfect adherence (100%)
         if (adherenceType==9) {

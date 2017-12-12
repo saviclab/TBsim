@@ -13,16 +13,15 @@
 #' mems_data <- list(
 #'   "a" = c(1,1,1,1,1,0,1,0,0,1,1,1,1,0,1),
 #'   "b" = c(,1,1,0,1,0,1,1,1,1,1,0,1,1,1,0,1,1,0))
-#' )
 #' create_mems_data(mems_data, n_patients = 100, random = TRUE)
+#' @export
 create_mems_data <- function(
   data = NULL,
   n_patients = NULL,
   n_events = 100,
   random = TRUE,
   seed = NULL,
-  file = NULL,
-  filetype = "tbsim"
+  file = NULL
 ) {
   if(is.null(data) || !("list" %in% class(mems_data))) stop("MEMS data needed, specified as list object.")
   if(is.null(n_patients)) n_patients <- length(data)
@@ -43,11 +42,7 @@ create_mems_data <- function(
     tmp <- tmp[floor(runif(n_patients, min = 1, max = n_patients+1)),]
   }
   if(!is.null(file)) {
-    if(tolower(filetype) == "tbsim") {
-      write.table(tmp, file = file, quote = F, row.names = F)
-    } else {
-      write.csv(tmp, file = file, quote = F, row.names = F)
-    }
+    write.table(tmp, file = file, quote = F, row.names = F, col.names = F, sep = ",")
   } else {
     return(tmp)
   }

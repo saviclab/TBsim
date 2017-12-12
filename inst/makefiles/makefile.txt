@@ -33,6 +33,7 @@ TBsim : $(ODIR)/main.o \
         $(ODIR)/PARAMclass.o \
         $(ODIR)/POPULATIONclass.o \
         $(ODIR)/printFunctions.o \
+        $(ODIR)/csvFunctions.o \
         $(ODIR)/rungeKutta.o \
         $(ODIR)/SOLUTIONclass.o \
         $(ODIR)/statFunctions.o \
@@ -55,6 +56,7 @@ TBsim : $(ODIR)/main.o \
                  $(ODIR)/PARAMclass.o \
                  $(ODIR)/POPULATIONclass.o \
                  $(ODIR)/printFunctions.o \
+                 $(ODIR)/csvFunctions.o \
                  $(ODIR)/rungeKutta.o \
                  $(ODIR)/SOLUTIONclass.o \
                  $(ODIR)/statFunctions.o \
@@ -76,6 +78,7 @@ $(ODIR)/main.o : $(SDIR)/main.cpp \
                  $(IDIR)/PARAMclass.h \
                  $(IDIR)/POPULATIONclass.h \
                  $(IDIR)/printFunctions.h \
+                 $(IDIR)/csvFunctions.h \
                  $(IDIR)/SOLUTIONclass.h \
                  $(IDIR)/TIMERclass.h \
                  $(IDIR)/writeFunctions.h
@@ -142,6 +145,10 @@ $(ODIR)/OUTCOMEclass.o : $(SDIR)/OUTCOMEclass.cpp $(IDIR)/OUTCOMEclass.h
 $(ODIR)/PARAMclass.o : $(SDIR)/PARAMclass.cpp $(IDIR)/printFunctions.h
 	echo Compiling PARAMclass.cpp
 	$(CXX) -o $(ODIR)/PARAMclass.o -c $(SDIR)/PARAMclass.cpp $(CXXFLAGS)
+
+$(ODIR)/csvFunctions.o : $(SDIR)/csvFunctions.cpp $(IDIR)/csvFunctions.h
+	echo Compiling csvFunctions.cpp
+	$(CXX) -o $(ODIR)/csvFunctions.o -c $(SDIR)/csvFunctions.cpp $(CXXFLAGS)
 
 $(ODIR)/SOLUTIONclass.o : $(SDIR)/SOLUTIONclass.cpp \
                           $(IDIR)/SOLUTIONclass.h \

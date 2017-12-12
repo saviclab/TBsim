@@ -36,6 +36,7 @@ class PARAMclass
     bool readInit(const std::string&, const std::string&);
     bool readTherapy(const std::string&);
     bool readAdherence(const std::string&);
+    bool readMEMSAdherence(const std::string&);
     void updateParameter(int);
     void printParameters();
 
@@ -103,6 +104,8 @@ class PARAMclass
     double timeStepStdv;                // variation applied tp ODE parameters per day
     int adherenceType1;                 // 0=simple % based, 1=days inbetween missed doses method
     int adherenceType2;                 // 0=simple % based, 1=days inbetween missed doses method
+    int adherenceType3;                 // MEMS adherence
+    std::vector<std::vector<double> > adherenceMEMSvec; // MEMS vector of vectors
     int adherenceSwitchDay;             // day of therapy when switch from Type 1 to Type 2 adherence
     double adherenceMean;               // mean adherence level per patient
     double adherenceStdv;               // standard dev for patients adherence
