@@ -282,7 +282,6 @@ int main(int argc, char* argv[])
                         if (PARA.isAdherence==1) {
                             TIMER.start(id, 2);
                             ADH.initialize(PARA.nTime);
-                            std::cout << "Adherence: " << PARA.adherenceMEMS << '\n';
                             ADH.setAdherence(PARA);
                             if (PARA.isSaveAdhDose==1) {
                                 POPULATION.transfer(POPULATION.popAdherenceBase,
@@ -462,11 +461,11 @@ int main(int argc, char* argv[])
                     std::cout << "Statistics for multiple populations";
                     if ((PARA.isAdherence==1)&&(PARA.isSaveAdhDose==1)) {
                         std::cout << ".";
-                        // POPULATION.setDimensions3(POPULATION.popAdherenceStatistics,
-                        //                           PARA.nTime, 1, 1, 1);
-                        // POPULATION.finalizePopStat(POPULATION.popAdherencePops,
-                        //                            POPULATION.popAdherenceStatistics,
-                        //                            1, 1, PARA.nTime, PARA.therapyStart, 1, PARA.nPopulations);
+                        POPULATION.setDimensions3(POPULATION.popAdherenceStatistics,
+                                                  PARA.nTime, 1, 1, 1);
+                        POPULATION.finalizePopStat(POPULATION.popAdherencePops,
+                                                   POPULATION.popAdherenceStatistics,
+                                                   1, 1, PARA.nTime, PARA.therapyStart, 1, PARA.nPopulations);
                         POPULATION.popAdherencePops.clear();
                     }
                     //================================================
@@ -485,10 +484,10 @@ int main(int argc, char* argv[])
                         std::cout << ".";
                         POPULATION.setDimensions3(POPULATION.popConcStatistics,
                                                   PARA.nSteps, PARA.activeDrugs, PARA.nComp, 1);
-                        // POPULATION.finalizePopStat(POPULATION.popConcPops,
-                        //                            POPULATION.popConcStatistics,
-                        //                            PARA.activeDrugs, PARA.nComp,
-                        //                            PARA.nSteps, PARA.therapyStart*24, 1, PARA.nPopulations);
+                        POPULATION.finalizePopStat(POPULATION.popConcPops,
+                                                   POPULATION.popConcStatistics,
+                                                   PARA.activeDrugs, PARA.nComp,
+                                                   PARA.nSteps, PARA.therapyStart*24, 1, PARA.nPopulations);
                         POPULATION.popConcPops.clear();
                     }
                     //================================================
@@ -497,19 +496,19 @@ int main(int argc, char* argv[])
                         // concentration kill factors
                         POPULATION.setDimensions3(POPULATION.popConcKillStatistics,
                                                   PARA.nSteps, PARA.activeDrugs, PARA.nComp, 1);
-                        // POPULATION.finalizePopStat(POPULATION.popConcKillPops,
-                        //                            POPULATION.popConcKillStatistics,
-                        //                            PARA.activeDrugs, PARA.nComp,
-                        //                            PARA.nSteps, PARA.therapyStart*24, 1, PARA.nPopulations);
+                        POPULATION.finalizePopStat(POPULATION.popConcKillPops,
+                                                   POPULATION.popConcKillStatistics,
+                                                   PARA.activeDrugs, PARA.nComp,
+                                                   PARA.nSteps, PARA.therapyStart*24, 1, PARA.nPopulations);
                         POPULATION.popConcKillPops.clear();
 
                         // concentration growth factors
                         POPULATION.setDimensions3(POPULATION.popConcGrowStatistics,
                                                   PARA.nSteps, PARA.activeDrugs, PARA.nComp, 1);
-                        // POPULATION.finalizePopStat(POPULATION.popConcGrowPops,
-                        //                            POPULATION.popConcGrowStatistics,
-                        //                            PARA.activeDrugs, PARA.nComp,
-                        //                            PARA.nSteps, PARA.therapyStart*24, 1, PARA.nPopulations);
+                        POPULATION.finalizePopStat(POPULATION.popConcGrowPops,
+                                                   POPULATION.popConcGrowStatistics,
+                                                   PARA.activeDrugs, PARA.nComp,
+                                                   PARA.nSteps, PARA.therapyStart*24, 1, PARA.nPopulations);
                         POPULATION.popConcGrowPops.clear();
                     }
                     //================================================
@@ -517,9 +516,9 @@ int main(int argc, char* argv[])
                         std::cout << ".";
                         POPULATION.setDimensions3(POPULATION.popImmuneStatistics,
                                                   PARA.nTime, nImmune, 1, 1);
-                        // POPULATION.finalizePopStat(POPULATION.popImmunePops,
-                        //                            POPULATION.popImmuneStatistics,
-                        //                            nImmune, 1, PARA.nTime, 0, 1, PARA.nPopulations);
+                        POPULATION.finalizePopStat(POPULATION.popImmunePops,
+                                                   POPULATION.popImmuneStatistics,
+                                                   nImmune, 1, PARA.nTime, 0, 1, PARA.nPopulations);
                         POPULATION.popImmunePops.clear();
                     }
                     //================================================
@@ -527,9 +526,9 @@ int main(int argc, char* argv[])
                         std::cout << ".";
                         POPULATION.setDimensions3(POPULATION.popBactStatistics,
                                                   PARA.nTime, nBact, PARA.nComp, nStat);
-                        // POPULATION.finalizePopStat(POPULATION.popBactPops,
-                        //                            POPULATION.popBactStatistics,
-                        //                            nBact, PARA.nComp, PARA.nTime, 0, nStat, PARA.nPopulations);
+                        POPULATION.finalizePopStat(POPULATION.popBactPops,
+                                                   POPULATION.popBactStatistics,
+                                                   nBact, PARA.nComp, PARA.nTime, 0, nStat, PARA.nPopulations);
                         POPULATION.popBactPops.clear();
                     }
                     //================================================
@@ -537,10 +536,10 @@ int main(int argc, char* argv[])
                         std::cout << ".";
                         POPULATION.setDimensions3(POPULATION.popBactResStatistics,
                                                   PARA.nTime, PARA.activeDrugs, PARA.nComp, nStat);
-                        // POPULATION.finalizePopStat(POPULATION.popBactResPops,
-                        //                            POPULATION.popBactResStatistics,
-                        //                            PARA.activeDrugs, PARA.nComp,
-                        //                            PARA.nTime, 0, 1, PARA.nPopulations);
+                        POPULATION.finalizePopStat(POPULATION.popBactResPops,
+                                                   POPULATION.popBactResStatistics,
+                                                   PARA.activeDrugs, PARA.nComp,
+                                                   PARA.nTime, 0, 1, PARA.nPopulations);
                         POPULATION.popBactResPops.clear();
                     }
                     //================================================
@@ -548,9 +547,9 @@ int main(int argc, char* argv[])
                         std::cout << ".";
                         POPULATION.setDimensions3(POPULATION.popMacroStatistics,
                                                   PARA.nTime, nMacro, 2, 1);
-                        // POPULATION.finalizePopStat(POPULATION.popMacroPops,
-                        //                            POPULATION.popMacroStatistics,
-                        //                            nMacro, 2, PARA.nTime, 0, 1, PARA.nPopulations);
+                        POPULATION.finalizePopStat(POPULATION.popMacroPops,
+                                                   POPULATION.popMacroStatistics,
+                                                   nMacro, 2, PARA.nTime, 0, 1, PARA.nPopulations);
                         POPULATION.popMacroPops.clear();
                     }
                     //================================================
@@ -558,10 +557,10 @@ int main(int argc, char* argv[])
                         std::cout << ".";
                         POPULATION.setDimensions3(POPULATION.popMonitorStatistics,
                                                   PARA.nTime, PARA.activeDrugs+2, PARA.nComp, 1);
-                        // POPULATION.finalizePopStat(POPULATION.popMonitorPops,
-                        //                            POPULATION.popMonitorStatistics,
-                        //                            PARA.activeDrugs+2, PARA.nComp,
-                        //                            PARA.nTime, 0, 1, PARA.nPopulations);
+                        POPULATION.finalizePopStat(POPULATION.popMonitorPops,
+                                                   POPULATION.popMonitorStatistics,
+                                                   PARA.activeDrugs+2, PARA.nComp,
+                                                   PARA.nTime, 0, 1, PARA.nPopulations);
                         POPULATION.popMonitorPops.clear();
                     }
                     //================================================
@@ -569,9 +568,9 @@ int main(int argc, char* argv[])
                         std::cout << ".";
                         POPULATION.setDimensions3(POPULATION.popOutcomeStatistics,
                                                   PARA.nTime, nOutcome, 1, nStat);
-                        // POPULATION.finalizePopStat(POPULATION.popOutcomePops,
-                        //                            POPULATION.popOutcomeStatistics,
-                        //                            nOutcome, 1, PARA.nTime, 0, nStat, PARA.nPopulations);
+                        POPULATION.finalizePopStat(POPULATION.popOutcomePops,
+                                                   POPULATION.popOutcomeStatistics,
+                                                   nOutcome, 1, PARA.nTime, 0, nStat, PARA.nPopulations);
                         POPULATION.popOutcomePops.clear();
                     }
                     std::cout << std::endl;
