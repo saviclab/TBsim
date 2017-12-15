@@ -27,7 +27,7 @@ void ADHclass::initialize(int nT){
 //          - patientAdhRatio    => distribution of non-adherence
 //          - numberOfDaysMissed => days non-adherent per event
 //=================================================================
-void ADHclass::setAdherence(PARAMclass& PARA)
+void ADHclass::setAdherence(PARAMclass& PARA, int iP)
 {
     const double minAdh = 0.0;          // min adherence level
     const double maxAdh = 1.0;          // max adherence level
@@ -42,71 +42,67 @@ void ADHclass::setAdherence(PARAMclass& PARA)
 
     // if adherenceType==1
     // average number of days between non-adherence event
-    if(!PARA.adherenceMEMS) {
-        patientAdhDist = tailDist(PARA.adherenceDaysBetween[PARA.iAdherence]);
-        patientAdhRatio = 1.0/patientAdhDist;
-    } else { // dummy
-        adherenceType = 9;
-        patientAdhDist = 1.0;
-        patientAdhRatio = 1.0;
-    }
+    patientAdhDist = tailDist(PARA.adherenceDaysBetween[PARA.iAdherence]);
+    patientAdhRatio = 1.0/patientAdhDist;
 
-    // generate daily adherence vector
-    int iT(0);
-    do {
-        double lval = linDist(minAdh, maxAdh);
+    if(PARA.adherenceMEMS == 1) {
+        // select row from MEMS table
+        // User must make sure that the table size has at least <iP> rows, and <nTime> columns!!
+        adherenceValue = PARA.adherenceMEMSvec[iP];
+    } else {
+        // generate daily adherence vector
+        int iT(0);
+        do {
+            double lval = linDist(minAdh, maxAdh);
 
-        // apply active adherenceType (if not MEMS)
-        if(!PARA.adherenceMEMS) {
+            // apply active adherenceType
             adherenceType = PARA.adherenceType1;
             if (iT>PARA.adherenceSwitchDay){
                 adherenceType = PARA.adherenceType2;
             }
-        } else {
-            adherenceType = 2;
-        }
-        // basic probability-based adherence
-        if (adherenceType==0) {
-            double nval = normDist(patientAdhMean, dayAdhStdv, minAdh, maxAdh);
-            if (lval < nval){
+            // basic probability-based adherence
+            if (adherenceType==0) {
+                double nval = normDist(patientAdhMean, dayAdhStdv, minAdh, maxAdh);
+                if (lval < nval){
+                    adherenceValue[iT] = maxAdh;
+                }
+                else {
+                    adherenceValue[iT] = minAdh;
+                }
+                iT++;
+            }
+            // intermittent non-adherence
+            if (adherenceType==1) {
+                if (lval > patientAdhRatio){
+                    // pt is adherent
+                    adherenceValue[iT] = maxAdh;
+                    iT++;
+                }
+                else {
+                    // pt is not adherent
+                    // find out how many days to miss
+                    int i(0);
+                    int daysMissed = numberOfDaysMissed(PARA.adherenceDaysMissed[PARA.iAdherence]);
+                    do {
+                        adherenceValue[iT] = minAdh;
+                        iT++;
+                        i++;
+                    } while ((iT<PARA.nTime) && (i<daysMissed));
+                }
+            }
+            // MEMS adherence
+            if (adherenceType==2) {
                 adherenceValue[iT] = maxAdh;
             }
-            else {
-                adherenceValue[iT] = minAdh;
-            }
-            iT++;
-        }
-        // intermittent non-adherence
-        if (adherenceType==1) {
-            if (lval > patientAdhRatio){
-                // pt is adherent
+            // perfect adherence (100%)
+            if (adherenceType==9) {
                 adherenceValue[iT] = maxAdh;
                 iT++;
             }
-            else {
-                // pt is not adherent
-                // find out how many days to miss
-                int i(0);
-                int daysMissed = numberOfDaysMissed(PARA.adherenceDaysMissed[PARA.iAdherence]);
-                do {
-                    adherenceValue[iT] = minAdh;
-                    iT++;
-                    i++;
-                } while ((iT<PARA.nTime) && (i<daysMissed));
-            }
         }
-        // MEMS adherence
-        if (adherenceType==2) {
-            adherenceValue[iT] = maxAdh;
-            iT++;
-        }
-        // perfect adherence (100%)
-        if (adherenceType==9) {
-            adherenceValue[iT] = maxAdh;
-            iT++;
-        }
+        while (iT<PARA.nTime);
     }
-    while (iT<PARA.nTime);
+
 }
 
 //=================================================================

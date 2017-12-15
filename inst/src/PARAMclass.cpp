@@ -254,9 +254,10 @@ bool PARAMclass::readMEMSAdherence (const std::string& folder)
     bool fileStatus(true);
     std::string fullname;
     fullname = folder + "mems.csv";
-    if(adherenceMEMS) {
-        adherenceMEMSvec = readCSV(fullname);
-    }
+    std::cout << "Reading MEMS data: " << fullname << "\n";
+    adherenceMEMSvec = readCSV(fullname);
+    std::cout << "  " << adherenceMEMSvec.size() << " patients\n";
+    std::cout << "  " << adherenceMEMSvec[0].size() << " days of MEMS data per patient\n";
     return fileStatus;
 }
 
@@ -407,11 +408,15 @@ void PARAMclass::printParameters()
     std::cout << "Number of iterations  : " << nIterations << std::endl;
     std::cout << "Bootstrap processing  : " << printYesNo(isBootstrap) << std::endl;
     std::cout << "Therapy start day     : " << therapyStart << std::endl;
-    std::cout << "Adherence pattern     : " << adherenceType1 <<" / "
-                                     << adherenceType2 <<" Day: "
-                                     << adherenceSwitchDay << std::endl;
-    std::cout << "Adherence mean/stdv   : " << adherenceMean << " / "
-                                     << adherenceStdv << std::endl;
+    if(adherenceMEMS) {
+        std::cout << "Adherence pattern     : MEMS" << std::endl;
+    } else {
+        std::cout << "Adherence pattern     : " << adherenceType1 <<" / "
+                                         << adherenceType2 <<" Day: "
+                                         << adherenceSwitchDay << std::endl;
+        std::cout << "Adherence mean/stdv   : " << adherenceMean << " / "
+                                         << adherenceStdv << std::endl;
+    }
 
     std::cout << "Bacterial start pop   : I(" << infI   <<"), II(" << infII << "), III("
                                        << infIII <<"), IV(" << infIV << ")" << std::endl;

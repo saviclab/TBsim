@@ -21,11 +21,28 @@ vector<vector<double> > readCSV(std::string filename) {
 			}
 		}
 	}
-	for(int i = 0; i < fields.size(); i++) {
-		for(int j = 0; j < fields[i].size(); j++) {
-   			cout << fields[i][j] << ' ' ;
+	// for(int i = 0; i < fields.size(); i++) {
+	// 	for(int j = 0; j < fields[i].size(); j++) {
+  //  			cout << fields[i][j] << ' ' ;
+	// 	}
+	// 	cout << "\n";
+	// }
+	return(fields);
+}
+
+vector<vector<int> > readCSVint(std::string filename) {
+	ifstream in("file.csv");
+	vector<vector<int> > fields;
+	if (in) {
+		string line;
+		while (getline(in, line)) {
+			stringstream sep(line);
+			string field;
+			fields.push_back(vector<int>());
+			while (getline(sep, field, ',')) {
+				fields.back().push_back(stoi(field));
+			}
 		}
-		cout << "\n";
 	}
 	return(fields);
 }

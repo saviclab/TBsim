@@ -7,7 +7,7 @@
 class ADHclass{
 public:
     void initialize(int);
-    void setAdherence(PARAMclass&);
+    void setAdherence(PARAMclass&, int);
     VEC adherenceValue;
 
 private:

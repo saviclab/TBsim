@@ -97,7 +97,6 @@ int main(int argc, char* argv[])
         if (configStatus) {
             // load therapy files with drug dose combinations for each therapy
             therapyStatus = PARA.readTherapy(configFolder);
-
             if(PARA.adherenceMEMS) {
                 // load MEMS data from CSV file
                 adherenceStatus = PARA.readMEMSAdherence(configFolder);
@@ -282,7 +281,7 @@ int main(int argc, char* argv[])
                         if (PARA.isAdherence==1) {
                             TIMER.start(id, 2);
                             ADH.initialize(PARA.nTime);
-                            ADH.setAdherence(PARA);
+                            ADH.setAdherence(PARA, iP);
                             if (PARA.isSaveAdhDose==1) {
                                 POPULATION.transfer(POPULATION.popAdherenceBase,
                                                     ADH.adherenceValue, iP, 1, 1, PARA.nTime);
