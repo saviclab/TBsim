@@ -40,6 +40,7 @@ allowed_args <- list(
   "timeStepStdv" = "standard error applied at each time step",
   "adherenceType1" = "adherence during intensive therapy period",
   "adherenceType2" = "adherence during continuation therapy",
+  "adherenceMEMS" = "adherence read from MEMS data",
   "adherenceSwitchDay" = "day for switch between adh type 1 and 2",
   "adherenceMean" = "mean population patient adherence",
   "adherenceStdv" = "standard error for patient adherence",
@@ -72,5 +73,3 @@ print.allowed_args <- function(x) {
     cat(paste0("- '", names(x)[i], "': ", x[[names(x)[i]]], "\n"))
   }
 }
-
-

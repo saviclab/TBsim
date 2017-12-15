@@ -42,6 +42,7 @@
 <adherenceType2>0
 <adherenceSwitchDay>240
 <adherenceMean>1.0
+<adherenceMEMS>0
 <adherenceStdv>0.0001
 <adherenceStdvDay>0.0001
 <shareLowAcetylators>0.50

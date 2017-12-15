@@ -15,9 +15,12 @@ tb_run_sim <- function(sim = NULL,
                        queue = "main.q",
                        results_folder = "/data/tbsim",
                        custom_drugs_folder = "/data/tbsim/drugs",
-                       submit_cmd = "qsub") {
+                       submit_cmd = "qsub",
+                       verbose = FALSE,
+                       return_object = FALSE,
+                       force = FALSE) {
   folder <- sim$dataFolder
-  if(dir.exists(folder)) {
+  if(dir.exists(folder) && !force) {
     stop("Output folder already exists, not starting new job.")
   }
   config_folder <- paste0(folder, "/../config")
@@ -32,7 +35,11 @@ tb_run_sim <- function(sim = NULL,
   }
   # write config files to disk
   tb_write_init(sim$therapy, "therapy.txt", config_folder)
-  tb_write_init(sim$adherence, "adherence.txt", config_folder)
+  if(!is.null(sim[["adherence"]])) {
+    tb_write_init(sim$adherence, "adherence.txt", config_folder)
+  } else {
+    sim$adherenceFile <- NULL
+  }
   for (i in seq(names(sim$drugs))) {
     nam <- names(sim$drugs)[i]
     if(!is.null(sim$drugVariability) && !sim$drugVariability) {
@@ -50,6 +57,8 @@ tb_run_sim <- function(sim = NULL,
     sim$drugs <- NULL
     sim$therapy <- NULL
     sim$adherence <- NULL
+    if(verbose) print(sim)
+    if(return_object) return(sim)
     tb_write_init(sim, "sim.txt", folder = config_folder)
   } else {
     message("Error: No simulation object provided!")

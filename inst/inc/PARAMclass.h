@@ -104,7 +104,7 @@ class PARAMclass
     double timeStepStdv;                // variation applied tp ODE parameters per day
     int adherenceType1;                 // 0=simple % based, 1=days inbetween missed doses method
     int adherenceType2;                 // 0=simple % based, 1=days inbetween missed doses method
-    int adherenceType3;                 // MEMS adherence
+    int adherenceMEMS;                 // MEMS adherence
     std::vector<std::vector<double> > adherenceMEMSvec; // MEMS vector of vectors
     int adherenceSwitchDay;             // day of therapy when switch from Type 1 to Type 2 adherence
     double adherenceMean;               // mean adherence level per patient

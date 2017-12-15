@@ -59,9 +59,9 @@ We then define the *trial* that we want to simulate by calling `tb_sim_new()`. T
 
 ```{r}
 ## create a new simulation definition
-sim1 <- tb_new_sim(folder = '~/tb_run', 
+sim1 <- tb_new_sim(folder = '~/tb_run3', 
                    therapy = therapy,
-                   adherence = adherence,
+                   adherence = NULL,
                    drugs = drugs,
                    nPatients = 100,
                    therapyStart = 90,
@@ -89,7 +89,7 @@ The arguments that are available for this function can be shown by running `allo
 Running the trial simulation is done using the function `tb_run_sim()`. This will create a new folder (the one you specified with the `folder` argument to `tb_new_sim()`), copy the executable there, and create the required config files based on the definition you created using `tb_new_sim()`.
 
 ```{r, eval=FALSE}
-dir.create("~/tb_run")
+dir.create("~/tb_run2")
 tb_run_sim (sim1)
 ```
 

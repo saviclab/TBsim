@@ -248,6 +248,7 @@ void POPULATIONclass::finalizePopStat(VEC5& popPops, VEC4& popStatistics,
                                       int nStat, int nPopulations)
 {
     // median index
+
     int i50 = int(nPopulations / 2) ;  // note integer division
 
     for (int i=0; i<nItems; i++) {

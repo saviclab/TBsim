@@ -1,4 +1,5 @@
 #include <vector>
+#include <iostream>
 
 #include "ADHclass.h"
 #include "statFunctions.h"
@@ -41,12 +42,13 @@ void ADHclass::setAdherence(PARAMclass& PARA)
 
     // if adherenceType==1
     // average number of days between non-adherence event
-    patientAdhDist = tailDist(PARA.adherenceDaysBetween[PARA.iAdherence]);
-    patientAdhRatio = 1.0/patientAdhDist;
-
-    if(adherenceType==2) {
-        // read MEMS data from file
-        // select random row
+    if(!PARA.adherenceMEMS) {
+        patientAdhDist = tailDist(PARA.adherenceDaysBetween[PARA.iAdherence]);
+        patientAdhRatio = 1.0/patientAdhDist;
+    } else { // dummy
+        adherenceType = 9;
+        patientAdhDist = 1.0;
+        patientAdhRatio = 1.0;
     }
 
     // generate daily adherence vector
@@ -54,10 +56,14 @@ void ADHclass::setAdherence(PARAMclass& PARA)
     do {
         double lval = linDist(minAdh, maxAdh);
 
-        // apply active adherenceType
-        adherenceType = PARA.adherenceType1;
-        if (iT>PARA.adherenceSwitchDay){
-            adherenceType = PARA.adherenceType2;
+        // apply active adherenceType (if not MEMS)
+        if(!PARA.adherenceMEMS) {
+            adherenceType = PARA.adherenceType1;
+            if (iT>PARA.adherenceSwitchDay){
+                adherenceType = PARA.adherenceType2;
+            }
+        } else {
+            adherenceType = 2;
         }
         // basic probability-based adherence
         if (adherenceType==0) {
@@ -92,6 +98,7 @@ void ADHclass::setAdherence(PARAMclass& PARA)
         // MEMS adherence
         if (adherenceType==2) {
             adherenceValue[iT] = maxAdh;
+            iT++;
         }
         // perfect adherence (100%)
         if (adherenceType==9) {

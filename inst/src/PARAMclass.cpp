@@ -73,7 +73,7 @@ void PARAMclass::initialize(){
     timeStepStdv            = 0.05;
     adherenceType1          = 0;
     adherenceType2          = 0;
-    adherenceType3          = 0;
+    adherenceMEMS          = 0;
     adherenceSwitchDay      = 1000;
     adherenceMean           = 0.99;
     adherenceStdv           = 0.001;
@@ -192,7 +192,7 @@ bool PARAMclass::readInit (const std::string& folder, const std::string& filenam
 
             if (tagText == "adherenceType1") {adherenceType1 = S2N(valueText);}
             if (tagText == "adherenceType2") {adherenceType2 = S2N(valueText);}
-            if (tagText == "adherenceType3") {adherenceType3 = S2N(valueText);}
+            if (tagText == "adherenceMEMS") {adherenceMEMS = S2N(valueText);}
             if (tagText == "adherenceSwitchDay") {adherenceSwitchDay = S2N(valueText);}
             if (tagText == "adherenceMean") {adherenceMean = S2N(valueText);}
             if (tagText == "adherenceStdv") {adherenceStdv = S2N(valueText);}
@@ -254,7 +254,7 @@ bool PARAMclass::readMEMSAdherence (const std::string& folder)
     bool fileStatus(true);
     std::string fullname;
     fullname = folder + "mems.csv";
-    if(adherenceType3) {
+    if(adherenceMEMS) {
         adherenceMEMSvec = readCSV(fullname);
     }
     return fileStatus;
