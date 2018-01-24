@@ -57,8 +57,8 @@ tb_plot_bactRes <- function(info, bact = NULL,
       ggtitle("Resistant bacteria") +
       theme(plot.title = element_text(size=12, vjust=2)) +
       scale_color_brewer(palette="Set1") +
-      # scale_y_log10() +
-      scale_y_continuous(labels = scales::scientific) +
+      scale_y_log10() +
+      # scale_y_continuous(labels = scales::scientific) +
       theme(legend.title=element_blank()) +
       ylab("Resistant bacterial load (CFU/mL)") +
       xlab("Time after drug treatment start (Days)") +

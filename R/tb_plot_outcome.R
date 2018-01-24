@@ -82,9 +82,12 @@ tb_plot_outcome <- function(info,
     dfm$CTB50 <- replace(dfm$CTB50, dfm$CTB50 > 100, 100)
 
     pl <- ggplot(data = dfm, aes(x = time))
+    # pl <- pl +
+    #   geom_ribbon(aes(ymin=CTBp05, ymax=CTBp95), alpha=0.2) +
+    #   geom_line(aes(y=CTB50, colour="blue"),size=1)
     pl <- pl +
-      geom_ribbon(aes(ymin=CTBp05, ymax=CTBp95), alpha=0.2) +
-      geom_line(aes(y=CTB50, colour="blue"),size=1)
+      geom_ribbon(aes(ymin=100-ATBp05, ymax=100-ATBp95), alpha=0.2) +
+      geom_line(aes(y=100-ATB50, colour="blue"),size=1)
     # pl <- pl +
     #   # geom_ribbon(aes(ymin=NTBp05, ymax=NTBp95), alpha=0.2) +
     #   # geom_line(aes(y=NTB50, colour="black"),size=1) +
