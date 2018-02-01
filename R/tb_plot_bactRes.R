@@ -6,7 +6,8 @@
 #===========================================================================
 #' @export
 tb_plot_bactRes <- function(info, bact = NULL,
-                            type = "total", is_summary = TRUE, is_from_drug_start = TRUE) {
+                            type = "total", is_summary = TRUE,
+                            is_from_drug_start = TRUE) {
 
   # build data frame
   with(bact, {
@@ -41,6 +42,10 @@ tb_plot_bactRes <- function(info, bact = NULL,
       df <- df %>% dplyr::group_by(Type, Days) %>% dplyr::mutate(Load = sum(Load))
     }
 
+    xlabel <- "Time after infection (Days)"
+    if (is_from_drug_start) {
+      xlabel <- "Time after drug start (Days)"
+    }
 
     ## generate plot
     # df <- df %>% mutate(Load = max(1, Load))
@@ -61,7 +66,7 @@ tb_plot_bactRes <- function(info, bact = NULL,
       # scale_y_continuous(labels = scales::scientific) +
       theme(legend.title=element_blank()) +
       ylab("Resistant bacterial load (CFU/mL)") +
-      xlab("Time after drug treatment start (Days)") +
+      xlab(xlabel) +
       geom_hline(yintercept=1, linetype = "dashed")
     if (!is_summary) {
       bp <- bp + facet_wrap(~ Compartment, scales="free_y")

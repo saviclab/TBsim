@@ -71,8 +71,8 @@ plotEffect <- function(){
 	yset1$Type <- drugNames[yset1$Type]
 	yset1$Type <- factor(yset1$Type, levels = c(drugNames[1:nDrugs], drugNames[nDrugs+1]))
 
-	xlabel		<- "Time after infection start (Days)"
-	ylabel		<- "Bactericidal effect [% of maximal]"
+	xlabel		<- "Time after infection (Days)"
+	ylabel		<- "Bactericidal effect [% of total]"
 	titleText	<- "Bactericidal Effect per Drug and Immune System "
 
 	# The palette with grey:

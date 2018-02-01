@@ -94,7 +94,7 @@ tb_plot_outcome <- function(info,
     #   geom_ribbon(aes(ymin=ATBp05, ymax=ATBp95), alpha=0.2) +
     #   geom_line(aes(y=ATB50, colour="red"), size=1) +
     pl <- pl +
-      xlab("Time after infection start (Days)") +
+      xlab("Time after infection (Days)") +
       ylab("% patients cleared of TB") +
       scale_x_continuous(breaks = labx, labels = namesx) +
       scale_y_continuous(breaks = laby , labels = namesy)

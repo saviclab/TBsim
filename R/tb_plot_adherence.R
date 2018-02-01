@@ -24,7 +24,7 @@ tb_plot_adherence <- function(info, adh){
       scale_color_brewer(palette="Set1") +
       theme(legend.title=element_blank()) +
       ylab("Adherence [%]") +
-      xlab("Time after infection start (Days)")
+      xlab("Time after infection (Days)")
     return(bp)
   })
 

@@ -40,7 +40,7 @@ tb_plot_macro <- function(info, macro, is_from_drug_start = TRUE) {
 
 		# set compartment labels
 		compNames <- c("Non-Granuloma", "Granuloma")
-		xlabel <- "Time after infection start (Days)"
+		xlabel <- "Time after infection (Days)"
 		if (is_from_drug_start) {
 			yset <- yset[yset$time > info$drugStart,]
 			xlabel <- "Time after drug start (Days)"
