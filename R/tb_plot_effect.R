@@ -59,7 +59,7 @@ tb_plot_effect <- function(info, effect, is_from_drug_start = TRUE){
     yset1$Type <- info$drugNames[yset1$Type]
     yset1$Type <- factor(yset1$Type, levels = info$drugNames)
 
-    xlabel		<- "Time after infection start (Days)"
+    xlabel		<- "Time after infection (Days)"
     ylabel		<- "Bactericidal effect (% of total)"
     titleText	<- "Relative Bactericidal Effect per Drug and Immune System "
 

@@ -67,7 +67,7 @@ plotBactRes <- function(isSummary, isFromDrugStart){
 	# apply drug names
 	yset$Drug <- drugNames[yset$Drug]
 	
-	xlabel <- "Time after infection start (Days)"
+	xlabel <- "Time after infection (Days)"
 	if (isFromDrugStart==1) {
 		xlabel <- "Time after drug start (Days)"
 	}

@@ -11,7 +11,7 @@ tb_plot_immune_spec <- function(yset, names, mainTitle, subTitle, ytext, drugSta
   dfm2		<- reshape2::melt(yset, id="time", na.rm=TRUE)
   plot.main	<- mainTitle
   plot.sub	<- subTitle
-  xtext		<- "Time after infection start (Days)"
+  xtext		<- "Time after infection (Days)"
 
   # Generate plot
   pl <- ggplot(data = dfm2, aes(x = time, y = value, color = variable, group=variable)) +

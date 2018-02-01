@@ -36,7 +36,7 @@ tb_plot_granuloma <- function(info, granuloma) {
 									 "Breakup_m",   "Breakup_05", "Breakup_95")
 		dfm <- yset
 
-		xlabel <- "Time after infection start (Days)"
+		xlabel <- "Time after infection (Days)"
 		ylabel <- "Factor"
 		mainTitle <- "Granuloma Formation & Breakup [0..1]"
 

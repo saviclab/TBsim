@@ -10,7 +10,7 @@ plotImmune <- function(yset, names, mainTitle, subTitle, ytext, drugStart)
 	dfm2		<- melt(yset, id="time", na.rm=TRUE)
 	plot.main	<- mainTitle
 	plot.sub	<- subTitle
-	xtext		<- "Time after infection start (Days)"
+	xtext		<- "Time after infection (Days)"
 
 	# Generate plot
 	dev.new()
