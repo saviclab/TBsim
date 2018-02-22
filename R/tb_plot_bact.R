@@ -79,8 +79,8 @@ tb_plot_bact <- function(info = NULL, bact = NULL,
   ylabel <- "Bacterial load (CFU/mL)"
   mainTitle <- "Total Bacteria Population"
 
-  # labx	<- c(seq(0, info$nTime, by = 30))
-  # namesx	<- labx
+  labx	<- c(seq(-300, info$nTime, by = 30))
+  namesx	<- labx
   # laby	<- log10(c(0.01, 0.1, 1, 10, 100, 1000, 10000, 100000, 1000000, 10000000, 100000000, 1000000000))
   # namesy	<- expression(10^-2, 10^-1, 10^0, 10^1, 10^2, 10^3, 10^4, 10^5, 10^6, 10^7, 10^8, 10^9)
 
@@ -102,7 +102,7 @@ tb_plot_bact <- function(info = NULL, bact = NULL,
     geom_line(aes(y=Median), colour="#052049", size=1) +
     scale_y_log10() +
     # scale_y_continuous(breaks = laby, labels = namesy) +
-    # scale_x_continuous(breaks = labx, labels = namesx) +
+    scale_x_continuous(breaks = labx, labels = namesx) +
     xlab(xlabel) +
     ylab(ylabel) +
     ggtitle(paste(titleText, " All Compartments"))

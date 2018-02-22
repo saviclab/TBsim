@@ -13,6 +13,8 @@ tb_plot_immune_spec <- function(yset, names, mainTitle, subTitle, ytext,
   dfm2		<- reshape2::melt(yset, id="time", na.rm=TRUE)
   plot.main	<- mainTitle
   plot.sub	<- subTitle
+  labx	<- c(seq(-300, 300, by = 30))
+  namesx	<- labx
 
   # Generate plot
   dfm2 <- dfm2 %>% dplyr::filter(value > 1e-6)
@@ -31,6 +33,7 @@ tb_plot_immune_spec <- function(yset, names, mainTitle, subTitle, ytext,
       fill = "#efefef", colour=NA) +
     geom_line(linetype="solid", size=1) +
     theme_empty() +
+    scale_x_continuous(breaks = labx, labels = namesx) +
     scale_color_brewer(palette="Set1") +
     theme(legend.position="bottom", legend.title=element_blank()) +
     expand_limits(y=0) +

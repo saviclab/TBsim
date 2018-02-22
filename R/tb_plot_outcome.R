@@ -72,7 +72,7 @@ tb_plot_outcome <- function(info,
     dfm <- yset
 
     mainTitle   <- "Patient Population Treatment Outcome"
-    labx  <- c(seq(0, info$nTime, by = 30))
+    labx  <- c(seq(-300, info$nTime, by = 30))
     namesx	<- labx
     laby	<- c(0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100)
     namesy	<- laby

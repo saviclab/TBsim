@@ -60,6 +60,8 @@ tb_plot_effect <- function(info, effect,
     yset1$Type <- info$drugNames[yset1$Type]
     yset1$Type <- factor(yset1$Type, levels = info$drugNames)
 
+    labx	<- c(seq(-300, info$nTime, by = 30))
+    namesx	<- labx
     xlabel		<- "Time after drug treatment start (Days)"
     ylabel		<- "Bactericidal effect (% of total)"
     titleText	<- "Bactericidal Effect per Drug and Immune System "
@@ -79,6 +81,7 @@ tb_plot_effect <- function(info, effect,
       theme(plot.title = element_text(size=12, vjust=2)) +
       xlab(xlabel) +
       ylab(ylabel) +
+      scale_x_continuous(breaks = labx, labels = namesx) +
       scale_color_brewer(palette="Dark2") +
   #    scale_colour_manual(values=cbPalette) +
       ggtitle(titleText) +

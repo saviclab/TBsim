@@ -42,6 +42,8 @@ tb_plot_bactRes <- function(info, bact = NULL,
       df <- df %>% dplyr::group_by(Type, Days) %>% dplyr::mutate(Load = sum(Load))
     }
 
+    labx	<- c(seq(-300, info$nTime, by = 30))
+    namesx	<- labx
     xlabel <- "Time after drug start (Days)"
 
     ## generate plot
@@ -67,6 +69,7 @@ tb_plot_bactRes <- function(info, bact = NULL,
       theme(plot.title = element_text(size=12, vjust=2)) +
       scale_color_brewer(palette="Set1") +
       scale_y_log10() +
+      scale_x_continuous(breaks = labx, labels = namesx) +
       # scale_y_continuous(labels = scales::scientific) +
       theme(legend.title=element_blank()) +
       ylab("Resistant bacterial load (CFU/mL)") +
