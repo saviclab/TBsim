@@ -82,7 +82,14 @@ tb_plot_outcome <- function(info,
     dfm$CTBp95 <- replace(dfm$CTBp95, dfm$CTBp95 > 100, 100)
     dfm$CTB50 <- replace(dfm$CTB50, dfm$CTB50 > 100, 100)
 
-    pl <- ggplot(data = dfm, aes(x = time)) +
+    pl <- ggplot(data = dfm, aes(x = time))
+    if(!is.null(info$treatment_end)) {
+      pl <- pl +
+        geom_vline(xintercept = c(0, info$treatment_end), linetype = 'dashed') +
+        geom_rect(aes(xmin = 0, xmax = info$treatment_end, ymin = 0, ymax = Inf),
+          fill = "#efefef", colour=NA)
+    }
+    pl <- pl +
       geom_ribbon(aes(ymin=100-ATBp05, ymax=100-ATBp95), alpha=0.2) +
       geom_line(aes(y=100-ATB50, colour="blue"),size=1) +
       xlab("Time after drug start (Days)") +
@@ -100,7 +107,7 @@ tb_plot_outcome <- function(info,
     }
     pl <- pl +
       expand_limits(y=0) +
-      geom_vline(xintercept = 0, linetype = 'dashed') +
+      theme_empty() +
       theme(plot.title = element_text(size=16, face="bold", vjust=2)) +
       ggtitle(mainTitle)
     return(pl)

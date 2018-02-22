@@ -55,12 +55,18 @@ tb_plot_macro <- function(info, macro,
 		# Generate plot per compartment
 		for (i in 1:2){
 			yset2 <- yset[yset$Compartment==i,]
-			pl <- ggplot(data = yset2, aes(x = time)) +
+			pl <- ggplot(data = yset2, aes(x = time))
+			if(!is.null(info$treatment_end)) {
+				pl <- pl +
+					geom_vline(xintercept = c(0, info$treatment_end), linetype = 'dashed') +
+					geom_rect(aes(xmin = 0, xmax = info$treatment_end, ymin = 0, ymax = Inf),
+						fill = "#efefef", colour=NA)
+			}
+  			pl <- pl +
 	    	  geom_line(aes(y=MaM), colour="blue", size=0.5) +
 	    	  geom_line(aes(y=MrM), colour="red", size=0.5) +
 	    	  geom_line(aes(y=MiM), colour="darkgreen", size=0.5) +
 				theme_empty() +
-				geom_vline(xintercept = 0, linetype = 'dashed') +
 			  theme(plot.title = element_text(size=16, face="bold", vjust=2)) +
 			  scale_y_continuous(breaks = laby, labels = namesy) +
 			  scale_x_continuous(breaks = labx, labels = namesx) +

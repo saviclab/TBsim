@@ -21,9 +21,15 @@ tb_plot_immune_spec <- function(yset, names, mainTitle, subTitle, ytext,
     dfm2$time <- dfm2$time - drugStart
   }
 
-  pl <- ggplot(data = dfm2, aes(x = time, y = value, color = variable, group=variable)) +
+  pl <- ggplot(
+    data = dfm2,
+    aes(x = time, y = value,
+        color = variable, group=variable))
+  pl <- pl +
+    geom_vline(xintercept = c(0, 180), linetype = 'dashed') +
+    geom_rect(aes(xmin = 0, xmax = 180, ymin = 0, ymax = Inf),
+      fill = "#efefef", colour=NA) +
     geom_line(linetype="solid", size=1) +
-    geom_vline(xintercept = 0, linetype = 'dashed') +
     theme_empty() +
     scale_color_brewer(palette="Set1") +
     theme(legend.position="bottom", legend.title=element_blank()) +

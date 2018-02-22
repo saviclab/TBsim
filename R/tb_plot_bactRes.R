@@ -53,10 +53,16 @@ tb_plot_bactRes <- function(info, bact = NULL,
     # if(max_load <= 10) {
     #   max_load <- 10
     # }
-    bp <- ggplot(data=df, aes(x=Days, y=Load * 1e6, colour=Type)) +
+    pl <- ggplot(data=df, aes(x=Days, y=Load * 1e6, colour=Type))
+    if(!is.null(info$treatment_end)) {
+      pl <- pl +
+        geom_vline(xintercept = c(0, info$treatment_end), linetype = 'dashed') +
+        geom_rect(aes(xmin = 0, xmax = info$treatment_end, ymin = 0, ymax = Inf),
+          fill = "#efefef", colour=NA)
+    }
+    pl <- pl +
       geom_line(size=1) +
       theme_empty() +
-      geom_vline(xintercept = 0, linetype = 'dashed') +
       ggtitle("Resistant bacteria") +
       theme(plot.title = element_text(size=12, vjust=2)) +
       scale_color_brewer(palette="Set1") +
@@ -67,11 +73,8 @@ tb_plot_bactRes <- function(info, bact = NULL,
       xlab(xlabel) +
       geom_hline(yintercept=1, linetype = "dashed")
     if (!is_summary) {
-      bp <- bp + facet_wrap(~ Compartment, scales="free_y")
+      pl <- pl + facet_wrap(~ Compartment, scales="free_y")
     }
-
-      #+
-      #ggplot2::ylim(c(1, max_load))
-    return(bp)
+    return(pl)
   })
 }

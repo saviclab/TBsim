@@ -66,18 +66,24 @@ tb_plot_effect <- function(info, effect,
 
     # The palette with grey:
     cbPalette <- c("#999999", "#E69F00", "#56B4E9", "#009E73", "#0072B2", "#F0E442", "#D55E00", "#CC79A7")
-    pl1 <- ggplot(data = yset1, aes(x = Day, y=Median * 100, group=Type, colour=Type)) +
+    pl <- ggplot(data = yset1, aes(x = Day, y=Median * 100, group=Type, colour=Type))
+    if(!is.null(info$treatment_end)) {
+      pl <- pl +
+        geom_vline(xintercept = c(0, info$treatment_end), linetype = 'dashed') +
+        geom_rect(aes(xmin = 0, xmax = info$treatment_end, ymin = 0, ymax = Inf),
+          fill = "#efefef", colour=NA)
+    }
+    pl <- pl +
       geom_line(size=1.0) +
       theme_empty() +
       theme(plot.title = element_text(size=12, vjust=2)) +
       xlab(xlabel) +
       ylab(ylabel) +
-      geom_vline(xintercept = 0, linetype = 'dashed') +
       scale_color_brewer(palette="Dark2") +
   #    scale_colour_manual(values=cbPalette) +
       ggtitle(titleText) +
       facet_wrap(~Compartment, nrow=1)
 
-    return(pl1)
+    return(pl)
   })
 }

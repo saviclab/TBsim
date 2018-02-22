@@ -89,11 +89,17 @@ tb_plot_bact <- function(info = NULL, bact = NULL,
 
   # Generate plot sum across all compartments
   pl <- ggplot(data = yset, aes(x = time)) +
-    theme_empty() +
+    theme_empty()
+  if(!is.null(info$treatment_end)) {
+    pl <- pl +
+      geom_vline(xintercept = c(0, info$treatment_end), linetype = 'dashed') +
+      geom_rect(aes(xmin = 0, xmax = info$treatment_end, ymin = 0, ymax = Inf),
+        fill = "#efefef", colour=NA)
+  }
+  pl <- pl +
     theme(plot.title = element_text(size=12, vjust=2)) +
     geom_ribbon(aes(ymin=p05, ymax=p95), alpha=0.2) +
     geom_line(aes(y=Median), colour="#052049", size=1) +
-    geom_vline(xintercept = 0, linetype = 'dashed') +
     scale_y_log10() +
     # scale_y_continuous(breaks = laby, labels = namesy) +
     # scale_x_continuous(breaks = labx, labels = namesx) +
