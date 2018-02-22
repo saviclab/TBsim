@@ -7,7 +7,8 @@
 # Oct 20, 2014
 # Updates Ron Keizer, 2015
 #===========================================================================
-tb_plot_effect <- function(info, effect, is_from_drug_start = TRUE){
+tb_plot_effect <- function(info, effect,
+  is_from_drug_start = FALSE){
 
   timePeriods <- 1:info$nTime
 
@@ -43,8 +44,8 @@ tb_plot_effect <- function(info, effect, is_from_drug_start = TRUE){
     # filter out data before drugStart
     if (is_from_drug_start){
       yset1 <- yset1[yset1$Day > info$drugStart,]
-      yset1$Day <- yset1$Day - info$drugStart
     }
+    yset1$Day <- yset1$Day - info$drugStart
 
     # apply compartment labels
     compNames <- c("Extracellular", "Intracellular", "Extracell Granuloma", "Intracell Granuloma")
@@ -59,7 +60,7 @@ tb_plot_effect <- function(info, effect, is_from_drug_start = TRUE){
     yset1$Type <- info$drugNames[yset1$Type]
     yset1$Type <- factor(yset1$Type, levels = info$drugNames)
 
-    xlabel		<- "Time after infection (Days)"
+    xlabel		<- "Time after drug treatment start (Days)"
     ylabel		<- "Bactericidal effect (% of total)"
     titleText	<- "Bactericidal Effect per Drug and Immune System "
 
@@ -71,6 +72,7 @@ tb_plot_effect <- function(info, effect, is_from_drug_start = TRUE){
       theme(plot.title = element_text(size=12, vjust=2)) +
       xlab(xlabel) +
       ylab(ylabel) +
+      geom_vline(xintercept = 0, linetype = 'dashed') +
       scale_color_brewer(palette="Dark2") +
   #    scale_colour_manual(values=cbPalette) +
       ggtitle(titleText) +

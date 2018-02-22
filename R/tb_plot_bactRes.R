@@ -7,7 +7,7 @@
 #' @export
 tb_plot_bactRes <- function(info, bact = NULL,
                             type = "total", is_summary = TRUE,
-                            is_from_drug_start = TRUE) {
+                            is_from_drug_start = FALSE) {
 
   # build data frame
   with(bact, {
@@ -35,17 +35,14 @@ tb_plot_bactRes <- function(info, bact = NULL,
     # filter out data before drugStart
     if (is_from_drug_start){
       df <- df[df$Days > info$drugStart,]
-      df$Days <- df$Days - info$drugStart
     }
+    df$Days <- df$Days - info$drugStart
 
     if (is_summary) {
       df <- df %>% dplyr::group_by(Type, Days) %>% dplyr::mutate(Load = sum(Load))
     }
 
-    xlabel <- "Time after infection (Days)"
-    if (is_from_drug_start) {
-      xlabel <- "Time after drug start (Days)"
-    }
+    xlabel <- "Time after drug start (Days)"
 
     ## generate plot
     # df <- df %>% mutate(Load = max(1, Load))
@@ -59,6 +56,7 @@ tb_plot_bactRes <- function(info, bact = NULL,
     bp <- ggplot(data=df, aes(x=Days, y=Load * 1e6, colour=Type)) +
       geom_line(size=1) +
       theme_empty() +
+      geom_vline(xintercept = 0, linetype = 'dashed') +
       ggtitle("Resistant bacteria") +
       theme(plot.title = element_text(size=12, vjust=2)) +
       scale_color_brewer(palette="Set1") +

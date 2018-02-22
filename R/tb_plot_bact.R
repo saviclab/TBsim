@@ -9,7 +9,9 @@
 
 #' @export
 tb_plot_bact <- function(info = NULL, bact = NULL,
-                                type = "total", is_summary = TRUE, is_from_drug_start = TRUE) {
+                                type = "total",
+                                is_summary = TRUE,
+                                is_from_drug_start = FALSE) {
   if(is.null(info)) {
     stop("This function requires input of an object created by tb_read_header().")
   }
@@ -57,13 +59,12 @@ tb_plot_bact <- function(info = NULL, bact = NULL,
 
   # simulated in 1e6 as unit (check with John)
   yset[,c("Median", "p05", "p95")] <- yset[,c("Median", "p05", "p95")] * 1e6
-  lims <- calc_log_breaks(c(yset$p05, yset$p95))
 
   # filter out data before drugStart
   if (is_from_drug_start){
     yset <- yset[yset$time > info$drugStart,]
-    yset$time <- yset$time - info$drugStart
   }
+  yset$time <- yset$time - info$drugStart
 
   # filter out to have 1/5 of points, for more smooth curve
   #yset <- yset[seq(1, nrow(yset), 5), ]
@@ -74,10 +75,7 @@ tb_plot_bact <- function(info = NULL, bact = NULL,
   yset$Compartment <- factor(yset$Compartment,
                               levels = c("Extracellular", "Intracellular", "Extracell Granuloma", "Intracell Granuloma"))
 
-  xlabel <- "Time after infection start (Days)"
-  if (is_from_drug_start) {
-    xlabel <- "Time after drug start (Days)"
-  }
+  xlabel <- "Time after drug start (Days)"
   ylabel <- "Bacterial load (CFU/mL)"
   mainTitle <- "Total Bacteria Population"
 
@@ -91,19 +89,21 @@ tb_plot_bact <- function(info = NULL, bact = NULL,
 
   # Generate plot sum across all compartments
   pl <- ggplot(data = yset, aes(x = time)) +
-   theme_empty() +
-   theme(plot.title = element_text(size=12, vjust=2)) +
+    theme_empty() +
+    theme(plot.title = element_text(size=12, vjust=2)) +
     geom_ribbon(aes(ymin=p05, ymax=p95), alpha=0.2) +
     geom_line(aes(y=Median), colour="#052049", size=1) +
-    scale_y_log10(breaks = lims, limits = range(lims)) +
+    geom_vline(xintercept = 0, linetype = 'dashed') +
+    scale_y_log10() +
     # scale_y_continuous(breaks = laby, labels = namesy) +
     # scale_x_continuous(breaks = labx, labels = namesx) +
     xlab(xlabel) +
     ylab(ylabel) +
     ggtitle(paste(titleText, " All Compartments"))
   if (!is_summary){
-    pl <- pl + facet_wrap(~ Compartment, scale="free")
+    pl <- pl + facet_wrap(~ Compartment, scales="free_y")
   }
+
   return(pl)
 
 }

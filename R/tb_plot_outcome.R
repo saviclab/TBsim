@@ -9,7 +9,7 @@
 #' @export
 tb_plot_outcome <- function(info,
                             outcome,
-                            is_from_drug_start = TRUE,
+                            is_from_drug_start = FALSE,
                             is_combine_lat_clr = TRUE) {
 
   timePeriods <- 1:info$nTime
@@ -61,9 +61,10 @@ tb_plot_outcome <- function(info,
                         "cTB50", "cTBp05", "cTBp95")
 
     # filter out data before drugStart
-    if (is_from_drug_start==1){
+    if (is_from_drug_start == 1) {
       yset <- yset[yset$time>info$drugStart,]
     }
+    yset$time <- yset$time - info$drugStart
 
     # trim to only include every 5th data point
     yset <- yset[seq(1, nrow(yset), 5), ]
@@ -81,20 +82,10 @@ tb_plot_outcome <- function(info,
     dfm$CTBp95 <- replace(dfm$CTBp95, dfm$CTBp95 > 100, 100)
     dfm$CTB50 <- replace(dfm$CTB50, dfm$CTB50 > 100, 100)
 
-    pl <- ggplot(data = dfm, aes(x = time))
-    # pl <- pl +
-    #   geom_ribbon(aes(ymin=CTBp05, ymax=CTBp95), alpha=0.2) +
-    #   geom_line(aes(y=CTB50, colour="blue"),size=1)
-    pl <- pl +
+    pl <- ggplot(data = dfm, aes(x = time)) +
       geom_ribbon(aes(ymin=100-ATBp05, ymax=100-ATBp95), alpha=0.2) +
-      geom_line(aes(y=100-ATB50, colour="blue"),size=1)
-    # pl <- pl +
-    #   # geom_ribbon(aes(ymin=NTBp05, ymax=NTBp95), alpha=0.2) +
-    #   # geom_line(aes(y=NTB50, colour="black"),size=1) +
-    #   geom_ribbon(aes(ymin=ATBp05, ymax=ATBp95), alpha=0.2) +
-    #   geom_line(aes(y=ATB50, colour="red"), size=1) +
-    pl <- pl +
-      xlab("Time after infection (Days)") +
+      geom_line(aes(y=100-ATB50, colour="blue"),size=1) +
+      xlab("Time after drug start (Days)") +
       ylab("% patients cleared of TB") +
       scale_x_continuous(breaks = labx, labels = namesx) +
       scale_y_continuous(breaks = laby , labels = namesy)
@@ -108,10 +99,8 @@ tb_plot_outcome <- function(info,
                                      labels = c('Cleared', 'Latent', 'Acute'))
     }
     pl <- pl +
-    # theme(legend.justification=c(0,1), legend.position=c(0,1),
-    #                   legend.background = element_rect(fill=rgb(1,1,1, 1.0)),
-    #                   legend.direction="vertical", legend.box="horizontal", legend.box.just = c("top")) +
-       expand_limits(y=0) +
+      expand_limits(y=0) +
+      geom_vline(xintercept = 0, linetype = 'dashed') +
       theme(plot.title = element_text(size=16, face="bold", vjust=2)) +
       ggtitle(mainTitle)
     return(pl)

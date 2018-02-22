@@ -7,7 +7,8 @@
 # updates Ron Keizer, 2015
 #===========================================================================
 #' @export
-tb_plot_macro <- function(info, macro, is_from_drug_start = TRUE) {
+tb_plot_macro <- function(info, macro,
+	is_from_drug_start = FALSE) {
 
 	timePeriods <- 1:info$nTime
 
@@ -40,11 +41,10 @@ tb_plot_macro <- function(info, macro, is_from_drug_start = TRUE) {
 
 		# set compartment labels
 		compNames <- c("Non-Granuloma", "Granuloma")
-		xlabel <- "Time after infection (Days)"
 		if (is_from_drug_start) {
 			yset <- yset[yset$time > info$drugStart,]
-			xlabel <- "Time after drug start (Days)"
 		}
+		xlabel <- "Time after drug start (Days)"
 		ylabel <- "Macrophage count [log(Cells/ml)]"
 		labx	<- c(seq(0, info$nTime, by = 30))
 		namesx	<- labx
@@ -60,6 +60,7 @@ tb_plot_macro <- function(info, macro, is_from_drug_start = TRUE) {
 	    	  geom_line(aes(y=MrM), colour="red", size=0.5) +
 	    	  geom_line(aes(y=MiM), colour="darkgreen", size=0.5) +
 				theme_empty() +
+				geom_vline(xintercept = 0, linetype = 'dashed') +
 			  theme(plot.title = element_text(size=16, face="bold", vjust=2)) +
 			  scale_y_continuous(breaks = laby, labels = namesy) +
 			  scale_x_continuous(breaks = labx, labels = namesx) +
@@ -68,6 +69,7 @@ tb_plot_macro <- function(info, macro, is_from_drug_start = TRUE) {
 			  ggtitle(paste(titleText, compNames[i]))
 			return(pl)
 		}
+
 	})
 
 }
