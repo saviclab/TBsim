@@ -7,7 +7,8 @@
 # Oct 20, 2014
 # Updates Ron Keizer, 2015
 #===========================================================================
-tb_plot_effect <- function(info, effect, is_from_drug_start = TRUE){
+tb_plot_effect <- function(info, effect,
+  is_from_drug_start = FALSE){
 
   timePeriods <- 1:info$nTime
 
@@ -43,8 +44,8 @@ tb_plot_effect <- function(info, effect, is_from_drug_start = TRUE){
     # filter out data before drugStart
     if (is_from_drug_start){
       yset1 <- yset1[yset1$Day > info$drugStart,]
-      yset1$Day <- yset1$Day - info$drugStart
     }
+    yset1$Day <- yset1$Day - info$drugStart
 
     # apply compartment labels
     compNames <- c("Extracellular", "Intracellular", "Extracell Granuloma", "Intracell Granuloma")
@@ -59,23 +60,33 @@ tb_plot_effect <- function(info, effect, is_from_drug_start = TRUE){
     yset1$Type <- info$drugNames[yset1$Type]
     yset1$Type <- factor(yset1$Type, levels = info$drugNames)
 
-    xlabel		<- "Time after infection start (Days)"
-    ylabel		<- "Bactericidal effect (% of maximal)"
+    labx	<- c(seq(-300, info$nTime, by = 30))
+    namesx	<- labx
+    xlabel		<- "Time after drug treatment start (Days)"
+    ylabel		<- "Bactericidal effect (% of total)"
     titleText	<- "Bactericidal Effect per Drug and Immune System "
 
     # The palette with grey:
     cbPalette <- c("#999999", "#E69F00", "#56B4E9", "#009E73", "#0072B2", "#F0E442", "#D55E00", "#CC79A7")
-    pl1 <- ggplot(data = yset1, aes(x = Day, y=Median * 100, group=Type, colour=Type)) +
+    pl <- ggplot(data = yset1, aes(x = Day, y=Median * 100, group=Type, colour=Type))
+    if(!is.null(info$treatment_end)) {
+      pl <- pl +
+        geom_vline(xintercept = c(0, info$treatment_end), linetype = 'dashed') +
+        geom_rect(aes(xmin = 0, xmax = info$treatment_end, ymin = 0, ymax = Inf),
+          fill = "#efefef", colour=NA)
+    }
+    pl <- pl +
       geom_line(size=1.0) +
       theme_empty() +
       theme(plot.title = element_text(size=12, vjust=2)) +
       xlab(xlabel) +
       ylab(ylabel) +
+      scale_x_continuous(breaks = labx, labels = namesx) +
       scale_color_brewer(palette="Dark2") +
   #    scale_colour_manual(values=cbPalette) +
       ggtitle(titleText) +
       facet_wrap(~Compartment, nrow=1)
 
-    return(pl1)
+    return(pl)
   })
 }

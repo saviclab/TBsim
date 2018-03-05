@@ -36,7 +36,7 @@ tb_plot_granuloma <- function(info, granuloma) {
 									 "Breakup_m",   "Breakup_05", "Breakup_95")
 		dfm <- yset
 
-		xlabel <- "Time after infection start (Days)"
+		xlabel <- "Time after infection (Days)"
 		ylabel <- "Factor"
 		mainTitle <- "Granuloma Formation & Breakup [0..1]"
 
@@ -46,7 +46,14 @@ tb_plot_granuloma <- function(info, granuloma) {
 		namesy	<- laby
 
 		# Generate plot
-		pl <- ggplot(data = dfm, aes(x = time)) +
+		pl <- ggplot(data = dfm, aes(x = time))
+		if(!is.null(info$treatment_end)) {
+			pl <- pl +
+				geom_vline(xintercept = c(0, info$treatment_end), linetype = 'dashed') +
+				geom_rect(aes(xmin = 0, xmax = info$treatment_end, ymin = 0, ymax = Inf),
+					fill = "#efefef", colour=NA)
+		}
+    pl <- pl +
 				geom_ribbon(aes(ymin=Formation_05, ymax=Formation_95), alpha=0.2) +
 				geom_line(aes(y=Formation_m, colour="darkgreen"), size=1) +
 

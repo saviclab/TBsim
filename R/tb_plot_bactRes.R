@@ -6,7 +6,8 @@
 #===========================================================================
 #' @export
 tb_plot_bactRes <- function(info, bact = NULL,
-                            type = "total", is_summary = TRUE, is_from_drug_start = TRUE) {
+                            type = "total", is_summary = TRUE,
+                            is_from_drug_start = FALSE) {
 
   # build data frame
   with(bact, {
@@ -34,13 +35,16 @@ tb_plot_bactRes <- function(info, bact = NULL,
     # filter out data before drugStart
     if (is_from_drug_start){
       df <- df[df$Days > info$drugStart,]
-      df$Days <- df$Days - info$drugStart
     }
+    df$Days <- df$Days - info$drugStart
 
     if (is_summary) {
       df <- df %>% dplyr::group_by(Type, Days) %>% dplyr::mutate(Load = sum(Load))
     }
 
+    labx	<- c(seq(-300, info$nTime, by = 30))
+    namesx	<- labx
+    xlabel <- "Time after drug start (Days)"
 
     ## generate plot
     # df <- df %>% mutate(Load = max(1, Load))
@@ -51,24 +55,29 @@ tb_plot_bactRes <- function(info, bact = NULL,
     # if(max_load <= 10) {
     #   max_load <- 10
     # }
-    bp <- ggplot(data=df, aes(x=Days, y=Load * 1e6, colour=Type)) +
+    pl <- ggplot(data=df, aes(x=Days, y=Load * 1e6, colour=Type))
+    if(!is.null(info$treatment_end)) {
+      pl <- pl +
+        geom_vline(xintercept = c(0, info$treatment_end), linetype = 'dashed') +
+        geom_rect(aes(xmin = 0, xmax = info$treatment_end, ymin = 0, ymax = Inf),
+          fill = "#efefef", colour=NA)
+    }
+    pl <- pl +
       geom_line(size=1) +
       theme_empty() +
       ggtitle("Resistant bacteria") +
       theme(plot.title = element_text(size=12, vjust=2)) +
       scale_color_brewer(palette="Set1") +
-      # scale_y_log10() +
-      scale_y_continuous(labels = scales::scientific) +
+      scale_y_log10() +
+      scale_x_continuous(breaks = labx, labels = namesx) +
+      # scale_y_continuous(labels = scales::scientific) +
       theme(legend.title=element_blank()) +
       ylab("Resistant bacterial load (CFU/mL)") +
-      xlab("Time after drug treatment start (Days)") +
+      xlab(xlabel) +
       geom_hline(yintercept=1, linetype = "dashed")
     if (!is_summary) {
-      bp <- bp + facet_wrap(~ Compartment, scales="free_y")
+      pl <- pl + facet_wrap(~ Compartment, scales="free_y")
     }
-
-      #+
-      #ggplot2::ylim(c(1, max_load))
-    return(bp)
+    return(pl)
   })
 }

@@ -309,8 +309,8 @@ void POPULATIONclass::finalizePopStat(VEC5& popPops, VEC4& popStatistics,
             if (nPopulations==1) {
                 for (int m=0; m<nPeriods; m++) {
                     popStatistics[i][j][0][m] = saveAverage[m];
-                    popStatistics[i][j][1][m] = 0.0;
-                    popStatistics[i][j][2][m] = 0.0;
+                    //popStatistics[i][j][1][m] = 0.0;
+                    //popStatistics[i][j][2][m] = 0.0;
                 }
             }
             // if nPopulations>1 then set confidence intervall values

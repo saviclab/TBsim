@@ -86,7 +86,7 @@ plotBactTotals <- function(type, isSummary, isFromDrugStart){
 	# apply compartment labels
 	compNames <- c("Extracellular", "Intracellular", "Extracell Granuloma", "Intracell Granuloma")
 	
-	xlabel <- "Time after infection start (Days)"
+	xlabel <- "Time after infection (Days)"
 	if (isFromDrugStart==1) {
 		xlabel <- "Time after drug start (Days)"
 	}

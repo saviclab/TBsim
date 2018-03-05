@@ -28,6 +28,8 @@ tb_plot_dose <- function(info, dose){
   }
   dat <- dat %>% group_by(drug) %>% add_dose_start()
   dat$drug <- factor(dat$drug, levels=drug_factors)
+  labx	<- c(seq(-300, info$nTime, by = 30))
+  namesx	<- labx
 
   pl <- ggplot(dat %>%
          filter(t < max(t)) %>%
@@ -37,12 +39,14 @@ tb_plot_dose <- function(info, dose){
     geom_text(aes(x = t + max(t/20), label = dose_start), colour="#ffffff") +
     facet_grid(drug ~ .) +
     xlab("Time after drug treatment start (days)") + ylab("") +
-    xlim(c(0, max(dat$t))) + theme_empty() +
+    scale_x_continuous(breaks = labx, labels = namesx) +
+    xlim(c(0, max(dat$t))) +
+    theme_empty() +
     theme(axis.title.y=element_blank(),
           axis.text.y=element_blank(),
           axis.ticks.y=element_blank(),
           plot.margin = unit(c(.5,.5,.5, 1.26), "cm")) +
-    guides(colour=FALSE)
+    guides(colour=FALSE, fill=FALSE)
 
   return(pl)
 }

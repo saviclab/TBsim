@@ -7,7 +7,8 @@
 # updates Ron Keizer, 2015
 #===========================================================================
 #' @export
-tb_plot_macro <- function(info, macro, is_from_drug_start = TRUE) {
+tb_plot_macro <- function(info, macro,
+	is_from_drug_start = FALSE) {
 
 	timePeriods <- 1:info$nTime
 
@@ -40,11 +41,10 @@ tb_plot_macro <- function(info, macro, is_from_drug_start = TRUE) {
 
 		# set compartment labels
 		compNames <- c("Non-Granuloma", "Granuloma")
-		xlabel <- "Time after infection start (Days)"
 		if (is_from_drug_start) {
 			yset <- yset[yset$time > info$drugStart,]
-			xlabel <- "Time after drug start (Days)"
 		}
+		xlabel <- "Time after drug start (Days)"
 		ylabel <- "Macrophage count [log(Cells/ml)]"
 		labx	<- c(seq(0, info$nTime, by = 30))
 		namesx	<- labx
@@ -55,7 +55,14 @@ tb_plot_macro <- function(info, macro, is_from_drug_start = TRUE) {
 		# Generate plot per compartment
 		for (i in 1:2){
 			yset2 <- yset[yset$Compartment==i,]
-			pl <- ggplot(data = yset2, aes(x = time)) +
+			pl <- ggplot(data = yset2, aes(x = time))
+			if(!is.null(info$treatment_end)) {
+				pl <- pl +
+					geom_vline(xintercept = c(0, info$treatment_end), linetype = 'dashed') +
+					geom_rect(aes(xmin = 0, xmax = info$treatment_end, ymin = 0, ymax = Inf),
+						fill = "#efefef", colour=NA)
+			}
+  			pl <- pl +
 	    	  geom_line(aes(y=MaM), colour="blue", size=0.5) +
 	    	  geom_line(aes(y=MrM), colour="red", size=0.5) +
 	    	  geom_line(aes(y=MiM), colour="darkgreen", size=0.5) +
@@ -68,6 +75,7 @@ tb_plot_macro <- function(info, macro, is_from_drug_start = TRUE) {
 			  ggtitle(paste(titleText, compNames[i]))
 			return(pl)
 		}
+
 	})
 
 }

@@ -110,7 +110,7 @@ plotMacro <- function(){
 	# set compartment labels
 	compNames <- c("Non-Granuloma", "Granuloma")
 	
-	xlabel <- "Time after infection start (Days)"
+	xlabel <- "Time after infection (Days)"
 	if (isFromDrugStart==1) {
 		xlabel <- "Time after drug start (Days)"
 	}
