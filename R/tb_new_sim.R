@@ -15,6 +15,7 @@ tb_new_sim <- function(template_file = NULL,
                        nTime = 365,
                        nPopulations = 1,
                        nThreads = 4,
+                       memsFile = NULL,
                        ... ) {
   if(is.null(folder)) {
     folder <- new_tempdir()
@@ -51,6 +52,7 @@ tb_new_sim <- function(template_file = NULL,
   for(i in seq(names(drugs))) {
     obj$drugFile <- c(obj$drugFile, c(paste0(names(drugs)[i], ".txt")))
   }
+  obj$memsFile <- memsFile
   obj$adherenceFile <- "adherence.txt"
   obj$nPatients <- nPatients
   obj$nTime <- nTime

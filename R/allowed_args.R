@@ -41,6 +41,7 @@ allowed_args <- list(
   "adherenceType1" = "adherence during intensive therapy period",
   "adherenceType2" = "adherence during continuation therapy",
   "adherenceMEMS" = "adherence read from MEMS data",
+  "memsFile" = "MEMS data file used for simulation",
   "adherenceSwitchDay" = "day for switch between adh type 1 and 2",
   "adherenceMean" = "mean population patient adherence",
   "adherenceStdv" = "standard error for patient adherence",

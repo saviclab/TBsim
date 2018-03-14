@@ -53,6 +53,12 @@ tb_run_sim <- function(sim = NULL,
     fname <- paste0(nam, ".txt")
     tb_write_init(sim$drugs[[nam]], fname, config_folder)
   }
+  if(!is.null(sim$memsFile)) {
+    if(file.exists(sim$memsFile)) {
+      message("MEMS file specified, copying to config folder.")
+      file.copy(sim$memsFile, paste0(config_folder, "/mems.csv"))
+    }
+  }
   if(!is.null(sim)) {
     sim$drugs <- NULL
     sim$therapy <- NULL
