@@ -61,7 +61,7 @@ tb_run_sim <- function(sim = NULL,
       TBsim::create_mems_data(
         data = mems,
         n_patients = sim$nPatients,
-        n_events = as.numeric(sim$nTime),
+        n_events = as.numeric(sim$nTime) - as.numeric(sim$therapyStart),
         file = paste0(config_folder, "/mems.csv"))
     }
   }

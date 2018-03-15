@@ -38,7 +38,7 @@ tb_plot_kill <- function(info, kill, custom_drugs = NULL){
   # })
   if(!is.null(kill)) {
     kill <- as.data.frame(kill)
-    kill$concs <- kill$kill
+    kill$concs <- kill$kills
     attr(kill, "type") <- "conc"
     kill <- kill[seq(1, nrow(kill), 10), ]
     pl <- tb_plot_conc(info, kill, custom_drugs = custom_drugs)
