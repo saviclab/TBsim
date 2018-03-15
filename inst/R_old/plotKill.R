@@ -9,7 +9,7 @@ plotKill <- function(){
 
 	# read header file
 	list <- readHeaderFile(folder)
-	timeStamp		<- list[[1]] 
+	timeStamp		<- list[[1]]
 	nTime			<- list[[2]]
 	nSteps			<- list[[3]]
 	drugStart		<- list[[4]]
@@ -22,8 +22,8 @@ plotKill <- function(){
 	nDrugs			<- list[[11]]
 	doseText		<- list[[12]]
 	outcomeIter		<- list[[13]]
-	drug			<- list[[14]]	
-	
+	drug			<- list[[14]]
+
 	# read concentration data file
 	output <- readFile(folder, "calcKill.txt", "calcKill")
 	times <- output[[1]]
@@ -35,26 +35,25 @@ plotKill <- function(){
 	df <- data.frame(times, drugs, compartments, kills)
 	df <- na.omit(df)
 	colnames(df) <- c("Hour", "Drug", "Compartment", "Kill")
-	
+
 	# apply actual drug codes
 	df$Drug <- drug[df$Drug]
-	
+
 	# apply compartment labels
 	compNames <- c("Extracellular", "Intracellular", "Extracell Granuloma", "Intracell Granuloma")
-	df$Compartment <- compNames[df$Compartment] 
+	df$Compartment <- compNames[df$Compartment]
 	df$Compartment <- factor(df$Compartment,
          levels = c("Extracellular", "Intracellular", "Extracell Granuloma", "Intracell Granuloma"))
-	
+
 	# generate plot
 	dev.new()
-	bp <- ggplot(data=df, aes(x=Hour, y=Kill)) + 
-	      geom_line(size=0.5, colour="red") + 
-		  ggtitle("EC50 Kill Factor per Drug") + 
+	bp <- ggplot(data=df, aes(x=Hour, y=Kill)) +
+	      geom_line(size=0.5, colour="red") +
+		  ggtitle("EC50 Kill Factor per Drug") +
 		  theme(plot.title = element_text(size=16, face="bold", vjust=2)) +
  		  scale_color_brewer(palette="Set1") +
 		  theme(legend.title=element_blank()) +
 		  ylab("Kill factor [0..1]") +
    		  xlab("Time after drug treatment start [Hours]") +
 	      facet_grid(Drug ~ Compartment, scales="free_y")
-	print(bp)
 }

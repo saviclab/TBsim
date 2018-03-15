@@ -68,7 +68,7 @@ tb_plot_conc <- function(info, conc, filter=TRUE, cv = NULL,
       #       plot.margin = unit(c(.5,.5,.5,.3), "cm")) +
       scale_color_brewer(palette="Dark2") +
       ylab("Concentration (mg/L)") +
-      # xlab("Time after drug treatment start (Days)") +
+      xlab("Time after drug treatment start (Days)") +
       facet_grid(Drug ~ Compartment, scales="free_y")
     return(bp)
 
