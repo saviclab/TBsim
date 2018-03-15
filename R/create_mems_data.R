@@ -23,7 +23,7 @@ create_mems_data <- function(
   seed = NULL,
   file = NULL
 ) {
-  if(is.null(data) || !("list" %in% class(mems_data))) stop("MEMS data needed, specified as list object.")
+  if(is.null(data) || !("list" %in% class(data))) stop("MEMS data needed, specified as list object.")
   if(is.null(n_patients)) n_patients <- length(data)
   fill <- function(vec, n) {
     rep(vec, ceiling(n/length(vec)))[1:n]
