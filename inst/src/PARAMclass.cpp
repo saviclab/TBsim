@@ -256,7 +256,7 @@ bool PARAMclass::readMEMSAdherence (const std::string& folder)
     fullname = folder + "mems.csv";
     std::cout << "Reading MEMS data: " << fullname << "\n";
     adherenceMEMSvec = readCSV(fullname);
-    std::cout << "  " << adherenceMEMSvec.size() << " patients\n";
+    std::cout << "  " << adherenceMEMSvec.size() << " patient(s)\n";
     std::cout << "  " << adherenceMEMSvec[0].size() << " days of MEMS data per patient\n";
     return fileStatus;
 }

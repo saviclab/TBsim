@@ -104,7 +104,7 @@ int main(int argc, char* argv[])
                 // load adherence files with patient adherence patterns (not MEMS)
                 adherenceStatus = PARA.readAdherence(configFolder);
             }
-
+            std::cout << "Done reading MEMS data." << std::endl;
 
             // load drug files with PK/PD/mutation parameters per drug
             drugStatus = DRUGLIST.initialize(PARA.nDrugs, configFolder, PARA.drugFile);
@@ -262,7 +262,7 @@ int main(int argc, char* argv[])
                     OUTCOMEclass OUTCOME;
 
                     TIMER.stop(0, 1);
-                    std::cout << "Population generation : "<<iPop<<" ";
+                    std::cout << "Population generation : " << iPop << " ";
                     int oldiP=0;
                     // set step to be 10% of population, and adjust for number of threads
                     int iStep = int(0.1*PARA.nPatients/numberOfThreads);
@@ -278,14 +278,18 @@ int main(int argc, char* argv[])
                         }
 
                         // generate pt adherence with variation per day
+                        std::cout << "Patient:" << iP << std::endl;
                         if (PARA.isAdherence==1) {
                             TIMER.start(id, 2);
                             ADH.initialize(PARA.nTime);
+                            std::cout << "Loading adherence" << std::endl;
                             ADH.setAdherence(PARA, iP);
+                            std::cout << "Done" << std::endl;
                             if (PARA.isSaveAdhDose==1) {
                                 POPULATION.transfer(POPULATION.popAdherenceBase,
                                                     ADH.adherenceValue, iP, 1, 1, PARA.nTime);
                             }
+
                             TIMER.stop(id, 2);
                         }
                         // generate pt dose, per drug, by multiplying base dose with pt adherence

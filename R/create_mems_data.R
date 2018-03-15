@@ -18,31 +18,37 @@
 create_mems_data <- function(
   data = NULL,
   n_patients = NULL,
-  n_events = 100,
+  n_events = 300,
   random = TRUE,
   seed = NULL,
   file = NULL
 ) {
+  data <- as.list(data)
+  if(random) data <- data[order(runif(length(data)))]
   if(is.null(data) || !("list" %in% class(data))) stop("MEMS data needed, specified as list object.")
   if(is.null(n_patients)) n_patients <- length(data)
+  if(n_patients == 0) stop("Zero patients in data or zero patients requested.")
   fill <- function(vec, n) {
     rep(vec, ceiling(n/length(vec)))[1:n]
   }
-  tmp <- matrix(unlist(lapply(data, "fill", n_events)), ncol = n_events, byrow=TRUE)
+  tmp <- matrix(unlist(lapply(data, "fill", n_patients)), ncol = n_events, byrow=TRUE)
   id <- 1:n_patients
   if(n_patients > length(data)) {
     tmp <- tmp[rep(1:nrow(tmp), ceiling(n_patients/nrow(tmp)))[1:n_patients],]
-  } else {
-    tmp <- tmp[1:n_patients,]
   }
+  tmp <- tmp[1:n_patients,]
   if(random) {
     if(!is.null(seed)) {
       set.seed(seed)
     }
-    tmp <- tmp[floor(runif(n_patients, min = 1, max = n_patients+1)),]
+    if(n_patients > 1) tmp <- tmp[order(runif(n_patients)),]
   }
   if(!is.null(file)) {
-    write.table(tmp, file = file, quote = F, row.names = F, col.names = F, sep = ",")
+    if(n_patients > 1) {
+      write.table(tmp, file = file, quote = F, row.names = F, col.names = F, sep = ",")
+    } else {
+      write.table(t(data.frame(tmp)), file = file, quote = F, row.names = F, col.names = F, sep = ",")
+    }
   } else {
     return(tmp)
   }

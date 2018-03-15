@@ -34,22 +34,31 @@ void ADHclass::setAdherence(PARAMclass& PARA, int iP)
     double patientAdhMean(0.0), dayAdhStdv(0.0);
     double patientAdhDist(0.0), patientAdhRatio (0.0);
     int adherenceType(0);
-
-    // if adherenceType==0
-    // base adherence per patient and variability per day
-    patientAdhMean = normDist(PARA.adherenceMean, PARA.adherenceMean*PARA.adherenceStdv, minAdh, maxAdh);
-    dayAdhStdv = PARA.adherenceStdv * PARA.adherenceStdvDay;
-
-    // if adherenceType==1
-    // average number of days between non-adherence event
-    patientAdhDist = tailDist(PARA.adherenceDaysBetween[PARA.iAdherence]);
-    patientAdhRatio = 1.0/patientAdhDist;
-
     if(PARA.adherenceMEMS == 1) {
         // select row from MEMS table
         // User must make sure that the table size has at least <iP> rows, and <nTime> columns!!
         adherenceValue = PARA.adherenceMEMSvec[iP];
+
+        // int iT(0);
+        // std::cout << "Adherence vector: ";
+        // do {
+        //   std::cout << adherenceValue[iT];
+        //   iT++;
+        // } while (iT<PARA.nTime);
+        // std::cout << std::endl;
+
     } else {
+
+        // if adherenceType==0
+        // base adherence per patient and variability per day
+        patientAdhMean = normDist(PARA.adherenceMean, PARA.adherenceMean*PARA.adherenceStdv, minAdh, maxAdh);
+        dayAdhStdv = PARA.adherenceStdv * PARA.adherenceStdvDay;
+
+        // if adherenceType==1
+        // average number of days between non-adherence event
+        patientAdhDist = tailDist(PARA.adherenceDaysBetween[PARA.iAdherence]);
+        patientAdhRatio = 1.0/patientAdhDist;
+
         // generate daily adherence vector
         int iT(0);
         do {

@@ -58,13 +58,11 @@ tb_run_sim <- function(sim = NULL,
       message("MEMS file specified, copying to config folder.")
       file.copy(sim$memsFile, paste0(config_folder, "/mems_raw.rds"))
       mems <- readRDS(paste0(config_folder, "/mems_raw.rds"))
-      mems_tbsim <- TBsim::create_mems_data(
+      TBsim::create_mems_data(
         data = mems,
         n_patients = sim$nPatients,
-        n_events = 200)
-      write.table(
-        mems_tbsim, paste0(config_folder, "/mems.csv"),
-        sep=",", row.names=F, col.names=F, quote=F)
+        n_events = as.numeric(sim$nTime),
+        file = paste0(config_folder, "/mems.csv"))
     }
   }
   if(!is.null(sim)) {
