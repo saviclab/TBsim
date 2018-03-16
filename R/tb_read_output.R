@@ -28,15 +28,10 @@ tb_read_output <- function(folder = "~/tb_run", type = NULL, output_folder = TRU
   if(type == "granuloma") {
   	tmp <- tb_read_granuloma(folder)
   }
+  if(type == "adherence") {
+    tmp <- tb_read_adherence(folder)
+  }
 
-#  if(type == "adherence") {
-#    adh <- read.table(paste(folder, "/adh_d.txt", sep=""), header=FALSE, sep="\t", skip=1)
-#    return(adh)
-	# y2 <- y1[,1:600]
-	# y2[,1:180] <- 1
-	# y2[,361:600] <- 1
-	# tmp <- data.matrix(y2)
-#  }
   if(!is.null(tmp)) {
   	attr(tmp, "type") <- type
    	return(tmp)

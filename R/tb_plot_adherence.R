@@ -7,25 +7,25 @@
 # updates Ron Keizer, 2015
 #===========================================================================
 #' @export
-tb_plot_adherence <- function(info, adh){
+tb_plot_adherence <- function(info, adh, is_from_drug_start = TRUE, ...){
 
-  with(adh, {
-    # build data frame
-    df <- data.frame(times, adh)
-    df <- na.omit(df)
-    colnames(df) <- c("Day", "Adh")
+  colnames(adh) <- c("Day", "Adh")
 
-    # generate plot
-    bp <- ggplot(data=df, aes(x=Day, y=Adh)) +
-      #geom_line(linetype="dashed", size=0.5, colour="grey") +
-      geom_point(colour="red", size = 1) +
-      ggtitle("Patient Drug Adherence (Median)") +
-      theme(plot.title = element_text(size=12, vjust=2)) +
-      scale_color_brewer(palette="Set1") +
-      theme(legend.title=element_blank()) +
-      ylab("Adherence [%]") +
-      xlab("Time after infection (Days)")
-    return(bp)
-  })
+  if(is_from_drug_start){
+    adh <- adh[adh$Day > info$drugStart,]
+  }
+  adh$Day <- adh$Day - info$drugStart
+
+  # generate plot
+  bp <- ggplot(data=adh, aes(x=Day, y=100*Adh)) +
+    # geom_point(colour="#052049", size = 1) +
+    geom_line(colour="#052049", size = 1) +
+    ggtitle("Patient Drug Adherence (Median)") +
+    theme(plot.title = element_text(size=12, vjust=2)) +
+    scale_color_brewer(palette="Set1") +
+    theme(legend.title=element_blank()) +
+    ylab("%") +
+    xlab("Time after infection (Days)")
+  return(bp)
 
 }

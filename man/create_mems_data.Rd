@@ -6,7 +6,7 @@
 The function basically fills in any missing days when, and can
 randomly draw more patients from the dataset.}
 \usage{
-create_mems_data(data = NULL, n_patients = NULL, n_events = 100,
+create_mems_data(data = NULL, n_patients = NULL, n_events = 300,
   random = TRUE, seed = NULL, file = NULL)
 }
 \arguments{

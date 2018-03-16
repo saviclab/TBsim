@@ -16,6 +16,7 @@ tb_read_all_output <- function(
     info  = tb_read_output(folder, "header", output_folder = output_folder),
     outc  = tb_read_output(folder, "outcome", output_folder = output_folder),
     bact  = tb_read_output(folder, "bact", output_folder = output_folder),
+    adherence = tb_read_output(folder, "adherence", output_folder = output_folder),
     bactRes = tb_read_output(folder, "bactRes", output_folder = output_folder),
     conc  = tb_read_output(folder, "conc", output_folder = output_folder),
     dose  = tb_read_output(folder, "dose", output_folder = output_folder),
