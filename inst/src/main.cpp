@@ -278,11 +278,10 @@ int main(int argc, char* argv[])
                         }
 
                         // generate pt adherence with variation per day
-                        std::cout << "Patient:" << iP << std::endl;
+                        // std::cout << "Patient:" << iP << std::endl;
                         if (PARA.isAdherence==1) {
                             TIMER.start(id, 2);
                             ADH.initialize(PARA.nTime);
-                            std::cout << "Loading adherence" << std::endl;
                             ADH.setAdherence(PARA, iP);
                             std::cout << "Done" << std::endl;
                             if (PARA.isSaveAdhDose==1) {

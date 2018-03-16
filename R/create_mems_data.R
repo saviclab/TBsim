@@ -24,7 +24,10 @@ create_mems_data <- function(
   file = NULL
 ) {
   data <- as.list(data)
+  print(length(data))
+  print(data[1])
   if(random) data <- data[order(runif(length(data)))]
+  print('test')
   if(is.null(data) || !("list" %in% class(data))) stop("MEMS data needed, specified as list object.")
   if(is.null(n_patients)) n_patients <- length(data)
   if(n_patients == 0) stop("Zero patients in data or zero patients requested.")
@@ -32,6 +35,7 @@ create_mems_data <- function(
     rep(vec, ceiling(n/length(vec)))[1:n]
   }
   tmp <- matrix(unlist(lapply(data, "fill", n_patients)), ncol = n_events, byrow=TRUE)
+  print(head(tmp))
   id <- 1:n_patients
   if(n_patients > length(data)) {
     tmp <- tmp[rep(1:nrow(tmp), ceiling(n_patients/nrow(tmp)))[1:n_patients],]
