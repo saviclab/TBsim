@@ -283,7 +283,6 @@ int main(int argc, char* argv[])
                             TIMER.start(id, 2);
                             ADH.initialize(PARA.nTime);
                             ADH.setAdherence(PARA, iP);
-                            std::cout << "Done" << std::endl;
                             if (PARA.isSaveAdhDose==1) {
                                 POPULATION.transfer(POPULATION.popAdherenceBase,
                                                     ADH.adherenceValue, iP, 1, 1, PARA.nTime);

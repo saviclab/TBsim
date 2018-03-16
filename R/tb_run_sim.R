@@ -58,7 +58,7 @@ tb_run_sim <- function(sim = NULL,
       message("MEMS file specified, copying to config folder.")
       file.copy(sim$memsFile, paste0(config_folder, "/mems_raw.rds"))
       mems <- readRDS(paste0(config_folder, "/mems_raw.rds"))
-      TBsim::create_mems_data(
+      create_mems_data(
         data = mems,
         n_patients = sim$nPatients,
         n_events = as.numeric(sim$nTime) - as.numeric(sim$therapyStart),
