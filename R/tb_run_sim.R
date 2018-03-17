@@ -58,10 +58,13 @@ tb_run_sim <- function(sim = NULL,
       message("MEMS file specified, copying to config folder.")
       file.copy(sim$memsFile, paste0(config_folder, "/mems_raw.rds"))
       mems <- readRDS(paste0(config_folder, "/mems_raw.rds"))
+
+      treatment_length <- max_time_from_therapy(sim$therapy)
       create_mems_data(
         data = mems,
         n_patients = sim$nPatients,
-        n_events = as.numeric(sim$nTime) - as.numeric(sim$therapyStart),
+        n_events = treatment_length,
+        therapy_start = as.numeric(as.character(sim$therapyStart)),
         file = paste0(config_folder, "/mems.csv"))
     }
   }

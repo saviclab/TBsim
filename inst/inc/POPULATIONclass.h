@@ -17,10 +17,10 @@ public:
     void transfer(VEC4&, VEC2&, int, int, int, int);
     void transfer(VEC4&, VEC3&, int, int, int, int);
 
-    void savePopulation(VEC4&, VEC5&, int, int, int, int, int, int);
+    void savePopulation(VEC4&, VEC5&, int, int, int, int, int, int, int);
     void savePopulationOutcome(VEC4&, VEC5&, int, int, int, int, int, int);
     void finalizeStatistics(VEC4&, VEC4&, VEC4&, int, int, int, int, int);
-    void finalizePopStat(VEC5&, VEC4&, int, int, int, int, int, int);
+    void finalizePopStat(VEC5&, VEC4&, int, int, int, int, int, int, int);
 
     VEC4 popAdherenceBase;
     VEC4 popAdherenceSamples;
@@ -95,7 +95,7 @@ private:
 
     double getOneSampleAvg(VEC&);
     double makeSum(VEC&);
-    VEC2 makeStatistics(VEC2&, int, int, int);
+    VEC2 makeStatistics(VEC2&, int, int, int, int);
     VEC2 makeManySamples(VEC2&, int, int);
 };
 

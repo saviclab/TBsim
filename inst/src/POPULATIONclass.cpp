@@ -163,7 +163,7 @@ VEC2 POPULATIONclass::makeManySamples(VEC2& V2, int nPeriods, int nStart)
     return temp;
 }
 
-VEC2 POPULATIONclass::makeStatistics(VEC2& V, int nPeriods, int nStart, int nStat)
+VEC2 POPULATIONclass::makeStatistics(VEC2& V, int nPeriods, int nStart, int nStat, int statType)
 {
     VEC tempT(nPeriods, 0.0);
     VEC2 temp(nStat, tempT);
@@ -175,14 +175,22 @@ VEC2 POPULATIONclass::makeStatistics(VEC2& V, int nPeriods, int nStart, int nSta
 #pragma omp parallel for
         for (int iT=nStart;iT<nPeriods; iT++){
             std::sort(V[iT].begin(), V[iT].end());
-            temp[0][iT] = V[iT][i500];
+            if(statType == 1) { // mean
+              temp[0][iT] = std::accumulate(V[iT].begin(), V[iT].end(), 0.0)/V[iT].size();
+            } else { // median
+              temp[0][iT] = V[iT][i500];
+            }
         }
     }
     else {
 #pragma omp parallel for
         for (int iT=nStart;iT<nPeriods; iT++){
             std::sort(V[iT].begin(), V[iT].end());
-            temp[0][iT] = V[iT][i500];
+            if(statType == 1) { // mean
+              temp[0][iT] = std::accumulate(V[iT].begin(), V[iT].end(), 0.0/V[iT].size());
+            } else { // median
+              temp[0][iT] = V[iT][i500];
+            }
             temp[1][iT] = V[iT][i025];
             temp[2][iT] = V[iT][i975];
         }
@@ -201,7 +209,7 @@ double POPULATIONclass::makeSum(VEC& V)
 // used for saving population iterations when NOT using bootstrap processing
 void POPULATIONclass::savePopulation(VEC4& popBase,
                                      VEC5& popPops,
-                                     int iPop, int nItems, int nComp, int nPeriods, int nStart, int nStat)
+                                     int iPop, int nItems, int nComp, int nPeriods, int nStart, int nStat, int statType)
 {
     VEC tempT(nPeriods, 0.0);
     VEC2 temp(nStat, tempT);
@@ -209,7 +217,7 @@ void POPULATIONclass::savePopulation(VEC4& popBase,
     for (int i=0; i<nItems; i++){
         for (int j=0; j<nComp; j++){
             // make statistics for current population, this assumes nPatients is 100 or more
-            temp = makeStatistics(popBase[i][j], nPeriods, nStart, nStat);
+            temp = makeStatistics(popBase[i][j], nPeriods, nStart, nStat, statType);
             // save population stats into storage vector
             for (int k=0; k<nStat; k++){
 #pragma omp parallel for
@@ -245,9 +253,10 @@ void POPULATIONclass::savePopulationOutcome(VEC4& popBase,
 // only applicable for bootstrap processing
 void POPULATIONclass::finalizePopStat(VEC5& popPops, VEC4& popStatistics,
                                       int nItems, int nComp, int nPeriods, int nStart,
-                                      int nStat, int nPopulations)
+                                      int nStat, int nPopulations, int statType)
 {
     // median index
+    // statType: 0 = median (default), 1 = mean (e.g. adherence)
 
     int i50 = int(nPopulations / 2) ;  // note integer division
 
@@ -263,7 +272,11 @@ void POPULATIONclass::finalizePopStat(VEC5& popPops, VEC4& popStatistics,
                 // sort vector
                 std::sort(popPops[i][j][k][m].begin(), popPops[i][j][k][m].end());
                 // get median value
-                saveMedian[m] = popPops[i][j][k][m][i50];
+                if(statType > 0) {
+                  saveMedian[m] = std::accumulate(popPops[i][j][k][m].begin(), popPops[i][j][k][m].end(), 0.0/popPops[i][j][k][m].size());
+                } else {
+                  saveMedian[m] = popPops[i][j][k][m][i50];
+                }
                 // check if odd number of entries
                 if (nPopulations % 2) {
                     saveMedian[m] = (popPops[i][j][k][m][i50] + popPops[i][j][k][m][i50+1])/2;
@@ -334,7 +347,7 @@ void POPULATIONclass::finalizeStatistics(VEC4& popBase,
     for (int i=0; i<nItems; i++){
         for (int j=0; j<nComp; j++){
             popSamples[i][j]    = makeManySamples(popBase[i][j], nPeriods, nStart);
-            popStatistics[i][j] = makeStatistics(popSamples[i][j], nPeriods, nStart, nStat);
+            popStatistics[i][j] = makeStatistics(popSamples[i][j], nPeriods, nStart, nStat, 0);
         }
     }
 }

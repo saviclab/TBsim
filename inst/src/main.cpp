@@ -392,53 +392,53 @@ int main(int argc, char* argv[])
                         if ((PARA.isAdherence==1)&&(PARA.isSaveAdhDose==1)) {
                             POPULATION.savePopulation(POPULATION.popAdherenceBase,
                                                       POPULATION.popAdherencePops,
-                                                      iPop, 1, 1, PARA.nTime, PARA.therapyStart, 1);
+                                                      iPop, 1, 1, PARA.nTime, PARA.therapyStart, 1, 1);
                         }
                         if ((PARA.isDrugDose==1)&&(PARA.isSaveAdhDose==1)) {
                             POPULATION.savePopulation(POPULATION.popDoseBase,
                                                       POPULATION.popDosePops,
-                                                      iPop, PARA.activeDrugs, 1, PARA.nTime, PARA.therapyStart, 1);
+                                                      iPop, PARA.activeDrugs, 1, PARA.nTime, PARA.therapyStart, 1, 0);
                         }
                         if ((PARA.isConcentration==1)&&(PARA.isSaveConc==1)) {
                             POPULATION.savePopulation(POPULATION.popConcBase,
                                                       POPULATION.popConcPops,
                                                       iPop, PARA.activeDrugs, PARA.nComp,
-                                                      PARA.nSteps, PARA.therapyStart*24, 1);
+                                                      PARA.nSteps, PARA.therapyStart*24, 1, 0);
                         }
                         if ((PARA.isConcentration==1)&&(PARA.isSaveConcKill==1)) {
                             POPULATION.savePopulation(POPULATION.popConcKillBase,
                                                       POPULATION.popConcKillPops,
                                                       iPop, PARA.activeDrugs, PARA.nComp,
-                                                      PARA.nSteps, PARA.therapyStart*24, 1);
+                                                      PARA.nSteps, PARA.therapyStart*24, 1, 0);
                             POPULATION.savePopulation(POPULATION.popConcGrowBase,
                                                       POPULATION.popConcGrowPops,
                                                       iPop, PARA.activeDrugs, PARA.nComp,
-                                                      PARA.nSteps, PARA.therapyStart*24, 1);
+                                                      PARA.nSteps, PARA.therapyStart*24, 1, 0);
                         }
                         if ((PARA.isSolution==1)&&(PARA.isSaveImmune==1)) {
                             POPULATION.savePopulation(POPULATION.popImmuneBase,
                                                       POPULATION.popImmunePops,
-                                                      iPop, nImmune, 1, PARA.nTime, 0, 1);
+                                                      iPop, nImmune, 1, PARA.nTime, 0, 1, 0);
                         }
                         if ((PARA.isSolution==1)&&(PARA.isSaveBact==1)) {
                             POPULATION.savePopulation(POPULATION.popBactBase,
                                                       POPULATION.popBactPops,
-                                                      iPop, nBact, PARA.nComp, PARA.nTime, 0, nStat);
+                                                      iPop, nBact, PARA.nComp, PARA.nTime, 0, nStat, 0);
                         }
                         if ((PARA.isSolution==1)&&(PARA.isSaveBactRes==1)) {
                             POPULATION.savePopulation(POPULATION.popBactResBase,
                                                       POPULATION.popBactResPops,
-                                                      iPop, PARA.activeDrugs, PARA.nComp, PARA.nTime, 0, 1);
+                                                      iPop, PARA.activeDrugs, PARA.nComp, PARA.nTime, 0, 1, 0);
                         }
                         if ((PARA.isSolution==1)&&(PARA.isSaveMacro==1)) {
                             POPULATION.savePopulation(POPULATION.popMacroBase,
                                                       POPULATION.popMacroPops,
-                                                      iPop, nMacro, 2, PARA.nTime, 0, 1);
+                                                      iPop, nMacro, 2, PARA.nTime, 0, 1, 0);
                         }
                         if ((PARA.isDrugEffect==1)&&(PARA.isSaveEffect==1)) {
                             POPULATION.savePopulation(POPULATION.popMonitorBase,
                                                       POPULATION.popMonitorPops,
-                                                      iPop, PARA.activeDrugs+2, PARA.nComp, PARA.nTime, 0, 1);
+                                                      iPop, PARA.activeDrugs+2, PARA.nComp, PARA.nTime, 0, 1, 0);
                         }
                         if ((PARA.isOutcome==1)&&(PARA.isSaveOutcome==1)) {
                             POPULATION.savePopulationOutcome(POPULATION.popOutcomeBase,
@@ -466,7 +466,7 @@ int main(int argc, char* argv[])
                                                   PARA.nTime, 1, 1, 1);
                         POPULATION.finalizePopStat(POPULATION.popAdherencePops,
                                                    POPULATION.popAdherenceStatistics,
-                                                   1, 1, PARA.nTime, PARA.therapyStart, 1, PARA.nPopulations);
+                                                   1, 1, PARA.nTime, PARA.therapyStart, 1, PARA.nPopulations, 1);
                         POPULATION.popAdherencePops.clear();
                     }
                     //================================================
@@ -477,7 +477,7 @@ int main(int argc, char* argv[])
                         POPULATION.finalizePopStat(POPULATION.popDosePops,
                                                    POPULATION.popDoseStatistics,
                                                    PARA.activeDrugs, 1, PARA.nTime, PARA.therapyStart, 1,
-                                                   PARA.nPopulations);
+                                                   PARA.nPopulations, 0);
                         POPULATION.popDosePops.clear();
                     }
                     //================================================
@@ -488,7 +488,7 @@ int main(int argc, char* argv[])
                         POPULATION.finalizePopStat(POPULATION.popConcPops,
                                                    POPULATION.popConcStatistics,
                                                    PARA.activeDrugs, PARA.nComp,
-                                                   PARA.nSteps, PARA.therapyStart*24, 1, PARA.nPopulations);
+                                                   PARA.nSteps, PARA.therapyStart*24, 1, PARA.nPopulations, 0);
                         POPULATION.popConcPops.clear();
                     }
                     //================================================
@@ -500,7 +500,7 @@ int main(int argc, char* argv[])
                         POPULATION.finalizePopStat(POPULATION.popConcKillPops,
                                                    POPULATION.popConcKillStatistics,
                                                    PARA.activeDrugs, PARA.nComp,
-                                                   PARA.nSteps, PARA.therapyStart*24, 1, PARA.nPopulations);
+                                                   PARA.nSteps, PARA.therapyStart*24, 1, PARA.nPopulations, 0);
                         POPULATION.popConcKillPops.clear();
 
                         // concentration growth factors
@@ -509,7 +509,7 @@ int main(int argc, char* argv[])
                         POPULATION.finalizePopStat(POPULATION.popConcGrowPops,
                                                    POPULATION.popConcGrowStatistics,
                                                    PARA.activeDrugs, PARA.nComp,
-                                                   PARA.nSteps, PARA.therapyStart*24, 1, PARA.nPopulations);
+                                                   PARA.nSteps, PARA.therapyStart*24, 1, PARA.nPopulations, 0);
                         POPULATION.popConcGrowPops.clear();
                     }
                     //================================================
@@ -519,7 +519,7 @@ int main(int argc, char* argv[])
                                                   PARA.nTime, nImmune, 1, 1);
                         POPULATION.finalizePopStat(POPULATION.popImmunePops,
                                                    POPULATION.popImmuneStatistics,
-                                                   nImmune, 1, PARA.nTime, 0, 1, PARA.nPopulations);
+                                                   nImmune, 1, PARA.nTime, 0, 1, PARA.nPopulations, 0);
                         POPULATION.popImmunePops.clear();
                     }
                     //================================================
@@ -529,7 +529,7 @@ int main(int argc, char* argv[])
                                                   PARA.nTime, nBact, PARA.nComp, nStat);
                         POPULATION.finalizePopStat(POPULATION.popBactPops,
                                                    POPULATION.popBactStatistics,
-                                                   nBact, PARA.nComp, PARA.nTime, 0, nStat, PARA.nPopulations);
+                                                   nBact, PARA.nComp, PARA.nTime, 0, nStat, PARA.nPopulations, 0);
                         POPULATION.popBactPops.clear();
                     }
                     //================================================
@@ -540,7 +540,7 @@ int main(int argc, char* argv[])
                         POPULATION.finalizePopStat(POPULATION.popBactResPops,
                                                    POPULATION.popBactResStatistics,
                                                    PARA.activeDrugs, PARA.nComp,
-                                                   PARA.nTime, 0, 1, PARA.nPopulations);
+                                                   PARA.nTime, 0, 1, PARA.nPopulations, 0);
                         POPULATION.popBactResPops.clear();
                     }
                     //================================================
@@ -550,7 +550,7 @@ int main(int argc, char* argv[])
                                                   PARA.nTime, nMacro, 2, 1);
                         POPULATION.finalizePopStat(POPULATION.popMacroPops,
                                                    POPULATION.popMacroStatistics,
-                                                   nMacro, 2, PARA.nTime, 0, 1, PARA.nPopulations);
+                                                   nMacro, 2, PARA.nTime, 0, 1, PARA.nPopulations, 0);
                         POPULATION.popMacroPops.clear();
                     }
                     //================================================
@@ -561,7 +561,7 @@ int main(int argc, char* argv[])
                         POPULATION.finalizePopStat(POPULATION.popMonitorPops,
                                                    POPULATION.popMonitorStatistics,
                                                    PARA.activeDrugs+2, PARA.nComp,
-                                                   PARA.nTime, 0, 1, PARA.nPopulations);
+                                                   PARA.nTime, 0, 1, PARA.nPopulations, 0);
                         POPULATION.popMonitorPops.clear();
                     }
                     //================================================
@@ -571,7 +571,7 @@ int main(int argc, char* argv[])
                                                   PARA.nTime, nOutcome, 1, nStat);
                         POPULATION.finalizePopStat(POPULATION.popOutcomePops,
                                                    POPULATION.popOutcomeStatistics,
-                                                   nOutcome, 1, PARA.nTime, 0, nStat, PARA.nPopulations);
+                                                   nOutcome, 1, PARA.nTime, 0, nStat, PARA.nPopulations, 0);
                         POPULATION.popOutcomePops.clear();
                     }
                     std::cout << std::endl;
