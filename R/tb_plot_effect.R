@@ -60,7 +60,7 @@ tb_plot_effect <- function(info, effect,
     yset1$Type <- info$drugNames[yset1$Type]
     yset1$Type <- factor(yset1$Type, levels = info$drugNames)
 
-    labx	<- c(seq(-300, info$nTime, by = 30))
+    labx	<- c(seq(-300, info$nTime, by = 60))
     namesx	<- labx
     xlabel		<- "Time after drug treatment start (Days)"
     ylabel		<- "Bactericidal effect (% of total)"
