@@ -8,7 +8,7 @@
 <nPatients>1000			: number of patients per population
 						  [size 1000 x 4 drugs => ~6GB on 64bit Intel i5]
 <nPopulations>1			: number of distinct patient populations
-						  to generate. If >1 then boostrap is OFF
+						  to generate. If >1 then bootstrap is OFF
 <nThreads>4				: concurrent processing threads
 						  for parallel program execution
 <therapyStart>180		: time point for drug administration start
