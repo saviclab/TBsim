@@ -42,12 +42,12 @@ tb_plot_kill <- function(info, kill, custom_drugs = NULL){
     attr(kill, "type") <- "conc"
     kill <- kill[seq(1, nrow(kill), 10), ]
     pl <- tb_plot_conc(info, kill, custom_drugs = custom_drugs)
-    treatment_end <- info$nTime
-    if(!is.null(info$treatment_end)) treatment_end <- info$treatment_end+30
-    labx	<- c(seq(0, treatment_end, by = 30))
-    namesx	<- labx
-    pl <- pl +
-      scale_x_continuous(breaks = labx, labels = namesx, limits = c(min(labx), max(labx)))
+    # treatment_end <- info$nTime
+    # if(!is.null(info$treatment_end) && !is.na(info$treatment_end)) treatment_end <- info$treatment_end+30
+    # labx	<- c(seq(0, treatment_end, by = 30))
+    # namesx	<- labx
+    # pl <- pl +
+    #   scale_x_continuous(breaks = labx, labels = namesx, limits = c(min(labx), max(labx)))
     return(pl)
   }
 
