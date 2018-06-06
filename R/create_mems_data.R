@@ -28,7 +28,7 @@ create_mems_data <- function(
   if(is.null(data) || !("list" %in% class(data))) stop("MEMS data needed, specified as list object.")
   if(is.null(n_patients)) n_patients <- length(data)
   if(n_patients > length(data) && n_patients > 1) {
-    data <- data[c(1:nrow(tmp), ceiling(n_patients/length(data)))]
+    data <- data[rep(1:length(data), ceiling(n_patients/length(data)))]
     data <- data[1:n_patients]
   }
   if(random) {
@@ -42,7 +42,7 @@ create_mems_data <- function(
   fill <- function(vec, n) {
     rep(vec, ceiling(n/length(vec)))[1:n]
   }
-  tmp <- matrix(unlist(lapply(data, "fill", n_events)), ncol = n_events, byrow=TRUE)
+  tmp <- matrix(unlist(lapply(data, "fill", n_events)), ncol = n_events, byrow = TRUE)
   pre_treatment <- matrix(0, nrow = nrow(tmp), ncol = therapy_start)
   tmp <- cbind(pre_treatment, tmp)
   if(!is.null(file)) {
