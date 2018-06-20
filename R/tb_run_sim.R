@@ -86,7 +86,7 @@ tb_run_sim <- function(sim = NULL,
     db_file <- paste0(results_folder, "/", sim$user, "/tbsim_runs.csv")
     if(file.exists(db_file)) {
       csv <- read.csv(file = db_file)
-      csv <- data.frame(rbind(csv, cbind(id = sim$id, description = sim$description, outcome = 0, n_patients = 0, datetime = Sys.time())))
+      csv <- data.frame(rbind(csv, cbind(id = sim$id, description = sim$description, outcome = 0, n_patients = 0, datetime = stringr::str_sub(lubridate::now(), 1, 19))))
       csv <- csv[!duplicated(csv$id),]
       write.csv(csv, file = db_file, quote=F, row.names=F)
     }

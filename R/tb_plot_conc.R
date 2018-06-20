@@ -56,10 +56,10 @@ tb_plot_conc <- function(info, conc, filter=TRUE, cv = NULL,
     pl_data$q5 <- pl_data$Concentration * (1 - 1.67 * cv)
 
     # generate plot
-    bp <- ggplot(data=pl_data, aes(x=Hour/24, colour=Drug))
+    bp <- ggplot(data = pl_data, aes(x = Hour/24, colour=Drug))
     if(cv != 0) {
       bp <- bp +
-        geom_ribbon(aes(ymin = q5, ymax=q95), size = 0, fill='#dfdfdf')
+        geom_ribbon(aes(ymin = q5, ymax = q95), size = 0, fill='#dfdfdf')
     }
     bp <- bp +
       geom_line(aes(y = Concentration), size = 1) +
