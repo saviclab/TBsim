@@ -21,9 +21,9 @@ tb_plot_conc <- function(info, conc, filter=TRUE, cv = NULL,
       df$Drug <- info$drug[df$Drug]
     }
     if(is.null(custom_drugs)) {
-      df$Drug <- factor(df$Drug, levels=drug_factors)
+      df$Drug <- factor(df$Drug, levels=unique(drug_factors))
     } else {
-      df$Drug <- factor(df$Drug, levels=custom_drugs)
+      df$Drug <- factor(df$Drug, levels=unique(custom_drugs))
     }
 
     # apply compartment labels
