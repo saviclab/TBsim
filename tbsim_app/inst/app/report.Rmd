@@ -1,0 +1,46 @@
+---
+title: "TBsim output"
+output:
+  pdf_document:
+    fig_caption: no
+params:
+  output: NA
+---
+
+# Outcome
+
+```{r outcome, echo=F, message=F, error=F, warning=F, fig.width=8, fig.height=3}
+if(!is.null(params$output$plotOutcome)) {
+  outc <- tail(params$output$outc[!is.na(params$output$outc)],1)
+  print(params$output$plotOutcome)  
+}
+```
+
+# Pharmacology plots
+
+```{r main_plots, echo=F, message=F, error=F, warning=F, fig.width=8, fig.height=5}
+
+incl_plots <- c("plotPK", "plotBact",  
+  "plotKill", "plotBact", "plotBactRes",
+  "plotImmuneCytoLung", "plotImmuneCytoLymph",
+  "plotImmuneCytoDendr", "plotImmuneTLung",
+  "plotImmuneTHelper", "plotImmuneTNaive")
+incl_plots <- c(incl_plots, paste0(incl_plots, "Pop"))
+
+nam <- names(params$output)
+for (key in nam) {
+  if(key %in% incl_plots) {
+    print(params$output[[key]])
+  }
+}
+```
+
+\pagebreak
+
+# Simulation settings
+
+```{r settings, echo=F, message=F, error=F, warning=F}
+if(!is.null(params$output$settings)) {
+  knitr::kable(params$output$settings)  
+}
+```

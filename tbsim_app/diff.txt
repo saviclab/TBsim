@@ -1,0 +1,296 @@
+diff --git a/.Rhistory b/.Rhistory
+index e69de29..0be4a65 100644
+--- a/.Rhistory
++++ b/.Rhistory
+@@ -0,0 +1,114 @@
++source('~/.active-rstudio-document', echo=TRUE)
++## Base packages:
++install.packages("devtools", "Rcpp", "stringr", "lubridate")## Shiny extensions
++install.packages("devtools")
++install.packages("git2r")
++install.packages("devtools")
++install.packages("httr")
++install.packages("devtools")
++source('~/.active-rstudio-document', echo=TRUE)
++source('~/.active-rstudio-document', echo=TRUE)
++install.packages("devtools", "Rcpp", "stringr", "lubridate")
++library("devtools","Rcpp", "stringr", "lubridate")
++library(c("devtools","Rcpp", "stringr", "lubridate"))
++package_list<-c("devtools","Rcpp", "stringr", "lubridate")
++lapply(package_list,require,character.only=TRUE)
++package_list<-c("shinythemes", "shinydashboard",
++"shinyjs", "shinyTable", "shinyBS",
++"rhandsontable", "googleAuthR")
++lapply(package_list,require,character.only=TRUE)
++package_list<-c("googleID", "Rge",
++"TBsim", "TBsimApp", "PKPDplot",
++"vpc")
++lapply(package_list,require,character.only=TRUE)
++package_list<-c("devtools","Rcpp", "stringr", "lubridate")
++m<-lapply(package_list,require,character.only=TRUE)
++package_list<-c("shinythemes", "shinydashboard",
++"shinyjs", "shinyTable", "shinyBS",
++"rhandsontable", "googleAuthR")
++m<-lapply(package_list,require,character.only=TRUE)
++m<-lapply(package_list,require,character.only=TRUE)
++m<-lapply(package_list,require,character.only=TRUE)
++package_list<-c("googleID", "Rge",
++"TBsim", "TBsimApp", "PKPDplot",
++"vpc")
++m<-lapply(package_list,require,character.only=TRUE)
++m<-lapply(package_list,require,character.only=TRUE)
++library(Rga)
++library(Rge)
++m<-lapply(package_list,library,character.only=TRUE)
++package_list<-c("devtools","Rcpp", "stringr", "lubridate")
++m<-lapply(package_list,library,character.only=TRUE)
++package_list<-c("shinythemes", "shinydashboard",
++"shinyjs", "shinyTable", "shinyBS",
++"rhandsontable", "googleAuthR")
++m<-lapply(package_list,library,character.only=TRUE)
++install.packages("shinyTable")
++install.packages("shinyTable")
++install_git("https://github.com/trestletech/shinyTable")
++package_list<-c("shinythemes", "shinydashboard",
++"shinyjs", "shinyTable", "shinyBS",
++"rhandsontable", "googleAuthR")
++m<-lapply(package_list,library,character.only=TRUE)
++package_list<-c("googleID", "Rge",
++"TBsim", "TBsimApp", "PKPDplot",
++"vpc")
++m<-lapply(package_list,library,character.only=TRUE)
++install_github("ronkeizer/Rge")
++install_github("ronkeizer/Rge")
++package_list<-c("googleID", "Rge",
++"TBsim", "TBsimApp", "PKPDplot",
++"vpc")
++m<-lapply(package_list,library,character.only=TRUE)
++## TBsim libraries
++install_bitbucket("ucsf_ip/TBsim")
++## TBsim libraries
++install_bitbucket("ucsf_ip/TBsim",auth_user="WillFox",password="webster13")
++install_github("InsightRX/TBsimApp")
++install_github("InsightRX/TBsimApp",auth_user="WillFox",password="webster13")
++install_github("InsightRX/TBsimApp",auth_user="WillFox")
++install_github("InsightRX/TBsimApp")
++## Need to check if really necessary:
++install_github("ronkeizer/PKPDplot")
++## Need to check if really necessary:
++install_github("ronkeizer/PKPDplot")
++## TBsim libraries
++install_bitbucket("ucsf_ip/TBsim",auth_user="WillFox")
++install_github("InsightRX/TBsimApp")
++build("~/Desktop/project/TBsimApp")
++library(TBsimApp)
++library(TBsimApp)
++library(TBsimApp)
++package_list<-c("googleID", "Rge",
++"TBsim", "TBsimApp"
++#"PKPDplot","PKPDplot",
++#"vpc"
++)
++m<-lapply(package_list,library,character.only=TRUE)
++install_github("ronkeizer/PKPDsim")
++install_github("InsightRX/PKPDsim")
++install_github("ronkeizer/PKPDplot")
++library(insightrxmisc)
++install.packages("anytime")
++install.packages("DT")
++install.packages("loggit")
++options(googleAuthR.scopes.selected)
++library(googleAuthR)
++options(googleAuthR.scopes.selected)
++Rge::qstat()
++Rge::qstat()
++Rge::qstat()
++Rge::qstat()
++library(TBsimApp)
++library(TBsimApp)
++library(TBsimApp)
++library(TBsimApp)
++tab %>% filter(Status == "finished")
++library(TBsimApp)
++library(TBsimApp)
++library(TBsimApp)
++library(TBsimApp)
++library(TBsimApp)
++library(TBsimApp)
++library(TBsimApp)
++library(TBsimApp)
+diff --git a/.Rproj.user/shared/notebooks/paths b/.Rproj.user/shared/notebooks/paths
+index e69de29..7a71202 100644
+--- a/.Rproj.user/shared/notebooks/paths
++++ b/.Rproj.user/shared/notebooks/paths
+@@ -0,0 +1,14 @@
++/home/wfox/Desktop/project/TBsimApp/R/get_jobs.R="E87BA711"
++/home/wfox/Desktop/project/TBsimApp/R/get_results_single.R="38C0939"
++/home/wfox/Desktop/project/TBsimApp/R/sim_wrapper_single.R="323B8B6E"
++/home/wfox/Desktop/project/TBsimApp/R/update_mems_list.R="F31498CE"
++/home/wfox/Desktop/project/TBsimApp/inst/app/.httr-oauth="2B426EC4"
++/home/wfox/Desktop/project/TBsimApp/inst/app/R/mems/realdata_mems.csv="E6A953B3"
++/home/wfox/Desktop/project/TBsimApp/inst/app/R/socket_serverside.R="2EF11241"
++/home/wfox/Desktop/project/TBsimApp/inst/app/global.R="60DCE35F"
++/home/wfox/Desktop/project/TBsimApp/inst/app/report.Rmd="57B95E6A"
++/home/wfox/Desktop/project/TBsimApp/inst/app/run.R="3A36C9CC"
++/home/wfox/Desktop/project/TBsimApp/inst/app/server.R="B96A29FA"
++/home/wfox/Desktop/project/TBsimApp/inst/app/settings.csv="EB6070CC"
++/home/wfox/Desktop/project/TBsimApp/inst/app/ui.R="ABD5982"
++/home/wfox/Desktop/project/TBsimApp/installation_pieces.R="8AB71B08"
+diff --git a/R/do_sim.R b/R/do_sim.R
+index 2138fab..b8e6088 100644
+--- a/R/do_sim.R
++++ b/R/do_sim.R
+@@ -179,7 +179,8 @@ do_sim <- function(
+      seed = seed)
+ 
+   ## Start the simulation based on the given definitions
+-  res <- tb_run_sim (sim1, jobscheduler = jobscheduler)
++  print(tb_run_sim)
++  res <- tb_run_sim (sim1, jobscheduler = jobscheduler,queue="all.q")
+   res$id <- id
+ 
+   return(res)
+diff --git a/R/get_results_single.R b/R/get_results_single.R
+index de96077..8806d6f 100644
+--- a/R/get_results_single.R
++++ b/R/get_results_single.R
+@@ -12,7 +12,9 @@ get_results_single <- function() {
+     tab$ago <- time_to_ago(dat, sort=FALSE, to_character = FALSE)
+     tab$Finished <- time_to_ago(dat, sort=FALSE, to_character = TRUE)
+     tab <- tab[order(tab$ago),]
+-    tab <- tab %>% filter(Status == "finished")
++    #print(tab$Status)
++    #print(tab$Status[tab$Status=="finished"])
++    tab <- tab[tab$Status=="finished",]#tab %>% filter(Status == "finished")
+     tab[,c("Run", "Description", "Finished")]
+   }
+ }
+diff --git a/R/update_mems_list.R b/R/update_mems_list.R
+index b479e3d..d386d8e 100644
+--- a/R/update_mems_list.R
++++ b/R/update_mems_list.R
+@@ -1,7 +1,7 @@
+ #' Refresh MEMS files for Shiny app
+ #' @export
+ update_mems_list <- function(cache = NULL, user = NULL, base_path = "/data/tbsim") {
+-    if(is.null(id)) stop("No user ID provided")
++    #if(is.null(id)) stop("No user ID provided")
+     if(is.null(user)) {
+       warning("No user specified")
+     } else {
+diff --git a/inst/app/global.R b/inst/app/global.R
+index 9fff78c..68c2d06 100644
+--- a/inst/app/global.R
++++ b/inst/app/global.R
+@@ -6,7 +6,7 @@ library(TBsim)          ## Main simulation module
+ library(PKPDsim)        ## Simulation
+ library(PKPDplot)       ## Plotting
+ library(vpc)            ## For some plotting functions
+-library(insightrxmisc)  ## Miscellaneous routines, will be split off later
++#library(insightrxmisc)  ## Miscellaneous routines, will be split off later
+ library(Rge)            ## Grid engine
+ 
+ ## tidyverse and related
+diff --git a/inst/app/run.R b/inst/app/run.R
+index ecf85d7..f6679ef 100644
+--- a/inst/app/run.R
++++ b/inst/app/run.R
+@@ -1,5 +1,8 @@
+ # library(shiny)
+ # setwd("~/git/insightrx/ucsf-tbsim-shiny/app")
+ PORT <- 1410
++HOST_IP <- NULL
+ if(Sys.getenv("PORT") != "") PORT <- as.numeric(as.character(Sys.getenv("PORT")))
+-shiny::runApp("./", launch.browser=T, port=PORT)
++if(Sys.getenv("HOST_IP") != "") HOST_IP <- as.numeric(as.character(Sys.getenv("HOST_IP")))
++
++shiny::runApp("./", launch.browser=T, port=PORT,host=HOST_IP)
+diff --git a/inst/app/server.R b/inst/app/server.R
+index c332eba..8f78d65 100644
+--- a/inst/app/server.R
++++ b/inst/app/server.R
+@@ -376,7 +376,10 @@ shinyServer(function(input, output, session) {
+       tab$ago <- time_to_ago(dat, sort=FALSE, to_character = FALSE)
+       tab$Finished <- time_to_ago(dat, sort=FALSE, to_character = TRUE)
+       tab <- tab[order(tab$ago),]
+-      tab <- tab %>% filter(Status == "finished")
++      print("::in server::")
++      #print(tab)
++      #print(tab %>% filter(Status == "finished"))
++      tab <- tab[tab$Status=="finished",]#tab %>% filter(Status == "finished")
+       tab$Outcome <- paste0(as.character(round(as.num(tab$Outcome) * 100,1)), " %")
+       cache$summary <<- list()
+       tab[,c("Run", "Description", "Finished", "Outcome")]
+diff --git a/inst/app/ui.R b/inst/app/ui.R
+index ae4da30..c9b1de5 100644
+--- a/inst/app/ui.R
++++ b/inst/app/ui.R
+@@ -36,7 +36,7 @@ shinyUI(
+         ),
+         menuItem(htmlOutput("userInfo", inline=TRUE), tabName = "userInfo", icon = icon("user")),
+         div(class="float-disclaimer",
+-          p("© UCSF / InsightRX, 2017")
++          p("© UCSF 2017")
+         )
+       )
+     ),
+@@ -279,17 +279,17 @@ shinyUI(
+                      plotOutput("plotBact", height="300px"),
+                      plotOutput("plotBactSplit", height="300px")
+                   ),
+-                  tabPanel("Resistance",
+-                     wellPanel(
+-                       p("The plots below show the bacterial resistance dynamics for the various drugs used in the regimen. The total number of resistant bacteria per drug is shown below. The grey area indicates the drug treatment period.")
+-                     ),
+-                     plotOutput("plotBactRes", height="300px"),
+-                     wellPanel(
+-                       p("The plot below shows the resistant bacteria per drug, split by physiological site.")
+-                     ),
+-                     plotOutput("plotBactResSplit", height="300px")
+-                    #  p(class='info-text', "Resistant populations < 1 CFU/mL are shown as 1 CFU/mL.")
+-                  ),
++                  #tabPanel("Resistance",
++                  #   wellPanel(
++                  #     p("The plots below show the bacterial resistance dynamics for the various drugs used in the regimen. The total number of resistant bacteria per drug is shown below. The grey area indicates the drug treatment period.")
++                  #   ),
++                  #   plotOutput("plotBactRes", height="300px"),
++                  #   wellPanel(
++                  #     p("The plot below shows the resistant bacteria per drug, split by physiological site.")
++                  #   ),
++                  #   plotOutput("plotBactResSplit", height="300px")
++                  #  #  p(class='info-text', "Resistant populations < 1 CFU/mL are shown as 1 CFU/mL.")
++                  #),
+                   tabPanel("Bactericidal effect",
+                      wellPanel(
+                        p("The relative bactericidal effect shown in the plot below indicates the relative bacterical kill rate the drugs and immune system achieve (the total is always 100%). Please note that the absolute kill rate of bacteria (in terms of CFU/mL) will also depend on the the absolute number of bacteria present at that timepoint."),
+@@ -459,18 +459,18 @@ shinyUI(
+                         plotOutput("plotBactPop", height="200px"),
+                         plotOutput("plotBactSplitPop", height="300px")
+                      ),
+-                     tabPanel("Resistance",
+-                        value = 'popResistanceTab',
+-                        wellPanel(
+-                          p("The plots below show the bacterial resistance dynamics for the various drugs used in the regimen. The total number of resistant bacteria per drug is shown below."),
+-                          p("The grey area indicates the drug treatment period.")
+-                        ),
+-                        plotOutput("plotBactResPop", height="200px"),
+-                        wellPanel(
+-                          p("The plot below shows the resistant bacteria per drug, split by physiological site.")
+-                        ),
+-                        plotOutput("plotBactResSplitPop", height="300px")
+-                     ),
++                     #tabPanel("Resistance",
++                    #    value = 'popResistanceTab',
++                    #    wellPanel(
++                    #      p("The plots below show the bacterial resistance dynamics for the various drugs used in the regimen. The total number of resistant bacteria per drug is shown below."),
++                    #      p("The grey area indicates the drug treatment period.")
++                    #    ),
++                    #    plotOutput("plotBactResPop", height="200px"),
++                    #    wellPanel(
++                    #      p("The plot below shows the resistant bacteria per drug, split by physiological site.")
++                    #    ),
++                    #    plotOutput("plotBactResSplitPop", height="300px")
++                    # ),
+                      tabPanel("Bactericidal effect",
+                         value = 'popEffectTab',
+                         wellPanel(

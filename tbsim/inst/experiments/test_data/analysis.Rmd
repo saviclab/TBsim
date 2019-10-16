@@ -1,0 +1,333 @@
+---
+title: "Untitled"
+output:
+  html_document: default
+  pdf_document: default
+---
+
+```{r}
+library(ggplot2)
+df <-read.csv('comp0_results.csv')
+df['Total_Days']<-df$EBA_DAYS+df$Therapy_Start
+df['Day_Adjusted']<-df$DAY-df$Therapy_Start+1
+#id -> DOSE DRUG EBA_DAYS
+adj_bact<-function(dose,drug,eba_days,start,day_adj){
+  data<-df[df$DOSE==dose & df$DRUG==drug & df$EBA_DAYS==eba_days & df$Therapy_Start==start,]
+  base_bact<-log10(data$BacterialLoad[data$Day_Adjusted==0])-log10(data$BacterialLoad[data$Day_Adjusted==day_adj])
+  #base_bact<-df[df$DOSE==dose & df$DRUG==drug & df$EBA_DAYS==eba_days & df$Therapy_Start==start,]$BacterialLoad[df[df$DOSE==dose & df$DRUG==drug & df$EBA_DAYS==eba_days & df$Therapy_Start==start,]$Day_Adjusted==day_adj]/df[df$DOSE==dose & df$DRUG==drug & df$EBA_DAYS==eba_days & df$Therapy_Start==start,]$BacterialLoad[df[df$DOSE==dose & df$DRUG==drug & df$EBA_DAYS==eba_days & df$Therapy_Start==start,]$Day_Adjusted==0]
+  #print(base_bact)
+  return(base_bact)
+}
+#df<-df[1:10000,]
+df['Bact_Adjusted']<-0
+f_day<-179
+l_day<-181
+df<-df[df$Total_Days<l_day & df$Total_Days>f_day,]
+
+df$Bact_Adjusted<-mapply(adj_bact,df$DOSE,df$DRUG,df$EBA_DAYS,df$Therapy_Start,df$Day_Adjusted)
+#df$Bact_Adjusted<-df$Bact_Adjusted-1
+
+```
+
+
+```{r,eval=FALSE}
+ggplot(df[df$Total_Days<l_day & df$Total_Days>f_day,],aes(x=DAY,y=BacterialLoad,group=interaction(DOSE,DRUG,EBA_DAYS),color=interaction(DOSE,DRUG,EBA_DAYS)))+
+  geom_line()+
+  facet_wrap(~Total_Days,ncol=4)+
+  scale_y_log10(breaks=c(1e1,1e2,1e3,1e4,1e5,1e6,1e7))+
+  geom_hline(yintercept=1e7,color='red')
+
+```
+
+
+```{r,eval=FALSE}
+for(drug in unique(df$DRUG)){
+  for(eba_length in unique(df$EBA_DAYS[df$DRUG==drug])){
+    print(drug,eba_length)
+    dft<-df[df$EBA_DAYS==eba_length & df$DRUG==drug,]
+    a<-ggplot(dft[dft$Total_Days<l_day &dft$Total_Days>f_day,],aes(x=DAY,y=BacterialLoad,group=interaction(DOSE,DRUG,EBA_DAYS),color=interaction(DOSE,DRUG,EBA_DAYS)))+
+      geom_line()+
+      facet_wrap(~Total_Days,ncol=4)+
+      scale_y_log10(breaks=c(1e1,1e2,1e3,1e4,1e5,1e6,1e7))+
+      geom_hline(yintercept=1e7,color='red')
+    print(a)
+  }
+}
+
+```
+
+
+```{r,eval=FALSE}
+for(drug in unique(df$DRUG)){
+  for(eba_length in unique(df$EBA_DAYS[df$DRUG==drug])){
+    print(drug,eba_length)
+    dft<-df[df$EBA_DAYS==eba_length & df$DRUG==drug,]
+    a<-ggplot(dft[dft$Total_Days<l_day &dft$Total_Days>f_day,],aes(x=Day_Adjusted,y=BacterialLoad,group=interaction(DOSE,DRUG,EBA_DAYS),color=interaction(DOSE,DRUG,EBA_DAYS)))+
+      geom_line()+
+      scale_x_continuous(limits=c(0,eba_length))+
+      facet_wrap(~Total_Days,ncol=4)+
+      scale_y_log10(breaks=c(1e1,1e2,1e3,1e4,1e5,1e6,1e7))+
+      geom_hline(yintercept=1e7,color='red')
+    print(a)
+  }
+}
+```
+
+## Extracellular
+```{r}
+for(drug in unique(df$DRUG)){
+  for(eba_length in unique(df$EBA_DAYS[df$DRUG==drug])){
+    print(drug,eba_length)
+    dft<-df[df$EBA_DAYS==eba_length & df$DRUG==drug,]
+    a<-ggplot(dft[dft$Total_Days<l_day &dft$Total_Days>f_day,],aes(x=Day_Adjusted,y=Bact_Adjusted,group=interaction(DRUG,EBA_DAYS),color=interaction(DRUG,EBA_DAYS)))+
+      geom_line()+
+      ggtitle(paste(drug,"with EBA of",eba_length,"Days, Faceted on Dose (mg)"))+
+      scale_x_continuous(limits=c(0,eba_length))+
+      scale_y_continuous(limits=c(-1,1))+
+      #scale_y_log10(breaks=c(1e-2,1e-1,1e0,1e1,1e2,1e3,1e4,1e5,1e6,1e7)+
+      #facet_wrap(~Total_Days,ncol=4)
+      facet_wrap(~DOSE,ncol=4)
+    
+    print(a)
+  }
+}
+```
+## Intracellular
+```{r}
+df <-read.csv('comp1_results.csv')
+df['Total_Days']<-df$EBA_DAYS+df$Therapy_Start
+df['Day_Adjusted']<-df$DAY-df$Therapy_Start+1
+#id -> DOSE DRUG EBA_DAYS
+adj_bact<-function(dose,drug,eba_days,start,day_adj){
+  data<-df[df$DOSE==dose & df$DRUG==drug & df$EBA_DAYS==eba_days & df$Therapy_Start==start,]
+  base_bact<-log10(data$BacterialLoad[data$Day_Adjusted==0])-log10(data$BacterialLoad[data$Day_Adjusted==day_adj])
+  #base_bact<-df[df$DOSE==dose & df$DRUG==drug & df$EBA_DAYS==eba_days & df$Therapy_Start==start,]$BacterialLoad[df[df$DOSE==dose & df$DRUG==drug & df$EBA_DAYS==eba_days & df$Therapy_Start==start,]$Day_Adjusted==day_adj]/df[df$DOSE==dose & df$DRUG==drug & df$EBA_DAYS==eba_days & df$Therapy_Start==start,]$BacterialLoad[df[df$DOSE==dose & df$DRUG==drug & df$EBA_DAYS==eba_days & df$Therapy_Start==start,]$Day_Adjusted==0]
+  #print(base_bact)
+  return(base_bact)
+}
+#df<-df[1:10000,]
+df['Bact_Adjusted']<-0
+df<-df[df$Total_Days<l_day & df$Total_Days>f_day,]
+
+df$Bact_Adjusted<-mapply(adj_bact,df$DOSE,df$DRUG,df$EBA_DAYS,df$Therapy_Start,df$Day_Adjusted)
+#df$Bact_Adjusted<-df$Bact_Adjusted-1
+for(drug in unique(df$DRUG)){
+  for(eba_length in unique(df$EBA_DAYS[df$DRUG==drug])){
+    print(drug,eba_length)
+    dft<-df[df$EBA_DAYS==eba_length & df$DRUG==drug,]
+    a<-ggplot(dft[dft$Total_Days<l_day &dft$Total_Days>f_day,],aes(x=Day_Adjusted,y=Bact_Adjusted,group=interaction(DRUG,EBA_DAYS),color=interaction(DRUG,EBA_DAYS)))+
+      geom_line()+
+      ggtitle(paste(drug,"with EBA of",eba_length,"Days, Faceted on Dose (mg)"))+
+      scale_x_continuous(limits=c(0,eba_length))+
+      scale_y_continuous(limits=c(-1,1))+
+      #scale_y_log10(breaks=c(1e-2,1e-1,1e0,1e1,1e2,1e3,1e4,1e5,1e6,1e7)+
+      #facet_wrap(~Total_Days,ncol=4)
+      facet_wrap(~DOSE,ncol=4)
+    
+    print(a)
+  }
+}
+```
+
+## 180 day vs 300 day on Extracellular
+```{r}
+df <-read.csv('comp0_results.csv')
+df['Total_Days']<-df$EBA_DAYS+df$Therapy_Start
+df['Day_Adjusted']<-df$DAY-df$Therapy_Start+1
+#id -> DOSE DRUG EBA_DAYS
+adj_bact<-function(dose,drug,eba_days,start,day_adj){
+  data<-df[df$DOSE==dose & df$DRUG==drug & df$EBA_DAYS==eba_days & df$Therapy_Start==start,]
+  base_bact<-(log10(data$BacterialLoad[data$Day_Adjusted==day_adj])-log10(data$BacterialLoad[data$Day_Adjusted==0]))/(eba_days)
+  #base_bact<-df[df$DOSE==dose & df$DRUG==drug & df$EBA_DAYS==eba_days & df$Therapy_Start==start,]$BacterialLoad[df[df$DOSE==dose & df$DRUG==drug & df$EBA_DAYS==eba_days & df$Therapy_Start==start,]$Day_Adjusted==day_adj]/df[df$DOSE==dose & df$DRUG==drug & df$EBA_DAYS==eba_days & df$Therapy_Start==start,]$BacterialLoad[df[df$DOSE==dose & df$DRUG==drug & df$EBA_DAYS==eba_days & df$Therapy_Start==start,]$Day_Adjusted==0]
+  #print(base_bact)
+  return(base_bact)
+}
+#df<-df[1:10000,]
+df['Bact_Adjusted']<-0
+l_day2<-301
+f_day2<-299
+df<-df[(df$Total_Days<l_day & df$Total_Days>f_day) | (df$Total_Days<l_day2 & df$Total_Days>f_day2),]
+
+df$Bact_Adjusted<-mapply(adj_bact,df$DOSE,df$DRUG,df$EBA_DAYS,df$Therapy_Start,df$Day_Adjusted)
+df$Total_Days<-factor(df$Total_Days)
+df$Bact_Adjusted<-df$Bact_Adjusted
+#df$Bact_Adjusted<-df$Bact_Adjusted-1
+for(drug in unique(df$DRUG)){
+  for(eba_length in unique(df$EBA_DAYS[df$DRUG==drug])){
+    print(drug,eba_length)
+    dft<-df[df$EBA_DAYS==eba_length & df$DRUG==drug,]
+    
+    a<-ggplot(dft,aes(x=Day_Adjusted,y= -1*Bact_Adjusted,group=interaction(DRUG,EBA_DAYS,Total_Days),color=Total_Days))+
+      #a<-ggplot(dft,aes(x=Day_Adjusted,y=abs( Bact_Adjusted),group=interaction(DRUG,EBA_DAYS,Total_Days),color=Total_Days))+
+      geom_line()+
+      scale_x_continuous(limits=c(-eba_length,eba_length))+
+      #scale_y_continuous(limits=c(-1,1))+
+      scale_y_log10(limits=c(-1,1),breaks=c(1e-3,1e-2,0.04,1e-1,1e0))+
+      
+      #scale_y_log10(breaks=c(1e-2,1e-1,1e0,1e1,1e2,1e3,1e4,1e5,1e6,1e7)+
+      #facet_wrap(~Total_Days,ncol=4)
+      facet_wrap(~DOSE,ncol=4)
+    if(sum(dft$Bact_Adjusted[dft$Day_Adjusted<=eba_length & dft$Day_Adjusted>=0])<0){
+      a<-a+ggtitle(paste(drug,"with EBA of",eba_length,"Days, Faceted on Dose (mg)"))
+    }else{
+      a<-a+ggtitle(paste("FAILED:",drug,"with EBA of",eba_length,"Days, Faceted on Dose (mg)"))
+    }
+    print(a)
+  }
+}
+```
+
+
+```{r}
+
+
+l_day2<-301
+f_day2<-299
+l_day3<-121
+f_day3<-119
+
+df1 <-read.csv('comp1_results.csv')
+df1['Total_Days']<-df1$EBA_DAYS+df1$Therapy_Start
+df1['Day_Adjusted']<-df1$DAY-df1$Therapy_Start+1
+#id -> DOSE DRUG EBA_DAYS
+adj_bact<-function(dose,drug,eba_days,start,day_adj,bact_val){
+  data<-df1[df1$DOSE==dose & df1$DRUG==drug & df1$EBA_DAYS==eba_days & df1$Therapy_Start==start,]
+  base_bact<--1*(log10(bact_val)-log10(data$BacterialLoad[data$Day_Adjusted==0]))/(eba_days)
+
+  return(base_bact)
+}
+#df1<-df1[1:10000,]
+df1['Bact_Adjusted']<-0
+df1['Bact_Adjusted05']<-0
+df1['Bact_Adjusted95']<-0
+df1<-df1[(df1$Total_Days<l_day & df1$Total_Days>f_day) | (df1$Total_Days<l_day2 & df1$Total_Days>f_day2) | (df1$Total_Days<l_day3 & df1$Total_Days>f_day3),]
+
+df1$Bact_Adjusted<-mapply(adj_bact,df1$DOSE,df1$DRUG,df1$EBA_DAYS,df1$Therapy_Start,df1$Day_Adjusted,df1$BacterialLoad)
+df1$Bact_Adjusted05<-mapply(adj_bact,df1$DOSE,df1$DRUG,df1$EBA_DAYS,df1$Therapy_Start,df1$Day_Adjusted,df1$BacterialLoad_05)
+df1$Bact_Adjusted95<-mapply(adj_bact,df1$DOSE,df1$DRUG,df1$EBA_DAYS,df1$Therapy_Start,df1$Day_Adjusted,df1$BacterialLoad_95)
+
+
+df0 <-read.csv('comp0_results.csv')
+df0['Total_Days']<-df0$EBA_DAYS+df0$Therapy_Start
+df0['Day_Adjusted']<-df0$DAY-df0$Therapy_Start+1
+adj_bact<-function(dose,drug,eba_days,start,day_adj,bact_val){
+  data<-df0[df0$DOSE==dose & df0$DRUG==drug & df0$EBA_DAYS==eba_days & df0$Therapy_Start==start,]
+  base_bact<--1*(log10(bact_val)-log10(data$BacterialLoad[data$Day_Adjusted==0]))/(eba_days)
+
+  return(base_bact)
+}
+#df0<-df0[1:10000,]
+df0['Bact_Adjusted']<-0
+df0['Bact_Adjusted05']<-0
+df0['Bact_Adjusted95']<-0
+df0<-df0[(df0$Total_Days<l_day & df0$Total_Days>f_day) | (df0$Total_Days<l_day2 & df0$Total_Days>f_day2) | (df0$Total_Days<l_day3 & df0$Total_Days>f_day3),]
+
+df0$Bact_Adjusted<-mapply(adj_bact,df0$DOSE,df0$DRUG,df0$EBA_DAYS,df0$Therapy_Start,df0$Day_Adjusted,df0$BacterialLoad)
+df0$Bact_Adjusted05<-mapply(adj_bact,df0$DOSE,df0$DRUG,df0$EBA_DAYS,df0$Therapy_Start,df0$Day_Adjusted,df0$BacterialLoad_05)
+df0$Bact_Adjusted95<-mapply(adj_bact,df0$DOSE,df0$DRUG,df0$EBA_DAYS,df0$Therapy_Start,df0$Day_Adjusted,df0$BacterialLoad_95)
+
+
+
+
+
+
+
+adj_bact<-function(dose,drug,eba_days,start,day_adj,bact_val){
+  data<-df3[df3$DOSE==dose & df3$DRUG==drug & df3$EBA_DAYS==eba_days & df3$Therapy_Start==start,]
+  base_bact<--1*(log10(bact_val)-log10(data$BacterialLoad[data$Day_Adjusted==0]))/(eba_days)
+
+  return(base_bact)
+}
+df3<-df0
+df3$BacterialLoad<-df3$BacterialLoad+df1$BacterialLoad
+df3$BacterialLoad_05<-df3$BacterialLoad_05+df1$BacterialLoad_05
+df3$BacterialLoad_95<-df3$BacterialLoad_95+df1$BacterialLoad_95
+
+df3$Bact_Adjusted<-mapply(adj_bact,df3$DOSE,df3$DRUG,df3$EBA_DAYS,df3$Therapy_Start,df3$Day_Adjusted,df3$BacterialLoad)
+
+df3$Bact_Adjusted05<-mapply(adj_bact,df3$DOSE,df3$DRUG,df3$EBA_DAYS,df3$Therapy_Start,df3$Day_Adjusted,df3$BacterialLoad_05)
+
+df3$Bact_Adjusted95<-mapply(adj_bact,df3$DOSE,df3$DRUG,df3$EBA_DAYS,df3$Therapy_Start,df3$Day_Adjusted,df3$BacterialLoad_95)
+
+
+df0['compartment']<-"Extracellular"
+df1['compartment']<-"Intracellular"
+df3['compartment']<-"Total"
+df<-rbind(df0,df1,df3)
+
+df$Total_Days<-factor(df$Total_Days)
+```
+
+```{r fig.width=10, fig.height=10}
+#df$Bact_Adjusted<-df$Bact_Adjusted
+for(drug in unique(df$DRUG)){
+  for(eba_length in unique(df$EBA_DAYS[df$DRUG==drug])){
+    print(drug,eba_length)
+    dft<-df[df$EBA_DAYS==eba_length & df$DRUG==drug,]
+    
+    a<-ggplot(dft,aes(x=Day_Adjusted,y= Bact_Adjusted,group=interaction(DRUG,EBA_DAYS,Total_Days,compartment),color=Total_Days))+
+      #a<-ggplot(dft,aes(x=Day_Adjusted,y=abs( Bact_Adjusted),group=interaction(DRUG,EBA_DAYS,Total_Days),color=Total_Days))+
+      geom_ribbon(aes(ymin=Bact_Adjusted05,ymax=Bact_Adjusted95,fill=Total_Days),alpha=0.1)+
+      
+      geom_line()+
+      scale_x_continuous(limits=c(-eba_length,eba_length))+
+      scale_y_continuous(limits=c(-0.07,0.18),breaks=c(-0.05,0.0,0.05,0.1,0.15))+
+      #scale_y_log10(limits=c(-1,1),breaks=c(1e-3,1e-2,0.04,1e-1,1e0))+
+      #scale_y_log10(breaks=c(1e-2,1e-1,1e0,1e1,1e2,1e3,1e4,1e5,1e6,1e7)+
+      #facet_wrap(~Total_Days,ncol=4)
+      facet_wrap(~interaction(compartment,DOSE),ncol=3)
+    #if(sum(dft$Bact_Adjusted[dft$Day_Adjusted<=eba_length & dft$Day_Adjusted>=0])<0){
+    a<-a+ggtitle(paste(drug,"with EBA of",eba_length,"Days, Faceted on Dose (mg)"))
+    #}else{
+    #  a<-a+ggtitle(paste("FAILED:",drug,"with EBA of",eba_length,"Days, Faceted on Dose (mg)"))
+    #}
+    print(a)
+  }
+}
+
+```
+
+
+
+
+```{r}
+lit_df<-read.csv('lit.csv')
+for(drug in unique(lit_df$DRUG)){
+  a<-ggplot(lit_df[lit_df$DRUG==drug,],aes(x=DOSE,y=EBAlit))+
+    geom_point()+
+    ggtitle(drug)
+  print(a)
+}
+
+```
+
+
+#Total Bacterial Load
+```{r fig.width=10, fig.height=10}
+for(drug in unique(df$DRUG)){
+  for(eba_length in unique(df$EBA_DAYS[df$DRUG==drug])){
+    print(drug,eba_length)
+    dft<-df[df$EBA_DAYS==eba_length & df$DRUG==drug,]
+    
+    a<-ggplot(dft,aes(x=Day_Adjusted,y= BacterialLoad,group=interaction(DRUG,EBA_DAYS,Total_Days,compartment),color=Total_Days))+
+      #a<-ggplot(dft,aes(x=Day_Adjusted,y=abs( Bact_Adjusted),group=interaction(DRUG,EBA_DAYS,Total_Days),color=Total_Days))+
+      
+      geom_ribbon(aes(ymin=BacterialLoad_05,ymax=BacterialLoad_95,fill=Total_Days),alpha=0.1)+
+      
+      geom_line()+
+      scale_x_continuous(limits=c(-eba_length,eba_length))+
+      
+      #scale_y_continuous(limits=c(-0.07,0.18),breaks=c(-0.05,0.0,0.05,0.1,0.15))+
+      #scale_y_log10(limits=c(-1,1),breaks=c(1e-3,1e-2,0.04,1e-1,1e0))+
+      scale_y_log10()+
+      #facet_wrap(~Total_Days,ncol=4)
+      facet_wrap(~interaction(compartment,DOSE),ncol=3)
+    #if(sum(dft$Bact_Adjusted[dft$Day_Adjusted<=eba_length & dft$Day_Adjusted>=0])<0){
+    a<-a+ggtitle(paste(drug,"with EBA of",eba_length,"Days, Faceted on Dose (mg)"))
+    #}else{
+    #  a<-a+ggtitle(paste("FAILED:",drug,"with EBA of",eba_length,"Days, Faceted on Dose (mg)"))
+    #}
+    print(a)
+  }
+}
+```
