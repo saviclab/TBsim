@@ -1,0 +1,180 @@
+---
+title: "Introduction to TBsim"
+author: "Ron Keizer"
+date: "April 17, 2015"
+output: html_document
+---
+
+# Installation
+
+You will first need to make sure that a proper C++ compiler is installed. On Mac, you might already have a compiler installed (if you have Xcode installed), but this compiler, Clang, will not allow you to properly compile the TBsim tool. Therefore, you will have to install the GNU g++ compiler (e.g. with Homebrew or MacPorts) and make sure that when you give the compile command the right compiler is used (using the `cpp=` argument to the `tb_compile()` function). Note that, if you don't make any changes to the `TBsim` C++ code, you will only have to compile the executable once. 
+
+```{r, warning=F, error=F, echo=FALSE}
+library(TBsim)
+library(ggplot2)
+library(reshape2)
+library(stringr)
+```
+
+In R, you will need the following auxiliary libraries installed: `ggplot2`, `reshape2`, `stringr`. The TBsim library can then be installed from BitBucket (not from CRAN). For this, you will of course need to have a login to BitBucket and access rights to the repository.
+
+```{r, eval=F}
+library(devtools)
+install_bitbucket("ronkeizer/TBsim", auth_user = "###", password = "###")
+library(TBsim)
+```
+
+You should then be able to compile the main executable using the function call:
+
+```{r, eval=F}
+tb_compile(cpp = "/usr/local/bin/g++")
+```
+
+The executable will be compiled in the folder where the R package is installed (you can find out where that is by running `system.file(package="TBsim")`).
+
+# Recommended workflow
+
+If you are just interested in using the `TBsim` tool as-is, without making changes to the underlying model or simulation infrastructure, installation of the R module is sufficient. Should you want to make changes to the C++ code to e.g. update the model, the recommended workflow is to clone the repository from BitBucket to your local machine. In RStudio you would then open the TBsim Rproject file included with the package. Whenever you make changes to the C++ code, you should re-install the `TBsim` library from the local library (command-shift-B) and re-run `tb_compile()`. This will update the C++ code at the location where the executable is compiled.
+
+# Defining the trial
+
+The first thing that needs to be defined are the therapy, the drug parameters, and the adherence for the simulated trial:
+
+```{r}
+therapy       <- tb_read_init("standardTB4.txt")
+adherence     <- tb_read_init("adh2.txt")
+drugs <- list(
+  EMB = tb_read_init("EMB.txt"),
+  RIF = tb_read_init("RIF.txt"),
+  INH = tb_read_init("INH.txt"),
+  PZA = tb_read_init("PZA.txt")
+)
+```
+
+For all drugs referenced in `therapy` you will need to include the correct drug files too. **Note thate there is currently no check in place whether this is actually correct, and the simulation will probably run fine even when drugs are not specified!!**
+
+In this example, no changes to the default are made, but the defaults can be adjusted easily by changing the values in the `therapy`, `adherence`, and `drugs` lists.
+
+We then define the *trial* that we want to simulate by calling `tb_sim_new()`. This does not run the simulation yet, it just creates an object with all the information required to run `TBsim`:
+
+```{r}
+## create a new simulation definition
+sim1 <- tb_new_sim(folder = '~/tb_run', 
+                   therapy = therapy,
+                   adherence = adherence,
+                   drugs = drugs,
+                   nPatients = 100,
+                   therapyStart = 90,
+                   nTime = 180,
+                   isDrugEffect = 1,
+                   isSaveBactRes = 1,
+                   isSaveImmune = 1,
+                   isSaveBact = 1,
+                   isSaveEffect = 1,
+                   isSaveConc = 1,
+                   isSaveConcKill = 1,
+                   isSaveAdhDose = 1,
+                   isSavePopulationResults = 1,
+                   isSavePatientResults = 1,
+                   isSaveMacro = 1,
+                   isGranImmuneKill = 1,
+                   isClearResist = 1,
+                   isPersistance = 1)
+```
+
+The arguments that are available for this function can be shown by running `allowed_args` on the R command line.
+
+# Running the trial
+
+Running the trial simulation is done using the function `tb_run_sim()`. This will create a new folder (the one you specified with the `folder` argument to `tb_new_sim()`), copy the executable there, and create the required config files based on the definition you created using `tb_new_sim()`.
+
+```{r, eval=FALSE}
+dir.create("~/tb_run")
+tb_run_sim (sim1)
+```
+
+Obviously, simulations may take quite some time. When the simulation is run from RStudio, and execution takes more than 5 minutes, RStudio will show messages that it can't connect to R anymore. This is not really a problem, the `TBsim` program will run fine. However, while the simulation runs, RStudio cannot be used for other tasks. It is therefore recommended to create dedicated R scripts for running simulations, which are executed from the command line:
+
+```
+$ Rscript sim1.R
+```
+
+# Plotting results
+
+After execution, to read in all output information:
+
+```{r, warning=F}
+folder <- "~/tb_run/output"
+info  <- tb_read_output(folder, "header")
+outc  <- tb_read_output(folder, "outcome")
+bact  <- tb_read_output(folder, "bact")
+conc  <- tb_read_output(folder, "conc")
+dose  <- tb_read_output(folder, "dose")
+eff   <- tb_read_output(folder, "effect")
+kill  <- tb_read_output(folder, "kill")
+imm   <- tb_read_output(folder, "immune")
+macro <- tb_read_output(folder, "macro")
+adh <- tb_read_output(folder, "adherence") 
+```
+
+*Note: not all of the above output might be available. This will depend on the arguments supplied to `tb_new_sim()`.*
+
+We can then plot the imported data. The only function that is required for this is the `tb_plot` function, which will automatically create the appropriate plot for the data. The `tb_plot()` requires only two arguments, i.e. the main simulation object (`info` in this case), and the relevant data you want to plot.
+
+Note that the output from `tb_plot()` is a ggplot2 object, so you can add additional layout specifications on top of the output (such as `xlim()` or `theme()`). Alternatively, it should be fairly straightforward to write custom functions to plot the relevant data object in different ways, if required.
+
+```{r, warning=F}
+## Plot outcome data
+tb_plot (info, outc)
+```
+
+```{r, warning=F}
+## Plot bacterial data (wild type)
+tb_plot (info, bact, type="wild")
+```
+
+```{r, warning=F}
+## Plot bacterial data (total)
+tb_plot (info, bact, type="total")
+```
+
+```{r, warning=F}
+## Plot concentrations
+tb_plot (info, conc)
+```
+
+```{r, warning=F}
+## Plot doses
+tb_plot (info, dose)
+```
+
+```{r, warning=F}
+## Plot effect
+tb_plot (info, eff)
+```
+
+```{r, warning=F}
+## plot Kill
+tb_plot (info, kill)
+```
+
+```{r, warning=F}
+## Plot immune results
+imm_pl <- tb_plot(info, imm)
+imm_pl$cytokines_lung
+imm_pl$cytokines_lymph
+imm_pl$cytokines_dendr
+imm_pl$t_cells_lung
+imm_pl$t_helper
+imm_pl$t_naive
+```
+
+```{r, warning=F}
+## Plot macrophages
+tb_plot(info, macro)
+```
+
+```{r, warning=F}
+## Plot adherence
+tb_plot(info, adh)
+```

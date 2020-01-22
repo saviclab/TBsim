@@ -1,0 +1,330 @@
+body {
+  font-size: 14px;
+  line-height: 1.2;
+}
+
+p.help {
+  color: #666;
+  font-style: italic;
+}
+
+/* Navbar */
+.skin-green .main-header .navbar {
+  background: #052049 !important;
+}
+.skin-green .main-header .navbar .sidebar-toggle:hover {
+  background: #052049 !important;
+}
+.skin-green .main-header .logo {
+  background: #052049 !important;
+}
+.skin-green .treeview-menu > li > a {
+  color: #666666 !important;
+  background-color: #efefef !important;
+}
+.skin-green .sidebar-menu > li > .treeview-menu {
+  background-color: #efefef;
+  color: #333;
+}
+.skin-green .treeview-menu > li > a:active {
+  color: #666666 !important;
+}
+.skin-green .treeview-menu > li > a:hover {
+  color: #666666 !important;
+  background-color: rgb(208, 219, 226) !important;
+}
+.control-label {
+  color: #333;
+}
+
+#loginButton-googleAuthUi a {
+  margin: 7px 7px 5px 5px;
+  color: #fff !important;
+  background-color:#052049 !important;
+  border-color: #fff !important;
+}
+
+/* boxes */
+.box-header {
+  background: #dbeaf3;
+  padding: 5px;
+}
+.box.box-info {
+  border-radius: 0px;
+  border-color: #fff;
+  box-shadow: 0px 0px 0px;
+  border-top-color: #fff;
+}
+
+/* height of inputs Bootstrap */
+input.form-control {
+  height: 28px;
+}
+label {
+  color: #666;
+  font-weight:normal;
+  font-size: 90%;
+}
+#editDrugsSingle, #editDrugsPopulation, #editSimSettings, #editSimSettingsPop {
+    margin-top: -2px;
+}
+#uploadMEMS {
+  margin-top: 18px;
+}
+.selectize-input {
+  min-height: 28px;
+  padding: 4px 7px;
+}
+
+/* Icons */
+.fa {
+  margin: 2px 5px 2px 2x;
+}
+
+/* float */
+.float-disclaimer {
+  position: absolute;
+  left: 12px;
+  bottom: 0px;
+  z-index: 999;
+  color: #666;
+  font-size: 80%;
+}
+
+/* Outcome box */
+div.outcome-box {
+  margin: 20px 10px 10px 10px;
+  padding-top: 0px;
+  border: 1px solid #666;
+  color: #333;
+}
+div.outcome-box .header {
+  margin-top: 0px;
+  margin-bottom: 0px;
+  padding: 2px 5px 0px 5px;
+  background: #052049;
+  color: #fff;
+}
+div.outcome-box .header .headerTitle {
+  font-weight: bold;
+}
+div.outcome-box .body {
+  padding: 2px 5px 2px 5px;
+}
+#outcome {
+  margin: 20pt 25pt 0pt 25pt;
+  font-size: 160%;
+}
+#outcome_ci {
+  margin: 0pt 5pt 20pt 25pt;
+  font-size: 100%;
+  color: #666666
+}
+
+td {
+  border-top: 0px !important;
+}
+div.menu-text{
+  padding: 8px 5px 2px 8px;
+}
+
+/* Buttons */
+#simRefreshSingle, #simSubmitPop, #singlePatientLoadResults, #loadResults, #editRegimenSaveAsNew {
+  background-color: #444;
+  color: white;
+}
+
+#saveSingleResults, #populationDescriptionBox {
+  background-color: #f3f3f3;
+  border: 1px #ccc solid;
+  padding: 15px;
+}
+
+#userLevelDropdown > div {
+  margin-top: 10px;
+  margin-bottom: -15px;
+}
+
+button.btn .btn-default .action-button {
+  height: 32px !important;
+}
+button.narrow {
+  width: 25px !important;
+  padding-left: 2px;
+  padding-right: 2px;
+  margin-top: -3px !important;
+  height: 30px !important;
+}
+
+/* Documentation */
+.center {
+  text-align:center;
+}
+.doc-img {
+  text-align: center;
+  max-width: 80%;
+  max-height: 500px
+}
+
+/* Text */
+.info-text {
+  color: #999;
+  font-size: 90%;
+}
+
+/* Progress bar */
+div#shiny-notification-panel {
+  padding: 20px;
+  width: 350px;
+}
+div#shiny-notification-panel > .shiny-notification {
+  padding: 20px;
+}
+div.shiny-notification-content-text {
+  font-size: 130%;
+}
+
+/* modals */
+.modal-header {
+  background: #558c99;
+  color: #fff;
+  padding: 8px;
+}
+.modal-header button.close {
+  padding-top: 4px;
+  padding-right: 8px;
+  color: #fff;
+  opacity: 1;
+  text-shadow: 0 0px 0 #fff;
+}
+.modal-content {
+  max-width: 650px;
+}
+.modal-footer {
+  display: none;
+}
+.modal-lg > .modal-content {
+  max-width: 800px;
+}
+
+#editRegimenTableDiv {
+  margin-left: 120px;
+}
+
+/* DataTables */
+table.dataTable thead tr th {
+  font-size: 70%;
+}
+table.dataTable tbody tr td {
+  font-size: 70%;
+}
+#drugLibList table.dataTable thead tr th {
+  font-size: 100%;
+}
+#drugLibList table.dataTable tbody tr td {
+  font-size: 100%;
+}
+
+hr {
+  margin: 5px;
+}
+
+/* Sidebar */
+.skin-green .sidebar a {
+    color: #333;
+}
+.skin-green .left-side,
+.skin-green .main-sidebar,
+.skin-green .wrapper {
+  color: #333;
+  background-color: #e5e5e5;
+}
+
+.skin-green .sidebar-menu >li.active>a,
+.skin-green .sidebar-menu >li:hover>a {
+  color: #555 !important;
+  background-color: #d5d5d5 !important;
+}
+.skin-green .sidebar-menu>li.active>a, .skin-green .sidebar-menu>li:hover>a {
+  border-left-color: #052049 !important;
+}
+
+/* Main body */
+.content-wrapper, .right-side {
+  background-color: #ffffff !important;
+}
+
+/* Alerts */
+.sweet-alert h2 {
+  font-size: 25px;
+  font-weight: 400;
+}
+
+/* dataTables */
+table.dataTable > tbody > tr > td {
+  margin: 3px;
+  padding: 3px;
+}
+div.htMenu.htContextMenu.handsontable { /* make context-menu visisble when also modal */
+  z-index: 9999 !important;
+}
+
+/* info boxes */
+.info-box {
+  margin-top: 20px;
+}
+.info-box-number {
+  color: #bc4b4b;
+}
+.bg-aqua {
+  background-color: #bc4b4b !important;
+}
+
+/* Content boxes */
+.nav-tabs-custom>.nav-tabs>li.active {
+  border-top-color: #052049 !important;
+}
+.nav-tabs-custom>.nav-tabs>li>a, .nav-tabs-custom>.nav-tabs>li>a:hover {
+  background: #f6f6f6;
+  border: 0px;
+}
+.nav-tabs-custom {
+  margin-left: 6px !important;
+  margin-right: 0px !important;
+  border-radius: 0px !important;
+  border-color: #999;
+  border-width: 0px;
+  background: #ffffff !important;
+  box-shadow: 0 4px 8px #ccc;
+}
+.tab-content {
+  padding: 8px;
+}
+
+.margin0 .shiny-input-container, .margin0 .shiny-input-container .checkbox {
+  margin: 0px;
+  padding: 0px;
+}
+
+/* Wells */
+.well {
+  background: #e8eff7;
+  border: 0px;
+  box-shadow: 0 0px 0px;
+  padding: 8px 15px 2px 15px;
+}
+
+/* Sliders */
+.irs-bar, .irs-bar-edge {
+  height: 8px;
+  top: 25px;
+  border-top: 1px solid #052049;
+  border-bottom: 1px solid #052049;
+  background: #052049;
+}
+.irs-from, .irs-to, .irs-single {
+  background: #052049;
+}
+#divTimeSlider, #divTimeSliderPop {
+  margin: 0px 20px 0px 26px;
+}
