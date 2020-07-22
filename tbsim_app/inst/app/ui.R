@@ -34,6 +34,7 @@ shinyUI(
           menuSubItem("QSP model structure", tabName="tabModelStructure"),
           menuSubItem("TB regimens", tabName="tabDrugRegimenDoc")
         ),
+        menuItem("Source Code", icon = icon("github"), href = "https://github.com/saviclab/TBsim"),
         #menuItem(htmlOutput("userInfo", inline=TRUE), tabName = "userInfo", icon = icon("user")),
         div(class="float-disclaimer",
           tags$head(tags$link(rel="shortcut icon", href="favicon.ico")),
