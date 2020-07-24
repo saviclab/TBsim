@@ -58,7 +58,7 @@ drugNames <- list(
   INH = "isoniazid",
   PZA = "pyrazinamide",
   RPT = "rifapentin",
-  MOX = "moxonidine",
+  MOX = "moxifloxacin",
   EMB = "ethambutol"
 )
 adherenceOptions <- c("100%", "MEMS", "Markov")
